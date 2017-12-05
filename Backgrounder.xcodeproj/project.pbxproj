@@ -11,6 +11,9 @@
 		8D8AB3381FD71D51005D7494 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8AB3371FD71D51005D7494 /* Configuration.swift */; };
 		8D8AB33B1FD71FAD005D7494 /* Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8AB33A1FD71FAD005D7494 /* Provider.swift */; };
 		8D8AB33E1FD72101005D7494 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8AB33D1FD72101005D7494 /* Photo.swift */; };
+		8D8AB3421FD728F8005D7494 /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8AB3401FD728F8005D7494 /* PhotoCell.swift */; };
+		8D8AB3431FD728F8005D7494 /* PhotoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8D8AB3411FD728F8005D7494 /* PhotoCell.xib */; };
+		8D8AB3451FD734D2005D7494 /* PhotoCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8AB3441FD734D2005D7494 /* PhotoCollectionView.swift */; };
 		8D9EB1441FD711BD0097A535 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9EB1431FD711BD0097A535 /* AppDelegate.swift */; };
 		8D9EB1461FD711BD0097A535 /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9EB1451FD711BD0097A535 /* PhotosViewController.swift */; };
 		8D9EB1491FD711BD0097A535 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D9EB1471FD711BD0097A535 /* Main.storyboard */; };
@@ -39,6 +42,9 @@
 		8D8AB3371FD71D51005D7494 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		8D8AB33A1FD71FAD005D7494 /* Provider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Provider.swift; sourceTree = "<group>"; };
 		8D8AB33D1FD72101005D7494 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
+		8D8AB3401FD728F8005D7494 /* PhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
+		8D8AB3411FD728F8005D7494 /* PhotoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PhotoCell.xib; sourceTree = "<group>"; };
+		8D8AB3441FD734D2005D7494 /* PhotoCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionView.swift; sourceTree = "<group>"; };
 		8D9EB1401FD711BD0097A535 /* Backgrounder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Backgrounder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D9EB1431FD711BD0097A535 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8D9EB1451FD711BD0097A535 /* PhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
@@ -112,6 +118,16 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		8D8AB33F1FD728C3005D7494 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				8D8AB3401FD728F8005D7494 /* PhotoCell.swift */,
+				8D8AB3411FD728F8005D7494 /* PhotoCell.xib */,
+				8D8AB3441FD734D2005D7494 /* PhotoCollectionView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		8D9EB1371FD711BD0097A535 = {
 			isa = PBXGroup;
 			children = (
@@ -135,6 +151,7 @@
 		8D9EB1421FD711BD0097A535 /* Backgrounder */ = {
 			isa = PBXGroup;
 			children = (
+				8D8AB33F1FD728C3005D7494 /* Views */,
 				8D8AB33C1FD720F8005D7494 /* Models */,
 				8D8AB3341FD71B6D005D7494 /* Networking */,
 				8D8AB3371FD71D51005D7494 /* Configuration.swift */,
@@ -253,6 +270,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8D8AB3431FD728F8005D7494 /* PhotoCell.xib in Resources */,
 				8D9EB14E1FD711BD0097A535 /* LaunchScreen.storyboard in Resources */,
 				8D9EB14B1FD711BD0097A535 /* Assets.xcassets in Resources */,
 				8D9EB1491FD711BD0097A535 /* Main.storyboard in Resources */,
@@ -358,16 +376,20 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Backgrounder/Pods-Backgrounder-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
 				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
+				"${BUILT_PRODUCTS_DIR}/Reusable/Reusable.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reusable.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 			);
@@ -383,10 +405,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8D8AB3421FD728F8005D7494 /* PhotoCell.swift in Sources */,
 				8D8AB33E1FD72101005D7494 /* Photo.swift in Sources */,
 				8D8AB3361FD71B7B005D7494 /* Unsplash.swift in Sources */,
 				8D9EB1461FD711BD0097A535 /* PhotosViewController.swift in Sources */,
 				8D8AB3381FD71D51005D7494 /* Configuration.swift in Sources */,
+				8D8AB3451FD734D2005D7494 /* PhotoCollectionView.swift in Sources */,
 				8D8AB33B1FD71FAD005D7494 /* Provider.swift in Sources */,
 				8D9EB1441FD711BD0097A535 /* AppDelegate.swift in Sources */,
 			);
