@@ -7,12 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8D8AB3361FD71B7B005D7494 /* Unsplash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8AB3351FD71B7B005D7494 /* Unsplash.swift */; };
+		8D8AB3381FD71D51005D7494 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8AB3371FD71D51005D7494 /* Configuration.swift */; };
+		8D8AB33B1FD71FAD005D7494 /* Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8AB33A1FD71FAD005D7494 /* Provider.swift */; };
+		8D8AB33E1FD72101005D7494 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8AB33D1FD72101005D7494 /* Photo.swift */; };
 		8D9EB1441FD711BD0097A535 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9EB1431FD711BD0097A535 /* AppDelegate.swift */; };
 		8D9EB1461FD711BD0097A535 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9EB1451FD711BD0097A535 /* ViewController.swift */; };
 		8D9EB1491FD711BD0097A535 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D9EB1471FD711BD0097A535 /* Main.storyboard */; };
 		8D9EB14B1FD711BD0097A535 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8D9EB14A1FD711BD0097A535 /* Assets.xcassets */; };
 		8D9EB14E1FD711BD0097A535 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D9EB14C1FD711BD0097A535 /* LaunchScreen.storyboard */; };
 		8D9EB1591FD711BD0097A535 /* BackgrounderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9EB1581FD711BD0097A535 /* BackgrounderTests.swift */; };
+		BBE0257CAC07E9DDEE818A56 /* Pods_BackgrounderTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4865F5B5A319E04274791EE3 /* Pods_BackgrounderTests.framework */; };
+		DCE24012B4E902DAAAB55255 /* Pods_Backgrounder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B40DCE208DA8EE756C4819CA /* Pods_Backgrounder.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -26,6 +32,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		006754C39C9A5262079CB3E0 /* Pods-BackgrounderTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BackgrounderTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BackgrounderTests/Pods-BackgrounderTests.debug.xcconfig"; sourceTree = "<group>"; };
+		4865F5B5A319E04274791EE3 /* Pods_BackgrounderTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BackgrounderTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5E850FC5C999953D5F2A0A3E /* Pods-BackgrounderTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BackgrounderTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BackgrounderTests/Pods-BackgrounderTests.release.xcconfig"; sourceTree = "<group>"; };
+		8D8AB3351FD71B7B005D7494 /* Unsplash.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Unsplash.swift; sourceTree = "<group>"; };
+		8D8AB3371FD71D51005D7494 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
+		8D8AB33A1FD71FAD005D7494 /* Provider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Provider.swift; sourceTree = "<group>"; };
+		8D8AB33D1FD72101005D7494 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		8D9EB1401FD711BD0097A535 /* Backgrounder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Backgrounder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D9EB1431FD711BD0097A535 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8D9EB1451FD711BD0097A535 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -36,6 +49,9 @@
 		8D9EB1541FD711BD0097A535 /* BackgrounderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BackgrounderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D9EB1581FD711BD0097A535 /* BackgrounderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgrounderTests.swift; sourceTree = "<group>"; };
 		8D9EB15A1FD711BD0097A535 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B40DCE208DA8EE756C4819CA /* Pods_Backgrounder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Backgrounder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CF8C914D846C9BD92793CAEE /* Pods-Backgrounder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Backgrounder.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Backgrounder/Pods-Backgrounder.debug.xcconfig"; sourceTree = "<group>"; };
+		DA71E0BA91C48366332F1AB6 /* Pods-Backgrounder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Backgrounder.release.xcconfig"; path = "Pods/Target Support Files/Pods-Backgrounder/Pods-Backgrounder.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,6 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DCE24012B4E902DAAAB55255 /* Pods_Backgrounder.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -50,18 +67,59 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BBE0257CAC07E9DDEE818A56 /* Pods_BackgrounderTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		04655AD1B802B7EC848D304D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				CF8C914D846C9BD92793CAEE /* Pods-Backgrounder.debug.xcconfig */,
+				DA71E0BA91C48366332F1AB6 /* Pods-Backgrounder.release.xcconfig */,
+				006754C39C9A5262079CB3E0 /* Pods-BackgrounderTests.debug.xcconfig */,
+				5E850FC5C999953D5F2A0A3E /* Pods-BackgrounderTests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		8D8AB3341FD71B6D005D7494 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				8D8AB3351FD71B7B005D7494 /* Unsplash.swift */,
+				8D8AB33A1FD71FAD005D7494 /* Provider.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		8D8AB3391FD71D59005D7494 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				8D9EB14C1FD711BD0097A535 /* LaunchScreen.storyboard */,
+				8D9EB14F1FD711BD0097A535 /* Info.plist */,
+				8D9EB14A1FD711BD0097A535 /* Assets.xcassets */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		8D8AB33C1FD720F8005D7494 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				8D8AB33D1FD72101005D7494 /* Photo.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		8D9EB1371FD711BD0097A535 = {
 			isa = PBXGroup;
 			children = (
 				8D9EB1421FD711BD0097A535 /* Backgrounder */,
 				8D9EB1571FD711BD0097A535 /* BackgrounderTests */,
 				8D9EB1411FD711BD0097A535 /* Products */,
+				04655AD1B802B7EC848D304D /* Pods */,
+				A84C5302A451BF3624910945 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -77,12 +135,13 @@
 		8D9EB1421FD711BD0097A535 /* Backgrounder */ = {
 			isa = PBXGroup;
 			children = (
+				8D8AB33C1FD720F8005D7494 /* Models */,
+				8D8AB3341FD71B6D005D7494 /* Networking */,
+				8D8AB3371FD71D51005D7494 /* Configuration.swift */,
 				8D9EB1431FD711BD0097A535 /* AppDelegate.swift */,
 				8D9EB1451FD711BD0097A535 /* ViewController.swift */,
 				8D9EB1471FD711BD0097A535 /* Main.storyboard */,
-				8D9EB14A1FD711BD0097A535 /* Assets.xcassets */,
-				8D9EB14C1FD711BD0097A535 /* LaunchScreen.storyboard */,
-				8D9EB14F1FD711BD0097A535 /* Info.plist */,
+				8D8AB3391FD71D59005D7494 /* Supporting Files */,
 			);
 			path = Backgrounder;
 			sourceTree = "<group>";
@@ -96,6 +155,15 @@
 			path = BackgrounderTests;
 			sourceTree = "<group>";
 		};
+		A84C5302A451BF3624910945 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B40DCE208DA8EE756C4819CA /* Pods_Backgrounder.framework */,
+				4865F5B5A319E04274791EE3 /* Pods_BackgrounderTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -103,9 +171,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8D9EB15D1FD711BD0097A535 /* Build configuration list for PBXNativeTarget "Backgrounder" */;
 			buildPhases = (
+				42D7FB327BAF7CF6A00984FF /* [CP] Check Pods Manifest.lock */,
 				8D9EB13C1FD711BD0097A535 /* Sources */,
 				8D9EB13D1FD711BD0097A535 /* Frameworks */,
 				8D9EB13E1FD711BD0097A535 /* Resources */,
+				F92A41B4408E2556AAA92F03 /* [CP] Embed Pods Frameworks */,
+				197F90D27636F0ED7CAA9194 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -120,9 +191,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8D9EB1601FD711BD0097A535 /* Build configuration list for PBXNativeTarget "BackgrounderTests" */;
 			buildPhases = (
+				3797A04422FE22425CE921B5 /* [CP] Check Pods Manifest.lock */,
 				8D9EB1501FD711BD0097A535 /* Sources */,
 				8D9EB1511FD711BD0097A535 /* Frameworks */,
 				8D9EB1521FD711BD0097A535 /* Resources */,
+				9B6DFD1607299A748D744071 /* [CP] Embed Pods Frameworks */,
+				B373D6440C04FC525690F281 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -194,12 +268,126 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		197F90D27636F0ED7CAA9194 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Backgrounder/Pods-Backgrounder-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3797A04422FE22425CE921B5 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-BackgrounderTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		42D7FB327BAF7CF6A00984FF /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Backgrounder-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9B6DFD1607299A748D744071 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BackgrounderTests/Pods-BackgrounderTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B373D6440C04FC525690F281 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BackgrounderTests/Pods-BackgrounderTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F92A41B4408E2556AAA92F03 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Backgrounder/Pods-Backgrounder-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
+				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
+				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
+				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Backgrounder/Pods-Backgrounder-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		8D9EB13C1FD711BD0097A535 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8D8AB33E1FD72101005D7494 /* Photo.swift in Sources */,
+				8D8AB3361FD71B7B005D7494 /* Unsplash.swift in Sources */,
 				8D9EB1461FD711BD0097A535 /* ViewController.swift in Sources */,
+				8D8AB3381FD71D51005D7494 /* Configuration.swift in Sources */,
+				8D8AB33B1FD71FAD005D7494 /* Provider.swift in Sources */,
 				8D9EB1441FD711BD0097A535 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -351,10 +539,12 @@
 		};
 		8D9EB15E1FD711BD0097A535 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CF8C914D846C9BD92793CAEE /* Pods-Backgrounder.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = Backgrounder/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Backgrounder/Supporting Files/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.agapovco.Backgrounder;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -365,10 +555,12 @@
 		};
 		8D9EB15F1FD711BD0097A535 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DA71E0BA91C48366332F1AB6 /* Pods-Backgrounder.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = Backgrounder/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Backgrounder/Supporting Files/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.agapovco.Backgrounder;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -379,6 +571,7 @@
 		};
 		8D9EB1611FD711BD0097A535 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 006754C39C9A5262079CB3E0 /* Pods-BackgrounderTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -395,6 +588,7 @@
 		};
 		8D9EB1621FD711BD0097A535 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5E850FC5C999953D5F2A0A3E /* Pods-BackgrounderTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
