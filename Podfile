@@ -7,6 +7,9 @@ target 'Backgrounder' do
 
   pod 'RxSwift'
   pod 'RxCocoa'
+  
+  pod 'Reusable'
+  pod 'Kingfisher'
 
   target 'BackgrounderTests' do
     inherit! :search_paths
