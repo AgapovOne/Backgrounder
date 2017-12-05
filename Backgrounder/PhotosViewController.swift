@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  PhotosViewController.swift
 //  Backgrounder
 //
 //  Created by Alex Agapov on 05/12/2017.
@@ -10,7 +10,7 @@ import UIKit
 import RxSwift
 import Moya
 
-class ViewController: UIViewController {
+class PhotosViewController: UIViewController {
 
     @IBOutlet private var refreshButton: UIButton!
     @IBOutlet private var resultLabel: UILabel!
