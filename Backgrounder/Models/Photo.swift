@@ -13,6 +13,8 @@ struct Photo: Codable {
     let description: String?
     let user: User
     let urls: Urls
+    let width: Int
+    let height: Int
 }
 
 struct User: Codable {
