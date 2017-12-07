@@ -16,17 +16,3 @@ struct Photo: Codable {
     let width: Int
     let height: Int
 }
-
-struct User: Codable {
-    let id: String
-    let username: String
-    let name: String
-}
-
-struct Urls: Codable {
-    let raw: URL
-    let small: URL
-    let thumb: URL
-    let regular: URL
-    let full: URL
-}
