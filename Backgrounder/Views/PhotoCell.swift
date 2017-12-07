@@ -18,7 +18,7 @@ final class PhotoCell: UICollectionViewCell, NibReusable {
 
     var photo: Photo! {
         didSet {
-            imageView.kf.setImage(with: photo.urls.thumb)
+            imageView.kf.setImage(with: photo.urls.regular)
             nameLabel.text = photo.user.name
         }
     }

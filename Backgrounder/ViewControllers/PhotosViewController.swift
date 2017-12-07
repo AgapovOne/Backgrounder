@@ -7,18 +7,20 @@
 //
 
 import UIKit
+import Reusable
 import RxSwift
 import RxCocoa
 import Moya
 
-final class PhotosViewController: UIViewController {
+final class PhotosViewController: UIViewController, StoryboardSceneBased {
+    static let sceneStoryboard = UIStoryboard(name: "Main", bundle: nil)
 
     @IBOutlet private var collectionView: PhotoCollectionView! {
         didSet {
             collectionView.register(cellType: PhotoCell.self)
         }
     }
-    @IBOutlet private var refreshButton: UIButton!
+    private lazy var control = UIRefreshControl()
 
     private let photos = Variable<[Photo]>([])
     
@@ -27,29 +29,34 @@ final class PhotosViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        photos.asObservable().subscribe { event in
-            self.collectionView.reloadData()
+        photos.asObservable().subscribe { [weak self] event in
+            self?.collectionView.reloadSections(IndexSet(integer: 0))
+            self?.control.endRefreshing()
         }.disposed(by: disposeBag)
         
-        refreshButton.addTarget(self, action: #selector(refresh), for: .touchUpInside)
+        control.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        collectionView.refreshControl = control
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(refresh))
+
         refresh()
     }
     
     @objc private func refresh() {
-        Provider.default.rx.request(.photos(page: 1))
-            .debug()
+        Provider.default.rx
+            .request(.photos(page: 1))
             .map(Array<Photo>.self)
             .subscribe { (event) in
             switch event {
             case .error(let err):
                 switch err as? MoyaError {
                 case .underlying(let err, let res)?:
-                    print("\(err), \(res)")
+                    print((err, res))
                 default:
                     print("Unknown error\n\n \(err)")
                 }
+                self.photos.value = []
             case .success(let result):
-                print("\(result)")
                 self.photos.value = result
             }
         }.disposed(by: disposeBag)
