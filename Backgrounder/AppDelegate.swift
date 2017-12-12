@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AlamofireNetworkActivityIndicator
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,6 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = UINavigationController(rootViewController: initialViewController)
 
         setupAppearance()
+        setupLibraries()
         
         return true
     }
@@ -33,5 +35,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ]
         
         window?.tintColor = tint
+    }
+    
+    private func setupLibraries() {
+        NetworkActivityIndicatorManager.shared.isEnabled = true
     }
 }

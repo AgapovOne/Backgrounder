@@ -17,7 +17,6 @@ final class PhotosViewController: UIViewController, StoryboardSceneBased {
     static let sceneStoryboard = UIStoryboard(name: "Main", bundle: nil)
 
     // MARK: - UI Outlets
-    @IBOutlet private var stateLabel: UILabel!
     @IBOutlet private var collectionView: PhotoCollectionView! {
         didSet {
             collectionView.register(cellType: PhotoCell.self)
@@ -47,13 +46,14 @@ final class PhotosViewController: UIViewController, StoryboardSceneBased {
         
         refreshControl.sendActions(for: .valueChanged)
     }
-    
+
+    // MARK: - Private methods
     private func setupUI() {
         collectionView.refreshControl = refreshControl
         
         navigationItem.rightBarButtonItem = rightBarButtonItem
     }
-    
+
     private func setupViewModel() {
         // ViewModel -> ViewController
         viewModel.title
@@ -69,25 +69,15 @@ final class PhotosViewController: UIViewController, StoryboardSceneBased {
                 self?.setupPhotoCell(cell, photo: photo)
             }
             .disposed(by: disposeBag)
-        
+
         viewModel.state
-            .subscribe(onNext: { [weak self] state in
-                guard let stateLabel = self?.stateLabel else { return }
+            .map { state -> Bool in
                 switch state {
-                case .default:
-                    stateLabel.isHidden = true
-                    stateLabel.text = ""
-                case .empty:
-                    stateLabel.isHidden = false
-                    stateLabel.text = "Nothing to load :("
-                case .loading:
-                    stateLabel.isHidden = false
-                    stateLabel.text = "LOADING NOW!!!"
-                case .error(let error):
-                    stateLabel.isHidden = false
-                    stateLabel.text = "ERROR!!! \(error.localizedDescription)"
+                case .loading: return false
+                default: return true
                 }
-            })
+            }
+            .bind(to: rightBarButtonItem.rx.isEnabled)
             .disposed(by: disposeBag)
         
         // ViewController -> ViewModel

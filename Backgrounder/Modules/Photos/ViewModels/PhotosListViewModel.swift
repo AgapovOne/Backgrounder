@@ -17,8 +17,7 @@ class PhotosViewModel {
         case
         `default`,
         loading,
-        error(Error),
-        empty
+        error(Error)
     }
     
     // MARK: - Properties
@@ -43,22 +42,27 @@ class PhotosViewModel {
         
         self.title = Observable.just(title)
         
-        let _state = BehaviorSubject<State>(value: .empty)
+        let _state = BehaviorSubject<State>(value: .default)
         self.state = _state.asObservable()
         
         let _reload = PublishSubject<Void>()
         self.reload = _reload.asObserver()
 
-        self.photos = _reload.flatMap { _ -> Observable<[Photo]> in
+        self.photos = _reload
+            .throttle(1.0, scheduler: Schedulers.background)
+            .flatMap { _ -> Observable<[Photo]> in
             _state.onNext(.loading)
             return photoService
                 .getPhotos(page: 1)
+//                .flatMap({ _ -> Observable<[Photo]> in
+//                    return Observable.error(CheckError.test("Stupid check"))
+//                })
+                .do(onNext: { _ in
+                    _state.onNext(.default)
+                })
                 .catchError({ (error) in
                     _state.onNext(.error(error))
                     return Observable.just([])
-                })
-                .do(onNext: { _ in
-                    _state.onNext(.default)
                 })
         }
 
