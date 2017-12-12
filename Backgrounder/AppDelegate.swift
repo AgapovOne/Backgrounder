@@ -22,16 +22,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     private func setupAppearance() {
-        window?.tintColor = .white
-        
-        print(UIFont.familyNames)
-        let flatBlack = Configuration.tintColor
+        let tint = Configuration.Color.tintColor
         let navBar = UINavigationBar.appearance()
-        navBar.barTintColor = flatBlack
-        navBar.tintColor = .white
+        navBar.barTintColor = .white
+        navBar.tintColor = tint
         navBar.titleTextAttributes = [
-            .foregroundColor: UIColor.white,
+            .foregroundColor: tint,
             .font: UIFont(name: "Avenir Next", size: 18.0)!
         ]
+        
+        window?.tintColor = tint
     }
 }

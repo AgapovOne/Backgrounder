@@ -9,19 +9,28 @@
 import UIKit
 
 class PhotoCollectionView: UICollectionView {
+    private let itemsPerRow: CGFloat = 3
+    private let padding: CGFloat = Configuration.Size.padding
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
         if #available(iOS 11.0, *) {
             contentInset = safeAreaInsets
         } else {
-            contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
+            contentInset = UIEdgeInsets(top: layoutMargins.top, left: 0, bottom: 0, right: 0)
         }
+        
         let layout = UICollectionViewFlowLayout()
-        let width = UIScreen.main.bounds.width
-        layout.itemSize = CGSize(width: width, height: width * 10/16)
-        layout.minimumInteritemSpacing = 0
-        layout.minimumLineSpacing = 0
+        let screenWidth = UIScreen.main.bounds.width
+        let side = countLayout(width: screenWidth, padding: padding, itemsPerRow: itemsPerRow)
+        layout.itemSize = CGSize(width: side, height: side)
+        layout.minimumInteritemSpacing = padding
+        layout.minimumLineSpacing = padding
+        layout.sectionInset = UIEdgeInsets(top: padding * 2,
+                                           left: padding * 2,
+                                           bottom: padding * 2,
+                                           right: padding * 2)
         setCollectionViewLayout(layout, animated: false)
     }
 }

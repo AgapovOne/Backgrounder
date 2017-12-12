@@ -14,8 +14,14 @@ final class PhotoCell: UICollectionViewCell, NibReusable {
 
     @IBOutlet private var imageView: UIImageView!
     @IBOutlet private var nameLabel: UILabel!
-    
 
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        imageView.layer.cornerRadius = Configuration.Size.padding
+        imageView.layer.masksToBounds = true
+    }
+    
     var photo: Photo! {
         didSet {
             imageView.kf.setImage(with: photo.urls.regular)

@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -21,6 +20,7 @@
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="aLV-Yf-O6j" customClass="PhotoCollectionView" customModule="Backgrounder" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="KHg-Vl-i2r">
                                     <size key="itemSize" width="50" height="50"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -34,12 +34,12 @@
                                 </connections>
                             </collectionView>
                         </subviews>
-                        <color key="backgroundColor" red="0.12637259066104889" green="0.12639245390892029" blue="0.12636536359786987" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="aLV-Yf-O6j" secondAttribute="trailing" id="Qg4-Z3-J0G"/>
                             <constraint firstItem="aLV-Yf-O6j" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="nmX-LX-NN5"/>
                             <constraint firstItem="aLV-Yf-O6j" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="pNp-2W-3WR"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="aLV-Yf-O6j" secondAttribute="bottom" id="s1f-6d-3K1"/>
+                            <constraint firstAttribute="bottom" secondItem="aLV-Yf-O6j" secondAttribute="bottom" id="s1f-6d-3K1"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
