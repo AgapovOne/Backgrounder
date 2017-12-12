@@ -4,6 +4,7 @@ target 'Backgrounder' do
   use_frameworks!
 
   pod 'Moya/RxSwift'
+  pod 'AlamofireNetworkActivityIndicator'
 
   pod 'RxSwift'
   pod 'RxCocoa'
