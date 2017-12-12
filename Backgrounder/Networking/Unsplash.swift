@@ -9,9 +9,17 @@
 import Foundation
 import Moya
 
+enum OrderBy: String {
+    case latest, oldest, popular
+}
+
 enum Unsplash {
     case
-    photos(page: Int)
+    photos(
+        page: Int,
+        perPage: Int,
+        orderBy: OrderBy
+    )
 }
 
 extension Unsplash: TargetType {
@@ -32,10 +40,12 @@ extension Unsplash: TargetType {
     }
     var task: Task {
         switch self {
-        case .photos(let page):
+        case .photos(let page, let perPage, let orderBy):
             return .requestParameters(parameters: [
-                "page": page
-                ], encoding: JSONEncoding.default)
+                "page": page,
+                "per_page": perPage,
+                "order_by": orderBy.rawValue
+                ], encoding: URLEncoding.default)
         }
     }
     var sampleData: Data {
@@ -45,7 +55,7 @@ extension Unsplash: TargetType {
         return [
             "Content-type": "application/json",
             "Accept-Version": "v1",
-            "Authorization": "Client-ID \(Configuration.unsplashApplicationID)"
+            "Authorization": "Client-ID \(Configuration.API.unsplashApplicationID)"
         ]
     }
 }
