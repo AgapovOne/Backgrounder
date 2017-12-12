@@ -14,7 +14,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
-        window?.rootViewController = UINavigationController(rootViewController: PhotosViewController.instantiate())
+        let initialViewController = PhotosViewController.instantiate(viewModel: PhotosViewModel(title: "Latest"))
+        window?.rootViewController = UINavigationController(rootViewController: initialViewController)
 
         setupAppearance()
         
