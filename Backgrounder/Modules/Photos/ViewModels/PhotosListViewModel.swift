@@ -51,20 +51,17 @@ class PhotosViewModel {
         self.photos = _reload
             .throttle(1.0, scheduler: Schedulers.background)
             .flatMap { _ -> Observable<[Photo]> in
-            _state.onNext(.loading)
-            return photoService
-                .getPhotos(page: 1)
-//                .flatMap({ _ -> Observable<[Photo]> in
-//                    return Observable.error(CheckError.test("Stupid check"))
-//                })
-                .do(onNext: { _ in
-                    _state.onNext(.default)
-                })
-                .catchError({ (error) in
-                    _state.onNext(.error(error))
-                    return Observable.just([])
-                })
-        }
+                _state.onNext(.loading)
+                return photoService
+                    .getPhotos(page: 1)
+                    .do(onNext: { _ in
+                        _state.onNext(.default)
+                    })
+                    .catchError({ (error) in
+                        _state.onNext(.error(error))
+                        return Observable.just([])
+                    })
+            }
 
         let _selectPhoto = PublishSubject<Photo>()
         self.selectPhoto = _selectPhoto.asObserver()
