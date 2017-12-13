@@ -17,6 +17,18 @@ class UtilsTest: XCTestCase {
     
     var expected: CGFloat = 0
     
+    func test1Item() {
+        width = 60
+        padding = 8
+        items = 1
+        
+        expected = 28
+        
+        let result = countLayout(width: width, padding: padding, itemsPerRow: items)
+        
+        XCTAssertEqual(result, expected, "Should count layout one item for a grid")
+    }
+    
     func test2Items() {
         width = 60
         padding = 8

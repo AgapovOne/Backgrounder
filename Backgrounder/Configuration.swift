@@ -18,6 +18,7 @@ struct Configuration {
     }
     
     struct Size {
+        static let screenWidth = UIScreen.main.bounds.width
         static let padding: CGFloat = 8
     }
 }
