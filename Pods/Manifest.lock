@@ -18,6 +18,7 @@ PODS:
   - RxCocoa (4.0.0):
     - RxSwift (~> 4.0)
   - RxSwift (4.0.0)
+  - SwiftIconFont (2.7.2)
 
 DEPENDENCIES:
   - AlamofireNetworkActivityIndicator
@@ -26,6 +27,7 @@ DEPENDENCIES:
   - Reusable
   - RxCocoa
   - RxSwift
+  - SwiftIconFont
 
 SPEC CHECKSUMS:
   Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
@@ -36,7 +38,8 @@ SPEC CHECKSUMS:
   Reusable: 98e5fff1e0e2e00872199699b276dde08ee56c07
   RxCocoa: d62846ca96495d862fa4c59ea7d87e5031d7340e
   RxSwift: fd680d75283beb5e2559486f3c0ff852f0d35334
+  SwiftIconFont: e13dc39c257121e1141375bb338c02e686ef410b
 
-PODFILE CHECKSUM: 49bb0a1b9c8b35acc37b3a462bf6ae42701dcba3
+PODFILE CHECKSUM: 67671efd690e0b612ead6fa88598e94f56105bb4
 
 COCOAPODS: 1.3.1

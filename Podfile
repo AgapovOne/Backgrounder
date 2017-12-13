@@ -1,4 +1,5 @@
 platform :ios, '10.0'
+inhibit_all_warnings!
 
 target 'Backgrounder' do
   use_frameworks!
@@ -10,6 +11,7 @@ target 'Backgrounder' do
   pod 'RxCocoa'
   
   pod 'Reusable'
+  pod 'SwiftIconFont'
   pod 'Kingfisher'
 
   target 'BackgrounderTests' do
