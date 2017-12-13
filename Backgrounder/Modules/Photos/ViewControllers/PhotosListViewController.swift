@@ -10,7 +10,6 @@ import UIKit
 import Reusable
 import RxSwift
 import RxCocoa
-import Moya
 
 final class PhotosViewController: UIViewController, StoryboardSceneBased {
     // MARK: - Protocols
@@ -24,6 +23,7 @@ final class PhotosViewController: UIViewController, StoryboardSceneBased {
     }
     private lazy var refreshControl = UIRefreshControl()
 
+    private lazy var leftBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
     private lazy var rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: nil)
     
     // MARK: - Properties
@@ -52,6 +52,13 @@ final class PhotosViewController: UIViewController, StoryboardSceneBased {
         collectionView.refreshControl = refreshControl
         
         navigationItem.rightBarButtonItem = rightBarButtonItem
+        
+        [UIControlState.normal, UIControlState.focused, UIControlState.highlighted].forEach({
+            leftBarButtonItem.setTitleTextAttributes([
+                NSAttributedStringKey.font: Fonts.icon
+                ], for: $0)
+        })
+        navigationItem.leftBarButtonItem = leftBarButtonItem
     }
 
     private func setupViewModel() {
@@ -65,7 +72,7 @@ final class PhotosViewController: UIViewController, StoryboardSceneBased {
             .do(onNext: { [weak self] _ in
                 self?.refreshControl.endRefreshing()
             })
-            .bind(to: collectionView.rx.items(cellIdentifier: "PhotoCell", cellType: PhotoCell.self)) { [weak self] (_, photo, cell) in
+            .bind(to: collectionView.rx.items(cellIdentifier: String(describing: PhotoCell.self), cellType: PhotoCell.self)) { [weak self] (_, photo, cell) in
                 self?.setupPhotoCell(cell, photo: photo)
             }
             .disposed(by: disposeBag)
@@ -91,6 +98,17 @@ final class PhotosViewController: UIViewController, StoryboardSceneBased {
         
         collectionView.rx.modelSelected(Photo.self)
             .bind(to: viewModel.selectPhoto)
+            .disposed(by: disposeBag)
+
+        // Local
+        leftBarButtonItem.rx.tap
+            .map({ [weak self] in CollectionLayout(self?.leftBarButtonItem.title ?? "")?.next ?? .list })
+            .bind(to: collectionView.setRxLayout)
+            .disposed(by: disposeBag)
+        
+        collectionView.rxLayout
+            .map({ $0.icon })
+            .bind(to: leftBarButtonItem.rx.title)
             .disposed(by: disposeBag)
     }
     
