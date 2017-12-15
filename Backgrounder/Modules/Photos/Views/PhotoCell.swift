@@ -28,5 +28,4 @@ final class PhotoCell: UICollectionViewCell, NibReusable {
             nameLabel.text = photo.user.name
         }
     }
-
 }
