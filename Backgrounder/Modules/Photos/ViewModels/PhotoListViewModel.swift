@@ -1,5 +1,5 @@
 //
-//  PhotosViewModel.swift
+//  PhotoListViewModel.swift
 //  Backgrounder
 //
 //  Created by Alex Agapov on 12/12/2017.
@@ -10,7 +10,7 @@ import Foundation
 import Moya
 import RxSwift
 
-class PhotosViewModel {
+class PhotoListViewModel {
 
     // MARK: - Declarations
     enum State {

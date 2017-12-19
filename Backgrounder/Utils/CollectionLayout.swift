@@ -17,11 +17,11 @@ enum CollectionLayout {
     var icon: String {
         switch self {
         case .list:
-            return Fonts.Icons.list
+            return Font.Icons.list
         case .halfGrid:
-            return Fonts.Icons.grid2
+            return Font.Icons.grid2
         case .oneOfThreeGrid:
-            return Fonts.Icons.grid3
+            return Font.Icons.grid3
         }
     }
     
@@ -49,11 +49,11 @@ enum CollectionLayout {
     
     init?(_ string: String) {
         switch string {
-        case Fonts.Icons.list:
+        case Font.Icons.list:
             self = .list
-        case Fonts.Icons.grid2:
+        case Font.Icons.grid2:
             self = .halfGrid
-        case Fonts.Icons.grid3:
+        case Font.Icons.grid3:
             self = .oneOfThreeGrid
         default:
             return nil

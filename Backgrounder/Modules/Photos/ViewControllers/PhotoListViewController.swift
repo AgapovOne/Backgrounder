@@ -1,5 +1,5 @@
 //
-//  PhotosViewController.swift
+//  PhotoListViewController.swift
 //  Backgrounder
 //
 //  Created by Alex Agapov on 05/12/2017.
@@ -11,9 +11,9 @@ import Reusable
 import RxSwift
 import RxCocoa
 
-final class PhotosViewController: UIViewController, StoryboardSceneBased {
+final class PhotoListViewController: UIViewController, StoryboardSceneBased {
     // MARK: - Protocols
-    static let sceneStoryboard = UIStoryboard(name: "Main", bundle: nil)
+    static let sceneStoryboard = Storyboard.main
 
     // MARK: - UI Outlets
     @IBOutlet private var collectionView: PhotoCollectionView! {
@@ -29,11 +29,11 @@ final class PhotosViewController: UIViewController, StoryboardSceneBased {
     // MARK: - Properties
     private let disposeBag = DisposeBag()
     
-    private var viewModel: PhotosViewModel!
+    private var viewModel: PhotoListViewModel!
 
     // MARK: - Lifecycle
-    static func instantiate(viewModel: PhotosViewModel) -> PhotosViewController {
-        let vc = PhotosViewController.instantiate()
+    static func instantiate(viewModel: PhotoListViewModel) -> PhotoListViewController {
+        let vc = PhotoListViewController.instantiate()
         vc.viewModel = viewModel
         return vc
     }
@@ -55,10 +55,20 @@ final class PhotosViewController: UIViewController, StoryboardSceneBased {
         
         [UIControlState.normal, UIControlState.focused, UIControlState.highlighted].forEach({
             leftBarButtonItem.setTitleTextAttributes([
-                NSAttributedStringKey.font: Fonts.icon
+                NSAttributedStringKey.font: Font.icon
                 ], for: $0)
         })
         navigationItem.leftBarButtonItem = leftBarButtonItem
+        
+        leftBarButtonItem.rx.tap
+            .map({ [weak self] in CollectionLayout(self?.leftBarButtonItem.title ?? "")?.next ?? .list })
+            .bind(to: collectionView.setRxLayout)
+            .disposed(by: disposeBag)
+        
+        collectionView.rxLayout
+            .map({ $0.icon })
+            .bind(to: leftBarButtonItem.rx.title)
+            .disposed(by: disposeBag)
     }
 
     private func setupViewModel() {
@@ -72,8 +82,8 @@ final class PhotosViewController: UIViewController, StoryboardSceneBased {
             .do(onNext: { [weak self] _ in
                 self?.refreshControl.endRefreshing()
             })
-            .bind(to: collectionView.rx.items(cellIdentifier: String(describing: PhotoCell.self), cellType: PhotoCell.self)) { [weak self] (_, photo, cell) in
-                self?.setupPhotoCell(cell, photo: photo)
+            .bind(to: collectionView.rx.items(cellIdentifier: String(describing: PhotoCell.self), cellType: PhotoCell.self)) { (_, photo, cell) in
+                setupPhotoCell(cell, photo: photo)
             }
             .disposed(by: disposeBag)
 
@@ -87,6 +97,12 @@ final class PhotosViewController: UIViewController, StoryboardSceneBased {
             .bind(to: rightBarButtonItem.rx.isEnabled)
             .disposed(by: disposeBag)
         
+        viewModel.showPhoto
+            .subscribe(onNext: { photo in
+//                let photoVC = PhotoViewController.
+        })
+        .disposed(by: disposeBag)
+        
         // ViewController -> ViewModel
         rightBarButtonItem.rx.tap
             .bind(to: viewModel.reload)
@@ -99,20 +115,9 @@ final class PhotosViewController: UIViewController, StoryboardSceneBased {
         collectionView.rx.modelSelected(Photo.self)
             .bind(to: viewModel.selectPhoto)
             .disposed(by: disposeBag)
+    }
+}
 
-        // Local
-        leftBarButtonItem.rx.tap
-            .map({ [weak self] in CollectionLayout(self?.leftBarButtonItem.title ?? "")?.next ?? .list })
-            .bind(to: collectionView.setRxLayout)
-            .disposed(by: disposeBag)
-        
-        collectionView.rxLayout
-            .map({ $0.icon })
-            .bind(to: leftBarButtonItem.rx.title)
-            .disposed(by: disposeBag)
-    }
-    
-    private func setupPhotoCell(_ cell: PhotoCell, photo: Photo) {
-        cell.photo = photo
-    }
+private func setupPhotoCell(_ cell: PhotoCell, photo: Photo) {
+    cell.photo = photo
 }

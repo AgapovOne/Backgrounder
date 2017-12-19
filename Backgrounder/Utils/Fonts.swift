@@ -9,7 +9,7 @@
 import Foundation
 import SwiftIconFont
 
-enum Fonts {
+enum Font {
     enum Icons {
         static let list = String.fontThemifyIcon("view.list")!
         static let grid2 = String.fontThemifyIcon("layout.grid2")!
