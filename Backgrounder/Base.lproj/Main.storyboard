@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina5_5" orientation="portrait">
+    <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -9,17 +9,22 @@
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="HelveticaNeue.ttc">
+            <string>HelveticaNeue</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Photo List View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController storyboardIdentifier="PhotoListViewController" id="BYZ-38-t0r" customClass="PhotoListViewController" customModule="Backgrounder" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="aLV-Yf-O6j" customClass="PhotoCollectionView" customModule="Backgrounder" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="KHg-Vl-i2r">
                                     <size key="itemSize" width="50" height="50"/>
@@ -45,6 +50,47 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+        </scene>
+        <!--Photo View Controller-->
+        <scene sceneID="c46-PS-S53">
+            <objects>
+                <viewController storyboardIdentifier="PhotoViewController" id="NCj-Al-pBd" customClass="PhotoViewController" customModule="Backgrounder" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="eFD-1u-7bU">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="x0v-cf-brA">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6SK-NH-q7E">
+                                <rect key="frame" x="16" y="757" width="343" height="21"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                                <color key="shadowColor" red="0.2784313725" green="0.2784313725" blue="0.2784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <size key="shadowOffset" width="0.0" height="1"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="x0v-cf-brA" secondAttribute="bottom" id="2r8-Nu-Pig"/>
+                            <constraint firstItem="D2X-IT-RHD" firstAttribute="bottom" secondItem="6SK-NH-q7E" secondAttribute="bottom" id="3p2-20-NIc"/>
+                            <constraint firstAttribute="trailing" secondItem="x0v-cf-brA" secondAttribute="trailing" id="bMB-nj-G9D"/>
+                            <constraint firstItem="6SK-NH-q7E" firstAttribute="leading" secondItem="D2X-IT-RHD" secondAttribute="leading" constant="16" id="cdw-Gv-aHb"/>
+                            <constraint firstItem="D2X-IT-RHD" firstAttribute="trailing" secondItem="6SK-NH-q7E" secondAttribute="trailing" constant="16" id="eHi-9D-LK2"/>
+                            <constraint firstItem="x0v-cf-brA" firstAttribute="top" secondItem="eFD-1u-7bU" secondAttribute="top" id="ggt-Zg-wxT"/>
+                            <constraint firstItem="x0v-cf-brA" firstAttribute="leading" secondItem="eFD-1u-7bU" secondAttribute="leading" id="pPC-SY-JZo"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="D2X-IT-RHD"/>
+                    </view>
+                    <connections>
+                        <outlet property="authorLabel" destination="6SK-NH-q7E" id="e1z-Sl-bXH"/>
+                        <outlet property="imageView" destination="x0v-cf-brA" id="l26-Sr-Q5j"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="p21-Vv-3rx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="921.73913043478262" y="87.228260869565219"/>
         </scene>
     </scenes>
 </document>
