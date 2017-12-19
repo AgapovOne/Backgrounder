@@ -1,0 +1,46 @@
+disabled_rules:
+  - force_cast
+  - line_length
+#  - vertical_whitespace # Should be enabled on new projects. BUT! Can cause a lot of warning on old projects with legacy code
+#  - trailing_whitespace # Should be enabled on new projects. BUT! Can cause a lot of warnings too. Can reduce file size. You can set it to be automatically managed in Xcode -> Preferences -> Text editing -> [v] Automatically trim trailing whitespace
+
+opt_in_rules:
+  - closure_end_indentation
+  - explicit_init
+  - overridden_super_call
+  - prohibited_super_call 
+  - redundant_nil_coalescing
+  - closure_spacing  
+  - operator_usage_whitespace
+  - empty_count # prefer .isEmpty over .count > 0
+  - first_where # .first(where:) over .filter().first
+  - private_outlet # great rule. all outlets in views should be private, if possible
+  - object_literal # typesafe, clear uiimage(named:), uicolor()
+#  - file_header # - this should be used when we need file headers of one-type (copyright, date, other info)
+
+excluded:
+  - Pods
+# Optional: Generated files
+# - Generated 
+
+# rules configuration
+file_length:
+  - 500
+  - 2500
+type_body_length:
+  - 750 # warning
+  - 1500 # error
+# force_try: warning
+function_body_length:
+  - 200 # warning
+  - 400 # error
+function_parameter_count:
+  - 6 # warning
+  - 10 # error
+cyclomatic_complexity:
+  - 20 # warning
+  - 40 # error
+shorthand_operator: warning
+large_tuple: 
+  - 3 # warning
+  - 5 # error
