@@ -8,6 +8,7 @@
 
 import UIKit
 import AlamofireNetworkActivityIndicator
+import Kingfisher
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -31,13 +32,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navBar.tintColor = tint
         navBar.titleTextAttributes = [
             .foregroundColor: tint,
-            .font: UIFont(name: "Avenir Next", size: 18.0)!
+            .font: Font.navbarTitle
         ]
-        
+        if #available(iOS 11.0, *) {
+            navBar.prefersLargeTitles = true
+            navBar.largeTitleTextAttributes = [
+                .foregroundColor: tint,
+                .font: Font.navbarLargeTitle
+            ]
+        }
+
         window?.tintColor = tint
     }
 
     private func setupLibraries() {
         NetworkActivityIndicatorManager.shared.isEnabled = true
+
+        KingfisherManager.shared.defaultOptions = [.transition(.fade(0.2))]
     }
 }

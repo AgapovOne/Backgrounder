@@ -10,6 +10,7 @@ import UIKit
 import Reusable
 import RxSwift
 import RxCocoa
+import Kingfisher
 
 class PhotoViewController: UIViewController, StoryboardSceneBased {
     // MARK: - Protocols
@@ -40,10 +41,16 @@ class PhotoViewController: UIViewController, StoryboardSceneBased {
 
     // MARK: - Private methods
     private func setupUI() {
+        if #available(iOS 11.0, *) {
+            navigationItem.largeTitleDisplayMode = .never
+        }
+
         authorLabel.font = Font.text
     }
 
     private func setupViewModel() {
-        imageView.kf.setImage(with: viewModel.url)
+        imageView.kf.indicatorType = .activity
+        imageView.kf.setImage(with: viewModel.fullURL)
+        authorLabel.text = viewModel.author
     }
 }

@@ -28,4 +28,8 @@ final class PhotoCell: UICollectionViewCell, NibReusable {
             nameLabel.text = photo.user.name
         }
     }
+
+    func cancelDownloadIfNeeded() {
+        imageView.kf.cancelDownloadTask()
+    }
 }

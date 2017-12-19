@@ -10,12 +10,12 @@ import Foundation
 
 class PhotoViewModel {
     let author: String
-    let url: URL
-    let fullImageURL: URL
+    let thumbnailURL: URL
+    let fullURL: URL
 
     init(photo: Photo) {
         self.author = "\(photo.user.username) \(photo.user.name)"
-        self.url = photo.urls.thumbnail
-        self.fullImageURL = photo.urls.full
+        self.thumbnailURL = photo.urls.thumbnail
+        self.fullURL = photo.urls.full
     }
 }

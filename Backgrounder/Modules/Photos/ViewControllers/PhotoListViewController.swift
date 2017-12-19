@@ -10,6 +10,7 @@ import UIKit
 import Reusable
 import RxSwift
 import RxCocoa
+import Kingfisher
 
 final class PhotoListViewController: UIViewController, StoryboardSceneBased {
     // MARK: - Protocols
@@ -98,11 +99,12 @@ final class PhotoListViewController: UIViewController, StoryboardSceneBased {
             .disposed(by: disposeBag)
 
         viewModel.showPhoto
-            .subscribe(onNext: { photo in
-//                let photoVC = PhotoViewController.
-        })
-        .disposed(by: disposeBag)
-        
+            .subscribe(onNext: { [weak self] photo in
+                let photoVC = PhotoViewController.instantiate(viewModel: PhotoViewModel(photo: photo))
+                self?.navigationController?.pushViewController(photoVC, animated: true)
+            })
+            .disposed(by: disposeBag)
+
         // ViewController -> ViewModel
         rightBarButtonItem.rx.tap
             .bind(to: viewModel.reload)
@@ -115,9 +117,23 @@ final class PhotoListViewController: UIViewController, StoryboardSceneBased {
         collectionView.rx.modelSelected(Photo.self)
             .bind(to: viewModel.selectPhoto)
             .disposed(by: disposeBag)
+
+        collectionView.rx.didEndDisplayingCell
+            .subscribe(onNext: { item in
+                guard let cell = item.cell as? PhotoCell else {
+                    fatalError("Cell should be of type PhotoCell")
+                }
+                onEndDisplayingCell(cell)
+            })
+            .disposed(by: disposeBag)
+
     }
 }
 
 private func setupPhotoCell(_ cell: PhotoCell, photo: Photo) {
     cell.photo = photo
+}
+
+private func onEndDisplayingCell(_ cell: PhotoCell) {
+    cell.cancelDownloadIfNeeded()
 }
