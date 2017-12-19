@@ -13,7 +13,7 @@ enum CollectionLayout {
     list,
     halfGrid,
     oneOfThreeGrid
-    
+
     var icon: String {
         switch self {
         case .list:
@@ -24,7 +24,7 @@ enum CollectionLayout {
             return Font.Icons.grid3
         }
     }
-    
+
     var itemsPerRow: CGFloat {
         switch self {
         case .list:
@@ -35,7 +35,7 @@ enum CollectionLayout {
             return 3
         }
     }
-    
+
     var next: CollectionLayout {
         switch self {
         case .list:
@@ -46,7 +46,7 @@ enum CollectionLayout {
             return .list
         }
     }
-    
+
     init?(_ string: String) {
         switch string {
         case Font.Icons.list:
@@ -65,9 +65,9 @@ func createCollectionLayout(type: CollectionLayout,
                             width: CGFloat = Configuration.Size.screenWidth,
                             padding: CGFloat = Configuration.Size.padding) -> UICollectionViewFlowLayout {
     let layout = UICollectionViewFlowLayout()
-    
+
     let side = countLayout(width: width, padding: padding, itemsPerRow: type.itemsPerRow)
-    
+
     layout.itemSize = CGSize(width: side, height: side)
     layout.minimumInteritemSpacing = padding
     layout.minimumLineSpacing = padding

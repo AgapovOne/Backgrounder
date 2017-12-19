@@ -12,7 +12,7 @@ class PhotoViewModel {
     let author: String
     let url: URL
     let fullImageURL: URL
-    
+
     init(photo: Photo) {
         self.author = "\(photo.user.username) \(photo.user.name)"
         self.url = photo.urls.thumbnail

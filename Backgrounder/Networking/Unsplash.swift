@@ -24,14 +24,14 @@ enum Unsplash {
 
 extension Unsplash: TargetType {
     var baseURL: URL { return URL(string: "https://api.unsplash.com")! }
-    
+
     var path: String {
         switch self {
         case .photos:
             return "/photos"
         }
     }
-    
+
     var method: Moya.Method {
         switch self {
         case .photos:

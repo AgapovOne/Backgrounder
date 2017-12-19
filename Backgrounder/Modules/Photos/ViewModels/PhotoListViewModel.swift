@@ -19,32 +19,32 @@ class PhotoListViewModel {
         loading,
         error(Error)
     }
-    
+
     // MARK: - Properties
     private let disposeBag = DisposeBag()
-    
+
     // MARK: - Public interface
     // MARK: Inputs
     let selectPhoto: AnyObserver<Photo>
-    
+
     let reload: AnyObserver<Void>
-    
+
     // MARK: Outputs
     let title: Observable<String>
-    
+
     let photos: Observable<[Photo]>
-    
+
     let state: Observable<State>
-    
+
     let showPhoto: Observable<Photo>
 
     init(title: String, photoService: PhotoService = PhotoService()) {
-        
+
         self.title = Observable.just(title)
-        
+
         let _state = BehaviorSubject<State>(value: .default)
         self.state = _state.asObservable()
-        
+
         let _reload = PublishSubject<Void>()
         self.reload = _reload.asObserver()
 

@@ -10,9 +10,8 @@ import Foundation
 
 struct Urls: Codable {
     let raw: URL
-    let small: URL
     let thumb: URL
+    let small: URL
     let regular: URL
     let full: URL
 }
-

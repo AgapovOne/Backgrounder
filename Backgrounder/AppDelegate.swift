@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         setupAppearance()
         setupLibraries()
-        
+
         return true
     }
 
@@ -36,7 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window?.tintColor = tint
     }
-    
+
     private func setupLibraries() {
         NetworkActivityIndicatorManager.shared.isEnabled = true
     }

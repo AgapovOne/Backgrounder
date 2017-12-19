@@ -25,10 +25,10 @@ final class PhotoListViewController: UIViewController, StoryboardSceneBased {
 
     private lazy var leftBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
     private lazy var rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: nil)
-    
+
     // MARK: - Properties
     private let disposeBag = DisposeBag()
-    
+
     private var viewModel: PhotoListViewModel!
 
     // MARK: - Lifecycle
@@ -37,34 +37,34 @@ final class PhotoListViewController: UIViewController, StoryboardSceneBased {
         vc.viewModel = viewModel
         return vc
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         setupUI()
         setupViewModel()
-        
+
         refreshControl.sendActions(for: .valueChanged)
     }
 
     // MARK: - Private methods
     private func setupUI() {
         collectionView.refreshControl = refreshControl
-        
+
         navigationItem.rightBarButtonItem = rightBarButtonItem
-        
+
         [UIControlState.normal, UIControlState.focused, UIControlState.highlighted].forEach({
             leftBarButtonItem.setTitleTextAttributes([
                 NSAttributedStringKey.font: Font.icon
                 ], for: $0)
         })
         navigationItem.leftBarButtonItem = leftBarButtonItem
-        
+
         leftBarButtonItem.rx.tap
             .map({ [weak self] in CollectionLayout(self?.leftBarButtonItem.title ?? "")?.next ?? .list })
             .bind(to: collectionView.setRxLayout)
             .disposed(by: disposeBag)
-        
+
         collectionView.rxLayout
             .map({ $0.icon })
             .bind(to: leftBarButtonItem.rx.title)
@@ -96,7 +96,7 @@ final class PhotoListViewController: UIViewController, StoryboardSceneBased {
             }
             .bind(to: rightBarButtonItem.rx.isEnabled)
             .disposed(by: disposeBag)
-        
+
         viewModel.showPhoto
             .subscribe(onNext: { photo in
 //                let photoVC = PhotoViewController.
@@ -107,11 +107,11 @@ final class PhotoListViewController: UIViewController, StoryboardSceneBased {
         rightBarButtonItem.rx.tap
             .bind(to: viewModel.reload)
             .disposed(by: disposeBag)
-        
+
         refreshControl.rx.controlEvent(.valueChanged)
             .bind(to: viewModel.reload)
             .disposed(by: disposeBag)
-        
+
         collectionView.rx.modelSelected(Photo.self)
             .bind(to: viewModel.selectPhoto)
             .disposed(by: disposeBag)
