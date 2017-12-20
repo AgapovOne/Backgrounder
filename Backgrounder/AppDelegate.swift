@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import RxSwift
+
 import AlamofireNetworkActivityIndicator
 import Kingfisher
 
@@ -14,10 +16,15 @@ import Kingfisher
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
+    private var appCoordinator: AppCoordinator!
+    private let disposeBag = DisposeBag()
+
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
-        let initialViewController = PhotoListViewController.instantiate(viewModel: PhotoListViewModel(title: "Latest"))
-        window?.rootViewController = UINavigationController(rootViewController: initialViewController)
+        appCoordinator = AppCoordinator(window: window!)
+        appCoordinator.start()
+            .subscribe()
+            .disposed(by: disposeBag)
 
         setupAppearance()
         setupLibraries()

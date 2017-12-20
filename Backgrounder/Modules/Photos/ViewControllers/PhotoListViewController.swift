@@ -98,13 +98,6 @@ final class PhotoListViewController: UIViewController, StoryboardSceneBased {
             .bind(to: rightBarButtonItem.rx.isEnabled)
             .disposed(by: disposeBag)
 
-        viewModel.showPhoto
-            .subscribe(onNext: { [weak self] photo in
-                let photoVC = PhotoViewController.instantiate(viewModel: PhotoViewModel(photo: photo))
-                self?.navigationController?.pushViewController(photoVC, animated: true)
-            })
-            .disposed(by: disposeBag)
-
         // ViewController -> ViewModel
         rightBarButtonItem.rx.tap
             .bind(to: viewModel.reload)
