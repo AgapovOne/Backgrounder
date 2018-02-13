@@ -25,8 +25,12 @@ class PhotoListCoordinator: BaseCoordinator<Void> {
         let navigationController = UINavigationController(rootViewController: viewController)
 
         viewModel.showPhoto
-            .subscribe(onNext: { [weak self] photo in
-                self?.showPhoto(with: photo, in: navigationController)
+            .subscribe({ [weak self] event in
+                switch event {
+                case .next(let photo):
+                    self?.show(photo: photo, in: navigationController)
+                default: break
+                }
             })
             .disposed(by: disposeBag)
 
@@ -36,7 +40,7 @@ class PhotoListCoordinator: BaseCoordinator<Void> {
         return Observable.never()
     }
 
-    private func showRepository(with photo: Photo, in navigationController: UINavigationController) {
+    private func show(photo: Photo, in navigationController: UINavigationController) {
         let photoVC = PhotoViewController.instantiate(viewModel: PhotoViewModel(photo: photo))
         navigationController.pushViewController(photoVC, animated: true)
     }
