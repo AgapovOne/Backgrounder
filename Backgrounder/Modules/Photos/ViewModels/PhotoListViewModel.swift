@@ -20,9 +20,6 @@ class PhotoListViewModel {
         error(Error)
     }
 
-    // MARK: - Properties
-    private let disposeBag = DisposeBag()
-
     // MARK: - Public interface
     // MARK: Inputs
     let selectPhoto: AnyObserver<Photo>
