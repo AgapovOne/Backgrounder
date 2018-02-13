@@ -10,6 +10,7 @@ import UIKit
 import Reusable
 import RxSwift
 import RxCocoa
+import SwiftMessages
 import Kingfisher
 
 class PhotoViewController: UIViewController, StoryboardSceneBased {
@@ -19,6 +20,7 @@ class PhotoViewController: UIViewController, StoryboardSceneBased {
     // MARK: - UI Outlets
     @IBOutlet private var imageView: UIImageView!
     @IBOutlet private var authorLabel: UILabel!
+    private lazy var rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: nil)
 
     // MARK: - Properties
     private let disposeBag = DisposeBag()
@@ -39,11 +41,14 @@ class PhotoViewController: UIViewController, StoryboardSceneBased {
         setupViewModel()
     }
 
+    // MARK: - UI Actions
     // MARK: - Private methods
     private func setupUI() {
         if #available(iOS 11.0, *) {
             navigationItem.largeTitleDisplayMode = .never
         }
+
+        navigationItem.rightBarButtonItem = rightBarButtonItem
 
         authorLabel.font = Font.text
     }
@@ -52,5 +57,25 @@ class PhotoViewController: UIViewController, StoryboardSceneBased {
         imageView.kf.indicatorType = .activity
         imageView.kf.setImage(with: viewModel.fullURL)
         authorLabel.text = viewModel.author
+
+        // ViewModel -> ViewController
+        viewModel.showDownloadResult
+            .subscribe(onNext: { [weak self] isSucceeded in
+                if isSucceeded {
+                    self?.showSuccessMessage()
+                }
+            })
+            .disposed(by: disposeBag)
+        // ViewController -> ViewModel
+        rightBarButtonItem.rx.tap
+            .bind(to: viewModel.download)
+            .disposed(by: disposeBag)
+    }
+
+    private func showSuccessMessage() {
+        let view = MessageView.viewFromNib(layout: .statusLine)
+        view.configureTheme(.success)
+        view.configureContent(title: "Saved", body: "Photo saved to your Camera Roll")
+        SwiftMessages.show(view: view)
     }
 }
