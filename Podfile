@@ -14,6 +14,9 @@ target 'Backgrounder' do
   pod 'SwiftIconFont'
   pod 'Kingfisher'
 
+  # UI
+  pod 'SwiftMessages'
+
   target 'BackgrounderTests' do
     inherit! :search_paths
 

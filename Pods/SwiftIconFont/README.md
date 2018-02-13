@@ -51,7 +51,7 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 | Font         | Prefix | Cheat Sheet                               |
 |--------------|--------|-------------------------------------------|
-| Font Awesome | fa:    | [List](http://fontawesome.io/cheatsheet/) |
+| Font Awesome | fa:    | [List](http://fontawesome.io/icons/) |
 | Ion Icons    | io:    | [List](http://ionicons.com)               |
 | Octicons     | oc:    | [List](https://octicons.github.com)       |
 | Open Iconic  | ic:    | [List](https://useiconic.com/open/)       |
@@ -122,6 +122,23 @@ twitterBarButton.icon(from: .FontAwesome, code: "twitter", ofSize: 20)
 import SwiftIconFont
 
 twitterTabBarButton.icon(from: .FontAwesome, code: "twitter", imageSize: CGSizeMake(20, 20), ofSize: 20)
+````
+
+#### UIImage
+
+````swift
+import SwiftIconFont
+
+let githubLogo = UIImage(from: .Octicon, code: "logo-github", textColor: .black, backgroundColor: .clear, size: CGSize(width: 150, height: 50))
+````
+
+#### UIImageView
+
+````swift
+import SwiftIconFont
+
+let githubLogoImageView: UIImageView = UIImageView(frame: CGRect(x: 120, y: self.view.frame.size.height - 130, width: 150, height: 50))
+githubLogoImageView.setIcon(from: .Octicon, code: "logo-github", textColor: .black, backgroundColor: .clear, size: nil)
 ````
 
 ## Author
