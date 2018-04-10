@@ -323,7 +323,6 @@
 				8D9EB13D1FD711BD0097A535 /* Frameworks */,
 				8D9EB13E1FD711BD0097A535 /* Resources */,
 				F92A41B4408E2556AAA92F03 /* [CP] Embed Pods Frameworks */,
-				197F90D27636F0ED7CAA9194 /* [CP] Copy Pods Resources */,
 				8DBCE4741FE97AC50019BB17 /* Swiftlint */,
 			);
 			buildRules = (
@@ -343,8 +342,6 @@
 				8D9EB1501FD711BD0097A535 /* Sources */,
 				8D9EB1511FD711BD0097A535 /* Frameworks */,
 				8D9EB1521FD711BD0097A535 /* Resources */,
-				9B6DFD1607299A748D744071 /* [CP] Embed Pods Frameworks */,
-				B373D6440C04FC525690F281 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -419,21 +416,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		197F90D27636F0ED7CAA9194 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Backgrounder/Pods-Backgrounder-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		3797A04422FE22425CE921B5 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -483,36 +465,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
-		};
-		9B6DFD1607299A748D744071 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BackgrounderTests/Pods-BackgrounderTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B373D6440C04FC525690F281 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BackgrounderTests/Pods-BackgrounderTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
 		};
 		F92A41B4408E2556AAA92F03 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -740,6 +692,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7J9NCU659T;
 				INFOPLIST_FILE = "$(SRCROOT)/Backgrounder/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -756,6 +709,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7J9NCU659T;
 				INFOPLIST_FILE = "$(SRCROOT)/Backgrounder/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
