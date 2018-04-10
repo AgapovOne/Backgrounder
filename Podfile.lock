@@ -31,6 +31,19 @@ DEPENDENCIES:
   - SwiftIconFont
   - SwiftMessages
 
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - Alamofire
+    - AlamofireNetworkActivityIndicator
+    - Kingfisher
+    - Moya
+    - Result
+    - Reusable
+    - RxCocoa
+    - RxSwift
+    - SwiftIconFont
+    - SwiftMessages
+
 SPEC CHECKSUMS:
   Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
   AlamofireNetworkActivityIndicator: 81e1630e7cfed22a4e4e82a174c59e651dc4f8ca
@@ -45,4 +58,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 1ffccce4bbe13315b8f1aad02e78a973ce0a6c7c
 
-COCOAPODS: 1.4.0
+COCOAPODS: 1.5.0
