@@ -32,8 +32,13 @@
 		8DBCE4731FE978FD0019BB17 /* Storyboards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBCE4721FE978FD0019BB17 /* Storyboards.swift */; };
 		8DBCE4761FE97AE70019BB17 /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBCE4751FE97AE70019BB17 /* PhotoViewController.swift */; };
 		8DBCE4781FE98E7B0019BB17 /* BaseCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBCE4771FE98E7B0019BB17 /* BaseCoordinator.swift */; };
-		8DBCE47A1FE98F340019BB17 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBCE4791FE98F340019BB17 /* AppCoordinator.swift */; };
-		8DBCE47E1FE98F7E0019BB17 /* PhotoListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBCE47D1FE98F7E0019BB17 /* PhotoListCoordinator.swift */; };
+		8DBCE47E1FE98F7E0019BB17 /* PhotosCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBCE47D1FE98F7E0019BB17 /* PhotosCoordinator.swift */; };
+		8DD3B727207BE8D100E2ECFB /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD3B725207BE8D000E2ECFB /* Router.swift */; };
+		8DD3B728207BE8D100E2ECFB /* RouterImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD3B726207BE8D000E2ECFB /* RouterImp.swift */; };
+		8DD3B72A207BE8DE00E2ECFB /* Presentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD3B729207BE8DE00E2ECFB /* Presentable.swift */; };
+		8DD3B72C207BE8F000E2ECFB /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD3B72B207BE8F000E2ECFB /* AppCoordinator.swift */; };
+		8DD3B72F207C641700E2ECFB /* CoordinatorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD3B72E207C641700E2ECFB /* CoordinatorFactory.swift */; };
+		8DD3B731207C644600E2ECFB /* CoordinatorFactoryImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD3B730207C644600E2ECFB /* CoordinatorFactoryImplementation.swift */; };
 		8DDD6BFC1FDEFF05005C585E /* CollectionLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDD6BFB1FDEFF05005C585E /* CollectionLayout.swift */; };
 		8DDD6BFE1FDEFF8C005C585E /* UtilsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDD6BFD1FDEFF8C005C585E /* UtilsTest.swift */; };
 		8DDD6C001FDF0F02005C585E /* PhotoListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDD6BFF1FDF0F02005C585E /* PhotoListViewModel.swift */; };
@@ -84,8 +89,13 @@
 		8DBCE4721FE978FD0019BB17 /* Storyboards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboards.swift; sourceTree = "<group>"; };
 		8DBCE4751FE97AE70019BB17 /* PhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewController.swift; sourceTree = "<group>"; };
 		8DBCE4771FE98E7B0019BB17 /* BaseCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCoordinator.swift; sourceTree = "<group>"; };
-		8DBCE4791FE98F340019BB17 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
-		8DBCE47D1FE98F7E0019BB17 /* PhotoListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoListCoordinator.swift; sourceTree = "<group>"; };
+		8DBCE47D1FE98F7E0019BB17 /* PhotosCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCoordinator.swift; sourceTree = "<group>"; };
+		8DD3B725207BE8D000E2ECFB /* Router.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		8DD3B726207BE8D000E2ECFB /* RouterImp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouterImp.swift; sourceTree = "<group>"; };
+		8DD3B729207BE8DE00E2ECFB /* Presentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Presentable.swift; sourceTree = "<group>"; };
+		8DD3B72B207BE8F000E2ECFB /* AppCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		8DD3B72E207C641700E2ECFB /* CoordinatorFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorFactory.swift; sourceTree = "<group>"; };
+		8DD3B730207C644600E2ECFB /* CoordinatorFactoryImplementation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorFactoryImplementation.swift; sourceTree = "<group>"; };
 		8DDD6BFB1FDEFF05005C585E /* CollectionLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionLayout.swift; sourceTree = "<group>"; };
 		8DDD6BFD1FDEFF8C005C585E /* UtilsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilsTest.swift; sourceTree = "<group>"; };
 		8DDD6BFF1FDF0F02005C585E /* PhotoListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoListViewModel.swift; sourceTree = "<group>"; };
@@ -125,41 +135,32 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		8D424C9B1FD87FF400B0F925 /* ViewControllers */ = {
+		8D424C9B1FD87FF400B0F925 /* Photo */ = {
 			isa = PBXGroup;
 			children = (
-				8D9EB1451FD711BD0097A535 /* PhotoListViewController.swift */,
+				8D513A2A1FE03F7E00286C2A /* PhotoViewModel.swift */,
 				8DBCE4751FE97AE70019BB17 /* PhotoViewController.swift */,
 			);
-			path = ViewControllers;
+			path = Photo;
 			sourceTree = "<group>";
 		};
-		8D513A271FE03F5300286C2A /* Modules */ = {
+		8D513A271FE03F5300286C2A /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				8DD3B72B207BE8F000E2ECFB /* AppCoordinator.swift */,
 				8D513A281FE03F5A00286C2A /* Photos */,
 			);
-			path = Modules;
+			path = UI;
 			sourceTree = "<group>";
 		};
 		8D513A281FE03F5A00286C2A /* Photos */ = {
 			isa = PBXGroup;
 			children = (
-				8DBCE47C1FE98F6F0019BB17 /* Coordinators */,
-				8D513A291FE03F6E00286C2A /* ViewModels */,
-				8D8AB33F1FD728C3005D7494 /* Views */,
-				8D424C9B1FD87FF400B0F925 /* ViewControllers */,
+				8DBCE47D1FE98F7E0019BB17 /* PhotosCoordinator.swift */,
+				8D8AB33F1FD728C3005D7494 /* List */,
+				8D424C9B1FD87FF400B0F925 /* Photo */,
 			);
 			path = Photos;
-			sourceTree = "<group>";
-		};
-		8D513A291FE03F6E00286C2A /* ViewModels */ = {
-			isa = PBXGroup;
-			children = (
-				8DDD6BFF1FDF0F02005C585E /* PhotoListViewModel.swift */,
-				8D513A2A1FE03F7E00286C2A /* PhotoViewModel.swift */,
-			);
-			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		8D513A301FE197DD00286C2A /* Resources */ = {
@@ -210,15 +211,17 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		8D8AB33F1FD728C3005D7494 /* Views */ = {
+		8D8AB33F1FD728C3005D7494 /* List */ = {
 			isa = PBXGroup;
 			children = (
 				8D2717FA1FDDCB0400F7769D /* PhotosNavigationController.swift */,
 				8D8AB3441FD734D2005D7494 /* PhotoCollectionView.swift */,
 				8D8AB3401FD728F8005D7494 /* PhotoCell.swift */,
 				8D8AB3411FD728F8005D7494 /* PhotoCell.xib */,
+				8D9EB1451FD711BD0097A535 /* PhotoListViewController.swift */,
+				8DDD6BFF1FDF0F02005C585E /* PhotoListViewModel.swift */,
 			);
-			path = Views;
+			path = List;
 			sourceTree = "<group>";
 		};
 		8D9EB1371FD711BD0097A535 = {
@@ -244,13 +247,13 @@
 		8D9EB1421FD711BD0097A535 /* Backgrounder */ = {
 			isa = PBXGroup;
 			children = (
-				8D513A271FE03F5300286C2A /* Modules */,
+				8D513A271FE03F5300286C2A /* UI */,
+				8DD3B72D207C640800E2ECFB /* Factories */,
 				8DDD6BFA1FDEFECD005C585E /* Utils */,
 				8D8AB3341FD71B6D005D7494 /* Networking */,
 				8D8AB33C1FD720F8005D7494 /* Models */,
 				8D8AB3371FD71D51005D7494 /* Configuration.swift */,
 				8D9EB1431FD711BD0097A535 /* AppDelegate.swift */,
-				8DBCE4791FE98F340019BB17 /* AppCoordinator.swift */,
 				8D9EB1471FD711BD0097A535 /* Main.storyboard */,
 				8D513A301FE197DD00286C2A /* Resources */,
 				8D8AB3391FD71D59005D7494 /* Supporting Files */,
@@ -268,21 +271,33 @@
 			path = BackgrounderTests;
 			sourceTree = "<group>";
 		};
-		8DBCE47C1FE98F6F0019BB17 /* Coordinators */ = {
+		8DD3B724207BE8C700E2ECFB /* Coordination */ = {
 			isa = PBXGroup;
 			children = (
-				8DBCE47D1FE98F7E0019BB17 /* PhotoListCoordinator.swift */,
+				8DD3B729207BE8DE00E2ECFB /* Presentable.swift */,
+				8DD3B725207BE8D000E2ECFB /* Router.swift */,
+				8DD3B726207BE8D000E2ECFB /* RouterImp.swift */,
+				8DBCE4771FE98E7B0019BB17 /* BaseCoordinator.swift */,
 			);
-			path = Coordinators;
+			path = Coordination;
+			sourceTree = "<group>";
+		};
+		8DD3B72D207C640800E2ECFB /* Factories */ = {
+			isa = PBXGroup;
+			children = (
+				8DD3B72E207C641700E2ECFB /* CoordinatorFactory.swift */,
+				8DD3B730207C644600E2ECFB /* CoordinatorFactoryImplementation.swift */,
+			);
+			path = Factories;
 			sourceTree = "<group>";
 		};
 		8DDD6BFA1FDEFECD005C585E /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				8DD3B724207BE8C700E2ECFB /* Coordination */,
 				8DDD6BFB1FDEFF05005C585E /* CollectionLayout.swift */,
 				8D513A351FE1C09600286C2A /* Fonts.swift */,
 				8DBCE4721FE978FD0019BB17 /* Storyboards.swift */,
-				8DBCE4771FE98E7B0019BB17 /* BaseCoordinator.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -542,7 +557,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8DBCE47A1FE98F340019BB17 /* AppCoordinator.swift in Sources */,
 				8D2717FB1FDDCB0400F7769D /* PhotosNavigationController.swift in Sources */,
 				8D424C9A1FD87C0300B0F925 /* Urls+UI.swift in Sources */,
 				8D8AB3421FD728F8005D7494 /* PhotoCell.swift in Sources */,
@@ -550,20 +564,26 @@
 				8DBCE4781FE98E7B0019BB17 /* BaseCoordinator.swift in Sources */,
 				8D513A2B1FE03F7E00286C2A /* PhotoViewModel.swift in Sources */,
 				8D8AB3361FD71B7B005D7494 /* Unsplash.swift in Sources */,
+				8DD3B728207BE8D100E2ECFB /* RouterImp.swift in Sources */,
 				8DDD6BFC1FDEFF05005C585E /* CollectionLayout.swift in Sources */,
 				8DBCE4731FE978FD0019BB17 /* Storyboards.swift in Sources */,
 				8D9EB1461FD711BD0097A535 /* PhotoListViewController.swift in Sources */,
 				8DBCE4761FE97AE70019BB17 /* PhotoViewController.swift in Sources */,
 				8D513A2D1FE0440500286C2A /* PhotoService.swift in Sources */,
+				8DD3B72C207BE8F000E2ECFB /* AppCoordinator.swift in Sources */,
 				8DDD6C001FDF0F02005C585E /* PhotoListViewModel.swift in Sources */,
+				8DD3B72F207C641700E2ECFB /* CoordinatorFactory.swift in Sources */,
 				8D8AB3381FD71D51005D7494 /* Configuration.swift in Sources */,
 				8D424C961FD87BE700B0F925 /* User.swift in Sources */,
+				8DD3B727207BE8D100E2ECFB /* Router.swift in Sources */,
+				8DD3B731207C644600E2ECFB /* CoordinatorFactoryImplementation.swift in Sources */,
 				8D8AB3451FD734D2005D7494 /* PhotoCollectionView.swift in Sources */,
 				8D8AB33B1FD71FAD005D7494 /* Provider.swift in Sources */,
 				8D513A2F1FE05B3600286C2A /* Schedulers.swift in Sources */,
 				8D9EB1441FD711BD0097A535 /* AppDelegate.swift in Sources */,
 				8D513A361FE1C09600286C2A /* Fonts.swift in Sources */,
-				8DBCE47E1FE98F7E0019BB17 /* PhotoListCoordinator.swift in Sources */,
+				8DD3B72A207BE8DE00E2ECFB /* Presentable.swift in Sources */,
+				8DBCE47E1FE98F7E0019BB17 /* PhotosCoordinator.swift in Sources */,
 				8D424C981FD87BED00B0F925 /* Urls.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

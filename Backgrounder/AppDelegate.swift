@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import RxSwift
 
 import AlamofireNetworkActivityIndicator
 import Kingfisher
@@ -16,20 +15,24 @@ import Kingfisher
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
-    private var appCoordinator: AppCoordinator!
-    private let disposeBag = DisposeBag()
+    private lazy var appCoordinator: Coordinator = self.makeCoordinator()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
-        appCoordinator = AppCoordinator(window: window!)
         appCoordinator.start()
-            .subscribe()
-            .disposed(by: disposeBag)
 
         setupAppearance()
         setupLibraries()
 
         return true
+    }
+
+    // MARK: - Private
+    private func makeCoordinator() -> Coordinator {
+        return AppCoordinator(
+            router: RouterImp(rootController: self.rootController),
+            coordinatorFactory: CoordinatorFactoryImp()
+        )
     }
 
     private func setupAppearance() {
