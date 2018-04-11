@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		37BCBEF4207E170F0032FF60 /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BCBEF3207E170F0032FF60 /* Defaults.swift */; };
 		8D2717FB1FDDCB0400F7769D /* PhotosNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2717FA1FDDCB0400F7769D /* PhotosNavigationController.swift */; };
 		8D424C961FD87BE700B0F925 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D424C951FD87BE700B0F925 /* User.swift */; };
 		8D424C981FD87BED00B0F925 /* Urls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D424C971FD87BED00B0F925 /* Urls.swift */; };
@@ -58,6 +59,7 @@
 
 /* Begin PBXFileReference section */
 		006754C39C9A5262079CB3E0 /* Pods-BackgrounderTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BackgrounderTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BackgrounderTests/Pods-BackgrounderTests.debug.xcconfig"; sourceTree = "<group>"; };
+		37BCBEF3207E170F0032FF60 /* Defaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
 		4865F5B5A319E04274791EE3 /* Pods_BackgrounderTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BackgrounderTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E850FC5C999953D5F2A0A3E /* Pods-BackgrounderTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BackgrounderTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BackgrounderTests/Pods-BackgrounderTests.release.xcconfig"; sourceTree = "<group>"; };
 		8D2717FA1FDDCB0400F7769D /* PhotosNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosNavigationController.swift; sourceTree = "<group>"; };
@@ -298,6 +300,7 @@
 				8DDD6BFB1FDEFF05005C585E /* CollectionLayout.swift */,
 				8D513A351FE1C09600286C2A /* Fonts.swift */,
 				8DBCE4721FE978FD0019BB17 /* Storyboards.swift */,
+				37BCBEF3207E170F0032FF60 /* Defaults.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -535,6 +538,7 @@
 				8D9EB1441FD711BD0097A535 /* AppDelegate.swift in Sources */,
 				8D513A361FE1C09600286C2A /* Fonts.swift in Sources */,
 				8DD3B72A207BE8DE00E2ECFB /* Presentable.swift in Sources */,
+				37BCBEF4207E170F0032FF60 /* Defaults.swift in Sources */,
 				8DBCE47E1FE98F7E0019BB17 /* PhotosCoordinator.swift in Sources */,
 				8D424C981FD87BED00B0F925 /* Urls.swift in Sources */,
 			);
