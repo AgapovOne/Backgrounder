@@ -83,7 +83,8 @@ final class PhotoListViewController: UIViewController, StoryboardSceneBased {
             .do(onNext: { [weak self] _ in
                 self?.refreshControl.endRefreshing()
             })
-            .bind(to: collectionView.rx.items(cellIdentifier: String(describing: PhotoCell.self), cellType: PhotoCell.self)) { (_, photo, cell) in
+            .bind(to: collectionView.rx.items(cellIdentifier: String(describing: PhotoCell.self),
+                                              cellType: PhotoCell.self)) { (_, photo, cell) in
                 setupPhotoCell(cell, photo: photo)
             }
             .disposed(by: disposeBag)
