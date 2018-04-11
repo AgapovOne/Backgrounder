@@ -55,39 +55,3 @@ class PhotosCoordinator: BaseCoordinator {
 //        coordinator.start()
 //    }
 }
-
-/*class PhotoListCoordinator: BaseCoordinator<Void> {
-
-    private let window: UIWindow
-
-    init(window: UIWindow) {
-        self.window = window
-    }
-
-    override func start() -> Observable<Void> {
-        let viewModel = PhotoListViewModel(title: "Latest")
-        let viewController = PhotoListViewController.instantiate(viewModel: viewModel)
-
-        let navigationController = UINavigationController(rootViewController: viewController)
-
-        viewModel.showPhoto
-            .subscribe({ [weak self] event in
-                switch event {
-                case .next(let photo):
-                    self?.show(photo: photo, in: navigationController)
-                default: break
-                }
-            })
-            .disposed(by: disposeBag)
-
-        window.rootViewController = navigationController
-        window.makeKeyAndVisible()
-
-        return Observable.never()
-    }
-
-    private func show(photo: Photo, in navigationController: UINavigationController) {
-        let photoVC = PhotoViewController.instantiate(viewModel: PhotoViewModel(photo: photo))
-        navigationController.pushViewController(photoVC, animated: true)
-    }
-}*/
