@@ -3,6 +3,7 @@
 disabled_rules:
  - vertical_whitespace # Should be enabled on new projects. BUT! Can cause a lot of warning on old projects with legacy code
  - trailing_whitespace # Should be enabled on new projects. BUT! Can cause a lot of warnings too. Can reduce file size. You can set it to be automatically managed in Xcode -> Preferences -> Text editing -> [v] Automatically trim trailing whitespace
+ - identifier_name
 
 opt_in_rules:
   - closure_end_indentation
