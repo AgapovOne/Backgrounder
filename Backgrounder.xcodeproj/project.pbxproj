@@ -38,8 +38,6 @@
 		8DD3B728207BE8D100E2ECFB /* RouterImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD3B726207BE8D000E2ECFB /* RouterImp.swift */; };
 		8DD3B72A207BE8DE00E2ECFB /* Presentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD3B729207BE8DE00E2ECFB /* Presentable.swift */; };
 		8DD3B72C207BE8F000E2ECFB /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD3B72B207BE8F000E2ECFB /* AppCoordinator.swift */; };
-		8DD3B72F207C641700E2ECFB /* CoordinatorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD3B72E207C641700E2ECFB /* CoordinatorFactory.swift */; };
-		8DD3B731207C644600E2ECFB /* CoordinatorFactoryImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD3B730207C644600E2ECFB /* CoordinatorFactoryImplementation.swift */; };
 		8DDD6BFC1FDEFF05005C585E /* CollectionLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDD6BFB1FDEFF05005C585E /* CollectionLayout.swift */; };
 		8DDD6BFE1FDEFF8C005C585E /* UtilsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDD6BFD1FDEFF8C005C585E /* UtilsTest.swift */; };
 		8DDD6C001FDF0F02005C585E /* PhotoListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDD6BFF1FDF0F02005C585E /* PhotoListViewModel.swift */; };
@@ -95,9 +93,7 @@
 		8DD3B725207BE8D000E2ECFB /* Router.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		8DD3B726207BE8D000E2ECFB /* RouterImp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouterImp.swift; sourceTree = "<group>"; };
 		8DD3B729207BE8DE00E2ECFB /* Presentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Presentable.swift; sourceTree = "<group>"; };
-		8DD3B72B207BE8F000E2ECFB /* AppCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
-		8DD3B72E207C641700E2ECFB /* CoordinatorFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorFactory.swift; sourceTree = "<group>"; };
-		8DD3B730207C644600E2ECFB /* CoordinatorFactoryImplementation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorFactoryImplementation.swift; sourceTree = "<group>"; };
+		8DD3B72B207BE8F000E2ECFB /* AppCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; };
 		8DDD6BFB1FDEFF05005C585E /* CollectionLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionLayout.swift; sourceTree = "<group>"; };
 		8DDD6BFD1FDEFF8C005C585E /* UtilsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilsTest.swift; sourceTree = "<group>"; };
 		8DDD6BFF1FDF0F02005C585E /* PhotoListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoListViewModel.swift; sourceTree = "<group>"; };
@@ -250,7 +246,6 @@
 			isa = PBXGroup;
 			children = (
 				8D513A271FE03F5300286C2A /* UI */,
-				8DD3B72D207C640800E2ECFB /* Factories */,
 				8DDD6BFA1FDEFECD005C585E /* Utils */,
 				8D8AB3341FD71B6D005D7494 /* Networking */,
 				8D8AB33C1FD720F8005D7494 /* Models */,
@@ -282,15 +277,6 @@
 				8DBCE4771FE98E7B0019BB17 /* BaseCoordinator.swift */,
 			);
 			path = Coordination;
-			sourceTree = "<group>";
-		};
-		8DD3B72D207C640800E2ECFB /* Factories */ = {
-			isa = PBXGroup;
-			children = (
-				8DD3B72E207C641700E2ECFB /* CoordinatorFactory.swift */,
-				8DD3B730207C644600E2ECFB /* CoordinatorFactoryImplementation.swift */,
-			);
-			path = Factories;
 			sourceTree = "<group>";
 		};
 		8DDD6BFA1FDEFECD005C585E /* Utils */ = {
@@ -363,7 +349,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = "Alex Agapov";
 				TargetAttributes = {
 					8D9EB13F1FD711BD0097A535 = {
@@ -527,11 +513,9 @@
 				8D513A2D1FE0440500286C2A /* PhotoService.swift in Sources */,
 				8DD3B72C207BE8F000E2ECFB /* AppCoordinator.swift in Sources */,
 				8DDD6C001FDF0F02005C585E /* PhotoListViewModel.swift in Sources */,
-				8DD3B72F207C641700E2ECFB /* CoordinatorFactory.swift in Sources */,
 				8D8AB3381FD71D51005D7494 /* Configuration.swift in Sources */,
 				8D424C961FD87BE700B0F925 /* User.swift in Sources */,
 				8DD3B727207BE8D100E2ECFB /* Router.swift in Sources */,
-				8DD3B731207C644600E2ECFB /* CoordinatorFactoryImplementation.swift in Sources */,
 				8D8AB3451FD734D2005D7494 /* PhotoCollectionView.swift in Sources */,
 				8D8AB33B1FD71FAD005D7494 /* Provider.swift in Sources */,
 				8D513A2F1FE05B3600286C2A /* Schedulers.swift in Sources */,
@@ -597,6 +581,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -604,6 +589,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -654,6 +640,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -661,6 +648,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;

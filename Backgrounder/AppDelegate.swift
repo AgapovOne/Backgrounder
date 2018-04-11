@@ -14,10 +14,15 @@ import Kingfisher
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
+    var rootController: UINavigationController {
+        return self.window!.rootViewController as! UINavigationController
+    }
 
     private lazy var appCoordinator: Coordinator = self.makeCoordinator()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+
+        window?.rootViewController = UINavigationController()
 
         appCoordinator.start()
 
@@ -30,8 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: - Private
     private func makeCoordinator() -> Coordinator {
         return AppCoordinator(
-            router: RouterImp(rootController: self.rootController),
-            coordinatorFactory: CoordinatorFactoryImp()
+            router: RouterImp(rootController: self.rootController)
         )
     }
 
