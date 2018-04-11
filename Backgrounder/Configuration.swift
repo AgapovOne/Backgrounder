@@ -14,7 +14,7 @@ struct Configuration {
     }
 
     struct Color {
-        static let tintColor: UIColor = #colorLiteral(red: 0, green: 0.7921568627, blue: 0.6156862745, alpha: 1)
+        static let tintColor: UIColor = #colorLiteral(red: 0.2082854211, green: 0.2843391895, blue: 0.3764083385, alpha: 1)
     }
 
     struct Size {
