@@ -21,6 +21,9 @@ class PhotoListViewModel {
     }
 
     // MARK: - Public interface
+    // MARK: Navigation output
+    let showPhoto: Observable<Photo>
+
     // MARK: Inputs
     let selectPhoto: AnyObserver<Photo>
 
@@ -32,8 +35,6 @@ class PhotoListViewModel {
     let photos: Observable<[Photo]>
 
     let state: Observable<State>
-
-    let showPhoto: Observable<Photo>
 
     init(title: String, photoService: PhotoService = PhotoService()) {
 
