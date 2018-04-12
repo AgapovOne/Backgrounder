@@ -13,17 +13,19 @@ import Kingfisher
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    var window: UIWindow?
-    var rootController: UINavigationController {
-        return self.window!.rootViewController as! UINavigationController
-    }
 
-    private lazy var appCoordinator: Coordinator = self.makeCoordinator()
+    var window: UIWindow?
+
+    private lazy var appRouter: RouterType = Router(navigationController: UINavigationController())
+    private lazy var appCoordinator: AppCoordinator = AppCoordinator(router: appRouter)
 
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
-        window?.rootViewController = UINavigationController()
+        window = UIWindow()
+        window?.rootViewController = appCoordinator.toPresentable()
+        window?.backgroundColor = .white
+        window?.makeKeyAndVisible()
 
         appCoordinator.start()
 
@@ -34,12 +36,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     // MARK: - Private
-    private func makeCoordinator() -> Coordinator {
-        return AppCoordinator(
-            router: RouterImp(rootController: self.rootController)
-        )
-    }
-
     private func setupAppearance() {
         let tint = Configuration.Color.tintColor
         let navBar = UINavigationBar.appearance()

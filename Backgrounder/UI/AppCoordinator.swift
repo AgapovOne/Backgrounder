@@ -15,41 +15,30 @@ private enum LaunchInstructor {
     }
 }
 
-final class AppCoordinator: BaseCoordinator {
-
-    private let router: Router
+final class AppCoordinator: Coordinator<DeepLink> {
 
     private var instructor: LaunchInstructor {
         return LaunchInstructor.configure()
     }
 
-
-    init(router: Router) {
-        self.router = router
-    }
-
-    override func start() {
-        switch instructor {
-        case .main: runMainFlow()
-        case .onboarding: runOnboardingFlow()
+    override func start(with link: DeepLink?) {
+        switch link {
+        case .photos?:
+            runMainFlow()
+        case .onboarding?:
+            runOnboardingFlow()
+        default:
+            runMainFlow()
         }
     }
 
     private func runOnboardingFlow() {
-        //    let coordinator = coordinatorFactory.makeOnboardingCoordinator(router: router)
-        //    coordinator.finishFlow = { [weak self, weak coordinator] in
-        //      onboardingWasShown = true
-        //      self?.start()
-        //      self?.removeDependency(coordinator)
-        //    }
-        //    addDependency(coordinator)
-        //    coordinator.start()
+
     }
 
     private func runMainFlow() {
-        //    PhotosCoordinator
         let coordinator = PhotosCoordinator(router: router)
-        addDependency(coordinator)
+        addChild(coordinator)
         coordinator.start()
     }
 }

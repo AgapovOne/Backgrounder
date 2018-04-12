@@ -7,29 +7,22 @@
 //
 
 import UIKit
+import RxSwift
 
-class PhotosCoordinator: BaseCoordinator {
+class PhotosCoordinator: Coordinator<DeepLink> {
 
-    private let router: Router
+    private let disposeBag = DisposeBag()
 
-    init(router: Router) {
-        self.router = router
-    }
-
-    override func start() {
-        showPhotoList()
-    }
-
-    // MARK: - Run current flow's controllers
-    private func showPhotoList() {
-
-        let viewModel = PhotoListViewModel(title: "Latest")
-        let vc = PhotoListViewController.instantiate(viewModel: viewModel)
-//        vc.
-//        itemsOutput.onItemSelect = { [weak self] (item) in
-//            self?.showItemDetail(item)
-//        }
-        router.setRootModule(vc)
+    override init(router: RouterType) {
+        super.init(router: router)
+        let vm = PhotoListViewModel(title: "Latest")
+        let vc = PhotoListViewController.instantiate(viewModel: vm)
+        vm.showPhoto
+            .subscribe(onNext: { [weak self] photo in
+                self?.showPhotoDetail(photo)
+            })
+            .disposed(by: disposeBag)
+        router.setRootModule(vc, hideBar: false)
     }
 
     private func showPhotoDetail(_ photo: Photo) {
@@ -37,21 +30,4 @@ class PhotosCoordinator: BaseCoordinator {
         router.push(vc)
     }
 
-    // MARK: - Run coordinators (switch to another flow)
-
-//    private func runCreationFlow() {
-//
-//        let (coordinator, module) = coordinatorFactory.makeItemCreationCoordinatorBox()
-//        coordinator.finishFlow = { [weak self, weak coordinator] item in
-//
-//            self?.router.dismissModule()
-//            self?.removeDependency(coordinator)
-//            if let item = item {
-//                self?.showItemDetail(item)
-//            }
-//        }
-//        addDependency(coordinator)
-//        router.present(module)
-//        coordinator.start()
-//    }
 }
