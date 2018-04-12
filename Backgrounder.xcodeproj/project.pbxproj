@@ -142,6 +142,7 @@
 		37452155207F49AD0097D202 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				8D513A2C1FE0440500286C2A /* PhotoService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -196,7 +197,6 @@
 			children = (
 				8D8AB3351FD71B7B005D7494 /* Unsplash.swift */,
 				8D8AB33A1FD71FAD005D7494 /* Provider.swift */,
-				8D513A2C1FE0440500286C2A /* PhotoService.swift */,
 				8D513A2E1FE05B3600286C2A /* Schedulers.swift */,
 			);
 			path = Networking;
