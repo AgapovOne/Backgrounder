@@ -137,6 +137,13 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		37452155207F49AD0097D202 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		8D424C9B1FD87FF400B0F925 /* Photo */ = {
 			isa = PBXGroup;
 			children = (
@@ -252,6 +259,7 @@
 			children = (
 				8D513A271FE03F5300286C2A /* UI */,
 				8DD3B724207BE8C700E2ECFB /* Coordination */,
+				37452155207F49AD0097D202 /* Services */,
 				8DDD6BFA1FDEFECD005C585E /* Utils */,
 				8D8AB3341FD71B6D005D7494 /* Networking */,
 				8D8AB33C1FD720F8005D7494 /* Models */,

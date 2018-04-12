@@ -55,7 +55,9 @@ class PhotoViewController: UIViewController, StoryboardSceneBased {
 
     private func setupViewModel() {
         imageView.kf.indicatorType = .activity
-        imageView.kf.setImage(with: viewModel.fullURL)
+        ImageCache.default.retrieveImage(forKey: viewModel.thumbnailImageKey, options: nil) { [weak self] (image, _) in
+            self?.imageView.kf.setImage(with: self?.viewModel.fullURL, placeholder: image)
+        }
         authorLabel.text = viewModel.author
 
         // ViewModel -> ViewController
