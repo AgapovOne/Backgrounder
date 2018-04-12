@@ -7,28 +7,49 @@
 //
 
 import Foundation
-import RxSwift
 
 class PhotoViewModel {
-    let author: String
-    let thumbnailImageKey: String
-    let fullURL: URL
+    struct State {
+        let author: String
+        let thumbnailImageKey: String
+        let fullURL: URL
+    }
 
-    let download: AnyObserver<Void>
+    enum Action {
+        case stateDidUpdate(newState: State, prevState: State?)
+        case didFinishDownload(isSuccess: Bool)
+    }
 
-    let showDownloadResult: Observable<Bool>
+    typealias ActionClosure = (Action) -> Void
 
-    init(photo: Photo) {
-        self.author = "\(photo.user.username) \(photo.user.name)"
-        self.thumbnailImageKey = photo.urls.regular.absoluteString
-        self.fullURL = photo.urls.full
-
-        let _download = PublishSubject<Void>()
-        self.download = _download.asObserver()
-
-        self.showDownloadResult = _download.map {
-            
-            return true
+    private var state: State {
+        didSet {
+            actionCallback?(.stateDidUpdate(newState: state, prevState: oldValue))
         }
     }
+
+    init(photo: Photo) {
+        self.state = State(
+            author: "\(photo.user.username) \(photo.user.name)",
+            thumbnailImageKey: photo.urls.regular.absoluteString,
+            fullURL: photo.urls.full
+        )
+    }
+
+    var actionCallback: ActionClosure? {
+        didSet {
+            actionCallback?(.stateDidUpdate(newState: state, prevState: nil))
+        }
+    }
+
+    // Inputs
+    func saveButtonPressed() {
+        // Download logic
+        actionCallback?(.didFinishDownload(isSuccess: true))
+    }
+
+    // Outputs
+//    func item(at indexPath: IndexPath) -> GameViewModel {
+//        return state.items[indexPath.row]
+//    }
 }

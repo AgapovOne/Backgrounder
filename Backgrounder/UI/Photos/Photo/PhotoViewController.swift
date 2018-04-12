@@ -20,7 +20,9 @@ class PhotoViewController: UIViewController, StoryboardSceneBased {
     // MARK: - UI Outlets
     @IBOutlet private var imageView: UIImageView!
     @IBOutlet private var authorLabel: UILabel!
-    private lazy var rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: nil)
+    private lazy var rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save,
+                                                          target: self,
+                                                          action: #selector(didTapSaveButton))
 
     // MARK: - Properties
     private let disposeBag = DisposeBag()
@@ -42,6 +44,10 @@ class PhotoViewController: UIViewController, StoryboardSceneBased {
     }
 
     // MARK: - UI Actions
+    @objc private func didTapSaveButton() {
+        viewModel.saveButtonPressed()
+    }
+
     // MARK: - Private methods
     private func setupUI() {
         if #available(iOS 11.0, *) {
@@ -54,24 +60,23 @@ class PhotoViewController: UIViewController, StoryboardSceneBased {
     }
 
     private func setupViewModel() {
-        imageView.kf.indicatorType = .activity
-        ImageCache.default.retrieveImage(forKey: viewModel.thumbnailImageKey, options: nil) { [weak self] (image, _) in
-            self?.imageView.kf.setImage(with: self?.viewModel.fullURL, placeholder: image)
-        }
-        authorLabel.text = viewModel.author
+        assert(viewModel != nil, "View Model should be instantiated. Use instantiate(viewModel:)")
 
-        // ViewModel -> ViewController
-        viewModel.showDownloadResult
-            .subscribe(onNext: { [weak self] isSucceeded in
-                if isSucceeded {
-                    self?.showSuccessMessage()
+        viewModel.actionCallback = { [weak self] action in
+            guard let `self` = self else { return }
+            switch action {
+            case .stateDidUpdate(let state, let prevState):
+                self.imageView.kf.indicatorType = .activity
+                ImageCache.default.retrieveImage(forKey: state.thumbnailImageKey, options: nil) { (image, _) in
+                    self.imageView.kf.setImage(with: state.fullURL, placeholder: image)
                 }
-            })
-            .disposed(by: disposeBag)
-        // ViewController -> ViewModel
-        rightBarButtonItem.rx.tap
-            .bind(to: viewModel.download)
-            .disposed(by: disposeBag)
+                self.authorLabel.text = state.author
+            case .didFinishDownload(let isSuccess):
+                if isSuccess {
+                    self.showSuccessMessage()
+                }
+            }
+        }
     }
 
     private func showSuccessMessage() {
