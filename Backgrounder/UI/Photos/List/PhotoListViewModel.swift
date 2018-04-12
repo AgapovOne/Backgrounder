@@ -37,7 +37,45 @@ class PhotoListViewModel {
             actionCallback?(.stateDidUpdate(newState: state, prevState: oldValue))
         }
     }
+    // MARK: - Private
+    private let disposeBag = DisposeBag()
 
+    private let photoService: PhotoService
+
+    private var page = 1
+
+    private func load() {
+        switch state.loadingState {
+        case .loading: break
+        default:
+            state.loadingState = .loading
+            photoService
+                .getPhotos(page: page)
+                .subscribe(onNext: { items in
+                    var photos = [Photo]()
+                    if self.page == 1 {
+                        photos = items
+                    } else {
+                        photos = self.state.photos + items
+                    }
+                    self.state = State(
+                        title: self.state.title,
+                        photos: photos,
+                        loadingState: .default
+                    )
+                }, onError: { (error) in
+                    self.state.loadingState = .error(error)
+                })
+                .disposed(by: disposeBag)
+        }
+    }
+
+    private func loadNext() {
+        page += 1
+        load()
+    }
+
+    // MARK: - Lifecycle
     init(title: String, photoService: PhotoService = PhotoService()) {
         self.photoService = photoService
         state = State(
@@ -54,11 +92,6 @@ class PhotoListViewModel {
         }
     }
 
-    // MARK: - Private
-    private let disposeBag = DisposeBag()
-
-    private let photoService: PhotoService
-
     // MARK: - Public interface
     // MARK: Navigation output
     var showPhoto: ((Photo) -> Void)?
@@ -69,19 +102,8 @@ class PhotoListViewModel {
     }
 
     func reload() {
-        state.loadingState = .loading
-        photoService
-            .getPhotos(page: 1)
-            .subscribe(onNext: { photos in
-                self.state = State(
-                    title: self.state.title,
-                    photos: photos,
-                    loadingState: .default
-                )
-            }, onError: { (error) in
-                self.state.loadingState = .error(error)
-            })
-            .disposed(by: disposeBag)
+        page = 1
+        load()
     }
 
     // MARK: Outputs
@@ -91,5 +113,11 @@ class PhotoListViewModel {
 
     func numberOfItems() -> Int {
         return state.photos.count
+    }
+
+    func willDisplayCell(for indexPath: IndexPath) {
+        if indexPath.row == state.photos.count - 1 {
+            loadNext()
+        }
     }
 }

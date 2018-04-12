@@ -132,6 +132,10 @@ extension PhotoListViewController: UICollectionViewDataSource, UICollectionViewD
         viewModel.didSelectItem(at: indexPath)
     }
 
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        viewModel.willDisplayCell(for: indexPath)
+    }
+
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         guard let cell = cell as? PhotoCell else {
             fatalError("Cell should be of type PhotoCell")
