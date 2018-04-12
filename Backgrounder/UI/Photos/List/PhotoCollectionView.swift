@@ -16,9 +16,6 @@ class PhotoCollectionView: UICollectionView {
         }
     }
 
-    var setRxLayout: AnyObserver<CollectionLayout>!
-    var rxLayout: Observable<CollectionLayout>!
-
     private lazy var listLayout: UICollectionViewFlowLayout = {
         return createCollectionLayout(type: .list)
     }()
@@ -40,12 +37,7 @@ class PhotoCollectionView: UICollectionView {
             contentInset = UIEdgeInsets(top: layoutMargins.top, left: 0, bottom: 0, right: 0)
         }
 
-        let _rxLayout = BehaviorSubject(value: CollectionLayout.list)
-
-        setRxLayout = _rxLayout.asObserver()
-        rxLayout = _rxLayout.do(onNext: { [weak self] in
-            self?.layout = $0
-        })
+        layout = .list
     }
 
     private func setLayout(_ type: CollectionLayout, animated: Bool = true) {

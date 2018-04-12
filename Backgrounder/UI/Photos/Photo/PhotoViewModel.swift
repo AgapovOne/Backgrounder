@@ -47,9 +47,4 @@ class PhotoViewModel {
         // Download logic
         actionCallback?(.didFinishDownload(isSuccess: true))
     }
-
-    // Outputs
-//    func item(at indexPath: IndexPath) -> GameViewModel {
-//        return state.items[indexPath.row]
-//    }
 }

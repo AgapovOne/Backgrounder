@@ -8,9 +8,8 @@
 
 import UIKit
 import Reusable
-import RxSwift
-import RxCocoa
 import Kingfisher
+import DeepDiff
 
 final class PhotoListViewController: UIViewController, StoryboardSceneBased {
     // MARK: - Protocols
@@ -22,14 +21,21 @@ final class PhotoListViewController: UIViewController, StoryboardSceneBased {
             collectionView.register(cellType: PhotoCell.self)
         }
     }
-    private lazy var refreshControl = UIRefreshControl()
+    private lazy var refreshControl: UIRefreshControl = {
+        let r = UIRefreshControl()
+        r.addTarget(self, action: #selector(self.didToggleRefreshControl), for: .valueChanged)
+        return r
+    }()
 
-    private lazy var leftBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
-    private lazy var rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: nil)
+    private lazy var leftBarButtonItem = UIBarButtonItem(title: "",
+                                                         style: .plain,
+                                                         target: self,
+                                                         action: #selector(didTapLeftBarButtonItem))
+    private lazy var rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh,
+                                                          target: self,
+                                                          action: #selector(didTapRightBarButtonItem))
 
     // MARK: - Properties
-    private let disposeBag = DisposeBag()
-
     private var viewModel: PhotoListViewModel!
 
     // MARK: - Lifecycle
@@ -50,6 +56,8 @@ final class PhotoListViewController: UIViewController, StoryboardSceneBased {
 
     // MARK: - Private methods
     private func setupUI() {
+        collectionView.delegate = self
+        collectionView.dataSource = self
         collectionView.refreshControl = refreshControl
 
         navigationItem.rightBarButtonItem = rightBarButtonItem
@@ -61,73 +69,73 @@ final class PhotoListViewController: UIViewController, StoryboardSceneBased {
         })
         navigationItem.leftBarButtonItem = leftBarButtonItem
 
-        leftBarButtonItem.rx.tap
-            .map({ [weak self] in CollectionLayout(self?.leftBarButtonItem.title ?? "")?.next ?? .list })
-            .bind(to: collectionView.setRxLayout)
-            .disposed(by: disposeBag)
-
-        collectionView.rxLayout
-            .map({ $0.icon })
-            .bind(to: leftBarButtonItem.rx.title)
-            .disposed(by: disposeBag)
+        leftBarButtonItem.title = collectionView.layout.icon
     }
 
     private func setupViewModel() {
-        // ViewModel -> ViewController
-        viewModel.title
-            .bind(to: navigationItem.rx.title)
-            .disposed(by: disposeBag)
+        assert(viewModel != nil, "View Model should be instantiated. Use instantiate(viewModel:)")
 
-        viewModel.photos
-            .observeOn(MainScheduler.instance)
-            .do(onNext: { [weak self] _ in
-                self?.refreshControl.endRefreshing()
-            })
-            .bind(to: collectionView.rx.items(cellIdentifier: String(describing: PhotoCell.self),
-                                              cellType: PhotoCell.self)) { (_, photo, cell) in
-                setupPhotoCell(cell, photo: photo)
-            }
-            .disposed(by: disposeBag)
+        viewModel.actionCallback = { [weak self] action in
+            guard let `self` = self else { return }
+            switch action {
+            case .stateDidUpdate(let state, let prevState):
+                self.navigationItem.title = state.title
 
-        viewModel.state
-            .map { state -> Bool in
-                switch state {
-                case .loading: return false
-                default: return true
+                switch state.loadingState {
+                case .loading:
+                    self.rightBarButtonItem.isEnabled = false
+                case .error(let error):
+                    print(error)
+                    self.rightBarButtonItem.isEnabled = true
+                    self.refreshControl.endRefreshing()
+                case .default:
+                    self.rightBarButtonItem.isEnabled = true
+                    self.refreshControl.endRefreshing()
                 }
+
+                let changes = diff(old: prevState?.photos ?? [], new: state.photos)
+
+                self.collectionView.reload(changes: changes, section: 0, completion: { _ in })
             }
-            .bind(to: rightBarButtonItem.rx.isEnabled)
-            .disposed(by: disposeBag)
+        }
+    }
 
-        // ViewController -> ViewModel
-        rightBarButtonItem.rx.tap
-            .bind(to: viewModel.reload)
-            .disposed(by: disposeBag)
+    // MARK: - Actions
+    @objc private func didTapLeftBarButtonItem() {
+        let layout = CollectionLayout(leftBarButtonItem.title ?? "")?.next ?? .list
 
-        refreshControl.rx.controlEvent(.valueChanged)
-            .bind(to: viewModel.reload)
-            .disposed(by: disposeBag)
+        collectionView.layout = layout
+        leftBarButtonItem.title = layout.icon
+    }
 
-        collectionView.rx.modelSelected(Photo.self)
-            .bind(to: viewModel.selectPhoto)
-            .disposed(by: disposeBag)
+    @objc private func didTapRightBarButtonItem() {
+        viewModel.reload()
+    }
 
-        collectionView.rx.didEndDisplayingCell
-            .subscribe(onNext: { item in
-                guard let cell = item.cell as? PhotoCell else {
-                    fatalError("Cell should be of type PhotoCell")
-                }
-                onEndDisplayingCell(cell)
-            })
-            .disposed(by: disposeBag)
-
+    @objc private func didToggleRefreshControl() {
+        viewModel.reload()
     }
 }
 
-private func setupPhotoCell(_ cell: PhotoCell, photo: Photo) {
-    cell.photo = photo
-}
+extension PhotoListViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return viewModel.numberOfItems()
+    }
 
-private func onEndDisplayingCell(_ cell: PhotoCell) {
-    cell.cancelDownloadIfNeeded()
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell: PhotoCell = collectionView.dequeueReusableCell(for: indexPath)
+        viewModel.configure(cell: cell, at: indexPath)
+        return cell
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        viewModel.didSelectItem(at: indexPath)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        guard let cell = cell as? PhotoCell else {
+            fatalError("Cell should be of type PhotoCell")
+        }
+        cell.cancelDownloadIfNeeded()
+    }
 }

@@ -17,11 +17,9 @@ class PhotosCoordinator: Coordinator<DeepLink> {
         super.init(router: router)
         let vm = PhotoListViewModel(title: "Latest")
         let vc = PhotoListViewController.instantiate(viewModel: vm)
-        vm.showPhoto
-            .subscribe(onNext: { [weak self] photo in
-                self?.showPhotoDetail(photo)
-            })
-            .disposed(by: disposeBag)
+        vm.showPhoto = { [weak self] photo in
+            self?.showPhotoDetail(photo)
+        }
         router.setRootModule(vc, hideBar: false)
     }
 

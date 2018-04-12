@@ -11,58 +11,85 @@ import Moya
 import RxSwift
 
 class PhotoListViewModel {
+    struct State {
+        enum LoadingState {
+            case
+            `default`,
+            loading,
+            error(Error)
+        }
 
-    // MARK: - Declarations
-    enum State {
-        case
-        `default`,
-        loading,
-        error(Error)
+        let title: String
+
+        var photos: [Photo]
+
+        var loadingState: LoadingState
     }
+
+    enum Action {
+        case stateDidUpdate(newState: State, prevState: State?)
+    }
+
+    typealias ActionClosure = (Action) -> Void
+
+    private var state: State {
+        didSet {
+            actionCallback?(.stateDidUpdate(newState: state, prevState: oldValue))
+        }
+    }
+
+    init(title: String, photoService: PhotoService = PhotoService()) {
+        self.photoService = photoService
+        state = State(
+            title: title,
+            photos: [],
+            loadingState: .default
+        )
+
+    }
+
+    var actionCallback: ActionClosure? {
+        didSet {
+            actionCallback?(.stateDidUpdate(newState: state, prevState: nil))
+        }
+    }
+
+    // MARK: - Private
+    private let disposeBag = DisposeBag()
+
+    private let photoService: PhotoService
 
     // MARK: - Public interface
     // MARK: Navigation output
-    let showPhoto: Observable<Photo>
+    var showPhoto: ((Photo) -> Void)?
 
     // MARK: Inputs
-    let selectPhoto: AnyObserver<Photo>
+    func didSelectItem(at indexPath: IndexPath) {
+        showPhoto?(state.photos[indexPath.row])
+    }
 
-    let reload: AnyObserver<Void>
+    func reload() {
+        state.loadingState = .loading
+        photoService
+            .getPhotos(page: 1)
+            .subscribe(onNext: { photos in
+                self.state = State(
+                    title: self.state.title,
+                    photos: photos,
+                    loadingState: .default
+                )
+            }, onError: { (error) in
+                self.state.loadingState = .error(error)
+            })
+            .disposed(by: disposeBag)
+    }
 
     // MARK: Outputs
-    let title: Observable<String>
+    func configure(cell: PhotoCell, at indexPath: IndexPath) {
+        cell.photo = state.photos[indexPath.row]
+    }
 
-    let photos: Observable<[Photo]>
-
-    let state: Observable<State>
-
-    init(title: String, photoService: PhotoService = PhotoService()) {
-
-        self.title = Observable.just(title)
-
-        let _state = BehaviorSubject<State>(value: .default)
-        self.state = _state.asObservable()
-
-        let _reload = PublishSubject<Void>()
-        self.reload = _reload.asObserver()
-
-        self.photos = _reload
-            .throttle(1.0, scheduler: Schedulers.background)
-            .flatMap { _ -> Observable<[Photo]> in
-                _state.onNext(.loading)
-                return photoService
-                    .getPhotos(page: 1)
-                    .do(onNext: { _ in
-                        _state.onNext(.default)
-                    })
-                    .catchError({ (error) in
-                        _state.onNext(.error(error))
-                        return Observable.just([])
-                    })
-            }
-
-        let _selectPhoto = PublishSubject<Photo>()
-        self.selectPhoto = _selectPhoto.asObserver()
-        self.showPhoto = _selectPhoto.asObservable()
+    func numberOfItems() -> Int {
+        return state.photos.count
     }
 }
