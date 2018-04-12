@@ -16,6 +16,7 @@ target 'Backgrounder' do
 
   # UI
   pod 'SwiftMessages'
+  pod 'DeepDiff'
 
   target 'BackgrounderTests' do
     inherit! :search_paths

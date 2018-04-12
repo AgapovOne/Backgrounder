@@ -2,6 +2,7 @@ PODS:
   - Alamofire (4.6.0)
   - AlamofireNetworkActivityIndicator (2.2.0):
     - Alamofire (~> 4.5)
+  - DeepDiff (1.1.2)
   - Kingfisher (4.6.1)
   - Moya/Core (11.0.0):
     - Alamofire (~> 4.1)
@@ -23,6 +24,7 @@ PODS:
 
 DEPENDENCIES:
   - AlamofireNetworkActivityIndicator
+  - DeepDiff
   - Kingfisher
   - Moya/RxSwift
   - Reusable
@@ -35,6 +37,7 @@ SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - Alamofire
     - AlamofireNetworkActivityIndicator
+    - DeepDiff
     - Kingfisher
     - Moya
     - Result
@@ -47,6 +50,7 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
   AlamofireNetworkActivityIndicator: 81e1630e7cfed22a4e4e82a174c59e651dc4f8ca
+  DeepDiff: 35c661301baeb2db083ea1b9af183daab6af1c05
   Kingfisher: 1f9157d9c02b380cbd0b7cc890161195164eb634
   Moya: be29766339783963a70d1279d69c891ab3a1393c
   Result: d2d07204ce72856f1fd9130bbe42c35a7b0fea10
@@ -56,6 +60,6 @@ SPEC CHECKSUMS:
   SwiftIconFont: ebd8ee931a1e7072b61a87aec53f3a0786ef7f2b
   SwiftMessages: 1bacc783c8f10bdfdc57c14860cae8a1f1fa6591
 
-PODFILE CHECKSUM: 1ffccce4bbe13315b8f1aad02e78a973ce0a6c7c
+PODFILE CHECKSUM: 6e15769afff233c7c2856847bc21f9a671484a75
 
 COCOAPODS: 1.5.0
