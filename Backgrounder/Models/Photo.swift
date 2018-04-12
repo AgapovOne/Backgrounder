@@ -8,11 +8,15 @@
 
 import Foundation
 
-struct Photo: Codable {
+struct Photo: Codable, Equatable {
     let id: String
     let description: String?
     let user: User
     let urls: Urls
     let width: Int
     let height: Int
+}
+
+extension Photo: Hashable {
+    var hashValue: Int { return id.hashValue }
 }

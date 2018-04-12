@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Urls: Codable {
+struct Urls: Codable, Equatable {
     let raw: URL
     let thumb: URL
     let small: URL
