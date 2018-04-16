@@ -68,6 +68,7 @@ class PhotoViewController: UIViewController, StoryboardSceneBased {
     private func setupHero() {
         hero.isEnabled = true
         imageView.hero.isEnabled = true
+        authorLabel.hero.isEnabled = true
     }
 
     private func setupViewModel() {
