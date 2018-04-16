@@ -19,6 +19,13 @@ class PhotoViewController: UIViewController, StoryboardSceneBased {
     // MARK: - UI Outlets
     @IBOutlet private var imageView: UIImageView!
     @IBOutlet private var authorLabel: UILabel!
+    @IBOutlet private var closeButton: UIButton! {
+        didSet {
+            closeButton.titleLabel?.font = Font.icon
+            closeButton.setTitle(Font.Icons.close, for: .normal)
+            closeButton.setTitleShadowColor(UIColor.black.withAlphaComponent(0.5), for: .normal)
+        }
+    }
     private lazy var rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save,
                                                           target: self,
                                                           action: #selector(didTapSaveButton))

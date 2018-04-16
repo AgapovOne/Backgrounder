@@ -1,19 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <array key="HelveticaNeue.ttc">
-            <string>HelveticaNeue</string>
-        </array>
-    </customFonts>
     <scenes>
         <!--Photo List View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -50,6 +46,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="102" y="87"/>
         </scene>
         <!--Photo View Controller-->
         <scene sceneID="c46-PS-S53">
@@ -70,22 +67,51 @@
                                 <color key="shadowColor" red="0.2784313725" green="0.2784313725" blue="0.2784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <size key="shadowOffset" width="0.0" height="1"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9YP-WG-JxT">
+                                <rect key="frame" x="0.0" y="44" width="80" height="80"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="80" id="QlM-j7-DZh"/>
+                                    <constraint firstAttribute="width" secondItem="9YP-WG-JxT" secondAttribute="height" multiplier="1:1" id="do2-d7-gou"/>
+                                </constraints>
+                                <state key="normal" title="Button">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="hero_dismissViewController" destination="NCj-Al-pBd" eventType="touchUpInside" id="pxq-N7-pm5"/>
+                                </connections>
+                            </button>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0h9-ca-hSr">
+                                <rect key="frame" x="32" y="44" width="311" height="4"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="4" id="Gbo-SP-han"/>
+                                </constraints>
+                                <color key="progressTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="trackTintColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                            </progressView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="x0v-cf-brA" secondAttribute="bottom" id="2r8-Nu-Pig"/>
                             <constraint firstItem="D2X-IT-RHD" firstAttribute="bottom" secondItem="6SK-NH-q7E" secondAttribute="bottom" id="3p2-20-NIc"/>
+                            <constraint firstItem="D2X-IT-RHD" firstAttribute="trailing" secondItem="0h9-ca-hSr" secondAttribute="trailing" constant="32" id="GAP-GS-1nn"/>
+                            <constraint firstItem="9YP-WG-JxT" firstAttribute="top" secondItem="D2X-IT-RHD" secondAttribute="top" id="SKH-Me-GQ5"/>
+                            <constraint firstItem="0h9-ca-hSr" firstAttribute="leading" secondItem="D2X-IT-RHD" secondAttribute="leading" constant="32" id="aJW-HG-Jn0"/>
                             <constraint firstAttribute="trailing" secondItem="x0v-cf-brA" secondAttribute="trailing" id="bMB-nj-G9D"/>
                             <constraint firstItem="6SK-NH-q7E" firstAttribute="leading" secondItem="D2X-IT-RHD" secondAttribute="leading" constant="16" id="cdw-Gv-aHb"/>
                             <constraint firstItem="D2X-IT-RHD" firstAttribute="trailing" secondItem="6SK-NH-q7E" secondAttribute="trailing" constant="16" id="eHi-9D-LK2"/>
+                            <constraint firstItem="0h9-ca-hSr" firstAttribute="top" secondItem="D2X-IT-RHD" secondAttribute="top" id="fEQ-Wo-n7m"/>
+                            <constraint firstItem="0h9-ca-hSr" firstAttribute="centerX" secondItem="D2X-IT-RHD" secondAttribute="centerX" id="fWp-tU-4hH"/>
                             <constraint firstItem="x0v-cf-brA" firstAttribute="top" secondItem="eFD-1u-7bU" secondAttribute="top" id="ggt-Zg-wxT"/>
                             <constraint firstItem="x0v-cf-brA" firstAttribute="leading" secondItem="eFD-1u-7bU" secondAttribute="leading" id="pPC-SY-JZo"/>
+                            <constraint firstItem="9YP-WG-JxT" firstAttribute="leading" secondItem="D2X-IT-RHD" secondAttribute="leading" id="tB4-gE-Peg"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="D2X-IT-RHD"/>
                     </view>
                     <connections>
                         <outlet property="authorLabel" destination="6SK-NH-q7E" id="e1z-Sl-bXH"/>
+                        <outlet property="closeButton" destination="9YP-WG-JxT" id="2lP-qf-SUL"/>
                         <outlet property="imageView" destination="x0v-cf-brA" id="l26-Sr-Q5j"/>
+                        <outlet property="progressView" destination="0h9-ca-hSr" id="eJR-pH-j5c"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="p21-Vv-3rx" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -93,4 +119,5 @@
             <point key="canvasLocation" x="921.73913043478262" y="87.228260869565219"/>
         </scene>
     </scenes>
+    <color key="tintColor" red="0.15868747234344482" green="0.21822044253349304" blue="0.30320093035697937" alpha="1" colorSpace="calibratedRGB"/>
 </document>

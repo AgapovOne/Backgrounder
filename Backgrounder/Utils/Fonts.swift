@@ -14,6 +14,7 @@ enum Font {
         static let list = String.fontThemifyIcon("view.list")!
         static let grid2 = String.fontThemifyIcon("layout.grid2")!
         static let grid3 = String.fontThemifyIcon("layout.grid3")!
+        static let close = String.fontThemifyIcon("close")!
     }
 
     static let icon = UIFont.icon(from: .Themify, ofSize: 15.0)
