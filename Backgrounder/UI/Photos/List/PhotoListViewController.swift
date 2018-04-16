@@ -49,6 +49,7 @@ final class PhotoListViewController: UIViewController, StoryboardSceneBased {
         super.viewDidLoad()
 
         setupUI()
+        setupHero()
         setupViewModel()
 
         refreshControl.sendActions(for: .valueChanged)
@@ -62,7 +63,12 @@ final class PhotoListViewController: UIViewController, StoryboardSceneBased {
 
         navigationItem.rightBarButtonItem = rightBarButtonItem
 
-        [UIControlState.normal, UIControlState.focused, UIControlState.highlighted].forEach({
+        [
+            UIControlState.normal,
+            UIControlState.focused,
+            UIControlState.highlighted
+        ]
+            .forEach({
             leftBarButtonItem.setTitleTextAttributes([
                 NSAttributedStringKey.font: Font.icon
                 ], for: $0)
@@ -70,6 +76,10 @@ final class PhotoListViewController: UIViewController, StoryboardSceneBased {
         navigationItem.leftBarButtonItem = leftBarButtonItem
 
         leftBarButtonItem.title = collectionView.layout.icon
+    }
+
+    private func setupHero() {
+        hero.isEnabled = true
     }
 
     private func setupViewModel() {

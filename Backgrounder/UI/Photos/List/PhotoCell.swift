@@ -9,6 +9,7 @@
 import UIKit
 import Reusable
 import Kingfisher
+import Hero
 
 final class PhotoCell: UICollectionViewCell, NibReusable {
 
@@ -24,6 +25,9 @@ final class PhotoCell: UICollectionViewCell, NibReusable {
 
     var photo: Photo! {
         didSet {
+            hero.isEnabled = true
+            imageView.hero.id = photo.id
+
             imageView.kf.setImage(with: photo.urls.regular,
                                   placeholder: UIImage.from(color: Configuration.Color.tintColor))
             nameLabel.text = photo.user.name

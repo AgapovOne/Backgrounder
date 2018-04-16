@@ -13,6 +13,7 @@ class PhotoViewModel {
         let author: String
         let thumbnailImageKey: String
         let fullURL: URL
+        let imageViewHeroID: String
     }
 
     enum Action {
@@ -32,7 +33,8 @@ class PhotoViewModel {
         self.state = State(
             author: "\(photo.user.username) \(photo.user.name)",
             thumbnailImageKey: photo.urls.regular.absoluteString,
-            fullURL: photo.urls.full
+            fullURL: photo.urls.full,
+            imageViewHeroID: photo.id
         )
     }
 

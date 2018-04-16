@@ -7,11 +7,9 @@
 //
 
 import UIKit
-import RxSwift
+import Hero
 
 class PhotosCoordinator: Coordinator<DeepLink> {
-
-    private let disposeBag = DisposeBag()
 
     override init(router: RouterType) {
         super.init(router: router)
@@ -25,7 +23,7 @@ class PhotosCoordinator: Coordinator<DeepLink> {
 
     private func showPhotoDetail(_ photo: Photo) {
         let vc = PhotoViewController.instantiate(viewModel: PhotoViewModel(photo: photo))
-        router.push(vc)
+        router.present(vc)
     }
 
 }

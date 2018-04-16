@@ -8,10 +8,9 @@
 
 import UIKit
 import Reusable
-import RxSwift
-import RxCocoa
 import SwiftMessages
 import Kingfisher
+import Hero
 
 class PhotoViewController: UIViewController, StoryboardSceneBased {
     // MARK: - Protocols
@@ -25,7 +24,6 @@ class PhotoViewController: UIViewController, StoryboardSceneBased {
                                                           action: #selector(didTapSaveButton))
 
     // MARK: - Properties
-    private let disposeBag = DisposeBag()
 
     private var viewModel: PhotoViewModel!
 
@@ -40,6 +38,7 @@ class PhotoViewController: UIViewController, StoryboardSceneBased {
         super.viewDidLoad()
 
         setupUI()
+        setupHero()
         setupViewModel()
     }
 
@@ -59,6 +58,11 @@ class PhotoViewController: UIViewController, StoryboardSceneBased {
         authorLabel.font = Font.text
     }
 
+    private func setupHero() {
+        hero.isEnabled = true
+        imageView.hero.isEnabled = true
+    }
+
     private func setupViewModel() {
         assert(viewModel != nil, "View Model should be instantiated. Use instantiate(viewModel:)")
 
@@ -66,6 +70,8 @@ class PhotoViewController: UIViewController, StoryboardSceneBased {
             guard let `self` = self else { return }
             switch action {
             case .stateDidUpdate(let state, let prevState):
+                self.imageView.hero.id = state.imageViewHeroID
+
                 self.imageView.kf.indicatorType = .activity
                 ImageCache.default.retrieveImage(forKey: state.thumbnailImageKey, options: nil) { (image, _) in
                     self.imageView.kf.setImage(with: state.fullURL, placeholder: image)
