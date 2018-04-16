@@ -10,10 +10,7 @@ import Foundation
 
 class PhotoViewModel {
     struct State {
-        let author: String
-        let thumbnailImageKey: String
-        let fullURL: URL
-        let imageViewHeroID: String
+        let photoViewData: PhotoViewData
     }
 
     enum Action {
@@ -29,12 +26,9 @@ class PhotoViewModel {
         }
     }
 
-    init(photo: Photo) {
+    init(photo: PhotoViewData) {
         self.state = State(
-            author: "\(photo.user.username) \(photo.user.name)",
-            thumbnailImageKey: photo.urls.regular.absoluteString,
-            fullURL: photo.urls.full,
-            imageViewHeroID: photo.id
+            photoViewData: photo
         )
     }
 

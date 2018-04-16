@@ -21,7 +21,7 @@ class PhotosCoordinator: Coordinator<DeepLink> {
         router.setRootModule(vc, hideBar: false)
     }
 
-    private func showPhotoDetail(_ photo: Photo) {
+    private func showPhotoDetail(_ photo: PhotoViewData) {
         let vc = PhotoViewController.instantiate(viewModel: PhotoViewModel(photo: photo))
         router.present(vc)
     }

@@ -23,14 +23,15 @@ final class PhotoCell: UICollectionViewCell, NibReusable {
         imageView.layer.masksToBounds = true
     }
 
-    var photo: Photo! {
+    var photo: PhotoViewData! {
         didSet {
             hero.isEnabled = true
             imageView.hero.id = photo.id
+            nameLabel.hero.id = photo.heroLabelID
 
-            imageView.kf.setImage(with: photo.urls.regular,
+            imageView.kf.setImage(with: photo.regularPhotoURL,
                                   placeholder: UIImage.from(color: Configuration.Color.tintColor))
-            nameLabel.text = photo.user.name
+            nameLabel.text = photo.photoCopyright
         }
     }
 

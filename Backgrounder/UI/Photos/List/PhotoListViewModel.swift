@@ -21,7 +21,7 @@ class PhotoListViewModel {
 
         let title: String
 
-        var photos: [Photo]
+        var photos: [PhotoViewData]
 
         var loadingState: LoadingState
     }
@@ -52,11 +52,11 @@ class PhotoListViewModel {
             photoService
                 .getPhotos(page: page)
                 .subscribe(onNext: { items in
-                    var photos = [Photo]()
+                    var photos = [PhotoViewData]()
                     if self.page == 1 {
-                        photos = items
+                        photos = items.map(PhotoViewData.init)
                     } else {
-                        photos = self.state.photos + items
+                        photos = self.state.photos + items.map(PhotoViewData.init)
                     }
                     self.state = State(
                         title: self.state.title,
@@ -94,7 +94,7 @@ class PhotoListViewModel {
 
     // MARK: - Public interface
     // MARK: Navigation output
-    var showPhoto: ((Photo) -> Void)?
+    var showPhoto: ((PhotoViewData) -> Void)?
 
     // MARK: Inputs
     func didSelectItem(at indexPath: IndexPath) {

@@ -77,13 +77,14 @@ class PhotoViewController: UIViewController, StoryboardSceneBased {
             guard let `self` = self else { return }
             switch action {
             case .stateDidUpdate(let state, let prevState):
-                self.imageView.hero.id = state.imageViewHeroID
+                self.imageView.hero.id = state.photoViewData.id
+                self.authorLabel.hero.id = state.photoViewData.heroLabelID
 
-                self.imageView.kf.indicatorType = .activity
-                ImageCache.default.retrieveImage(forKey: state.thumbnailImageKey, options: nil) { (image, _) in
-                    self.imageView.kf.setImage(with: state.fullURL, placeholder: image)
+                self.imageView.kf.indicatorType = IndicatorType.activity
+                ImageCache.default.retrieveImage(forKey: state.photoViewData.regularImageCacheKey, options: nil) { (image, _) in
+                    self.imageView.kf.setImage(with: state.photoViewData.fullPhotoURL, placeholder: image)
                 }
-                self.authorLabel.text = state.author
+                self.authorLabel.text = state.photoViewData.photoCopyright
             case .didFinishDownload(let isSuccess):
                 if isSuccess {
                     self.showSuccessMessage()
