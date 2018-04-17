@@ -118,7 +118,6 @@ class PhotoViewController: UIViewController, StoryboardSceneBased {
     @objc private func handlePan(gestureRecognizer: UIPanGestureRecognizer) {
         // calculate the progress based on how far the user moved
         let translation = panGR.translation(in: nil)
-        guard translation.y > 0 else { return }
         let progress = translation.y / 2 / view.bounds.height
 
         switch panGR.state {
@@ -127,6 +126,7 @@ class PhotoViewController: UIViewController, StoryboardSceneBased {
             dismiss(animated: true, completion: nil)
         case .changed:
             Hero.shared.update(progress)
+            guard translation.y > 0 else { return }
 
             // update views' position based on the translation
             let imagePosition = CGPoint(x: imageView.center.x,
@@ -146,7 +146,10 @@ class PhotoViewController: UIViewController, StoryboardSceneBased {
                 ], to: closeButton)
         default:
             // finish or cancel the transition based on the progress and user's touch velocity
-            if progress + panGR.velocity(in: nil).y / view.bounds.height > 0.3 {
+            if
+                translation.y > 0,
+                progress + panGR.velocity(in: nil).y / view.bounds.height > 0.3
+            {
                 Hero.shared.finish()
             } else {
                 Hero.shared.cancel()
