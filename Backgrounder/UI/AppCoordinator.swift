@@ -27,7 +27,7 @@ final class AppCoordinator: Coordinator<DeepLink> {
             runMainFlow()
         case .onboarding?:
             runOnboardingFlow()
-        default:
+        case nil:
             runMainFlow()
         }
     }
