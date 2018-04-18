@@ -2,18 +2,30 @@
 //  PhotoService.swift
 //  Backgrounder
 //
-//  Created by Alex Agapov on 12/12/2017.
-//  Copyright © 2017 Alex Agapov. All rights reserved.
+//  Created by Aleksey Agapov on 18/04/2018.
+//  Copyright © 2018 Alex Agapov. All rights reserved.
 //
 
 import Foundation
-import RxSwift
+import Photos
 
 class PhotoService {
-    func getPhotos(page: Int, perPage: Int = 40, orderBy: OrderBy = .latest) -> Observable<[Photo]> {
-        return Provider.default.rx
-            .request(.photos(page: page, perPage: perPage, orderBy: orderBy))
-            .map(Array<Photo>.self)
-            .asObservable()
+    func tryToSave(image: UIImage, completion: ((Bool) -> Void)? = nil) {
+        PHPhotoLibrary.requestAuthorization { (status) in
+            switch status {
+            case .authorized:
+                PHPhotoLibrary.shared().performChanges({
+                    PHAssetChangeRequest.creationRequestForAsset(from: image)
+                }, completionHandler: { (isSuccess, error) in
+                    if isSuccess {
+                        completion?(true)
+                    } else {
+                        completion?(false)
+                    }
+                })
+            default:
+                completion?(false)
+            }
+        }
     }
 }
