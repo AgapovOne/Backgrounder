@@ -139,8 +139,10 @@ class PhotoViewController: UIViewController, StoryboardSceneBased {
 
         } else {
             ImageCache.default.retrieveImage(forKey: regularPhotoURL.cacheKey, options: nil) { [weak self] (image, _) in
-                DispatchQueue.main.async {
-                    self?.backgroundImageView.image = image?.kf.blurred(withRadius: 20.0)
+                image.flatMap { image in
+                    DispatchQueue.main.async {
+                        self?.backgroundImageView.image = image.kf.blurred(withRadius: 20.0)
+                    }
                 }
 
                 self?.imageView.kf.setImage(with: fullPhotoURL, placeholder: image, completionHandler: { (fullImage, _, _, _) in
