@@ -22,6 +22,8 @@
 	<true/>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>App would add images to your phone Photo Library</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>App would use your phone Photo Library to update images we save</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>themify.ttf</string>
