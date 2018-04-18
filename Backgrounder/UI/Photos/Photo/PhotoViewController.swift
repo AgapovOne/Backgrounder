@@ -30,8 +30,17 @@ class PhotoViewController: UIViewController, StoryboardSceneBased {
     @IBOutlet private var saveButton: UIButton! {
         didSet {
             saveButton.titleLabel?.font = Font.icon
-            saveButton.setTitle(Font.Icons.save, for: .normal)
+            saveButton.setTitle(Font.Icons.gallery, for: .normal)
             saveButton.setTitleShadowColor(UIColor.black.withAlphaComponent(0.5), for: .normal)
+            saveButton.setTitleColor(UIColor.white.withAlphaComponent(0.5), for: .disabled)
+        }
+    }
+    @IBOutlet private var shareButton: UIButton! {
+        didSet {
+            shareButton.titleLabel?.font = Font.icon
+            shareButton.setTitle(Font.Icons.share, for: .normal)
+            shareButton.setTitleShadowColor(UIColor.black.withAlphaComponent(0.5), for: .normal)
+            shareButton.setTitleColor(UIColor.white.withAlphaComponent(0.5), for: .disabled)
         }
     }
 
@@ -88,11 +97,15 @@ class PhotoViewController: UIViewController, StoryboardSceneBased {
 
                 self.authorLabel.text = state.photoViewData.photoCopyright
 
-                self.saveButton.isEnabled = state.isSaveAvailable
+                [self.saveButton, self.shareButton].forEach {
+                    $0.isEnabled = state.isFullPhotoAvailable
+                }
             case .didFinishDownload(let isSuccess):
                 if isSuccess {
                     self.showSuccessMessage()
                 }
+            case .showShare(let image):
+                self.showShare(image: image)
             }
         }
     }
@@ -104,6 +117,7 @@ class PhotoViewController: UIViewController, StoryboardSceneBased {
     }
 
     private func setupActions() {
+        shareButton.addTarget(self, action: #selector(tapShareButton), for: .touchUpInside)
         saveButton.addTarget(self, action: #selector(tapSaveButton), for: .touchUpInside)
     }
 
@@ -113,6 +127,14 @@ class PhotoViewController: UIViewController, StoryboardSceneBased {
         view.configureTheme(.success)
         view.configureContent(title: "Saved", body: "Photo saved to your Camera Roll")
         SwiftMessages.show(view: view)
+    }
+
+    private func showShare(image: UIImage) {
+        // set up activity view controller
+        let imageToShare = [image]
+        let activityViewController = UIActivityViewController(activityItems: imageToShare, applicationActivities: nil)
+
+        present(activityViewController, animated: true)
     }
 
     private func downloadFullPhotoIfNeeded(fullPhotoURL: URL, regularPhotoURL: URL) {
@@ -137,6 +159,10 @@ class PhotoViewController: UIViewController, StoryboardSceneBased {
     }
 
     // MARK: - Actions
+    @objc private func tapShareButton() {
+        viewModel.shareButtonPressed()
+    }
+
     @objc private func tapSaveButton() {
         viewModel.saveButtonPressed()
     }
@@ -162,15 +188,9 @@ class PhotoViewController: UIViewController, StoryboardSceneBased {
                                        y: translation.y + authorLabel.center.y)
             let closePosition = CGPoint(x: closeButton.center.x,
                                        y: translation.y + closeButton.center.y)
-            Hero.shared.apply(modifiers: [
-                .position(imagePosition)
-                ], to: imageView)
-            Hero.shared.apply(modifiers: [
-                .position(authorPosition)
-                ], to: authorLabel)
-            Hero.shared.apply(modifiers: [
-                .position(closePosition)
-                ], to: closeButton)
+            Hero.shared.apply(modifiers: [.position(imagePosition)], to: imageView)
+            Hero.shared.apply(modifiers: [.position(authorPosition)], to: authorLabel)
+            Hero.shared.apply(modifiers: [.position(closePosition)], to: closeButton)
         default:
             // finish or cancel the transition based on the progress and user's touch velocity
             if

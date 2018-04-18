@@ -19,6 +19,7 @@ class PhotoViewModel {
     enum Action {
         case stateDidUpdate(newState: State, prevState: State?)
         case didFinishDownload(isSuccess: Bool)
+        case showShare(image: UIImage)
     }
 
     typealias ActionClosure = (Action) -> Void
@@ -52,6 +53,13 @@ class PhotoViewModel {
     }
 
     // MARK: Inputs
+    func shareButtonPressed() {
+        ImageCache.default.retrieveImage(forKey: state.photoViewData.fullPhotoURL.cacheKey, options: nil) { [weak self] (image, _) in
+            guard let image = image else { return }
+            self?.actionCallback?(.showShare(image: image))
+        }
+    }
+
     func saveButtonPressed() {
         // Download logic
         ImageCache.default.retrieveImage(forKey: state.photoViewData.fullPhotoURL.cacheKey, options: nil) { [weak self] (image, _) in
