@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		371AFE1F20875E0D00028591 /* PhotoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371AFE1E20875E0D00028591 /* PhotoService.swift */; };
+		371AFE22208780D600028591 /* CircleIconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371AFE21208780D600028591 /* CircleIconButton.swift */; };
 		37452154207F32580097D202 /* DeepLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37452153207F32580097D202 /* DeepLink.swift */; };
 		37452159207F6A460097D202 /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37452158207F6A460097D202 /* UIImage+Extensions.swift */; };
 		3778742C2084C1F90034B000 /* PhotoViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3778742B2084C1F90034B000 /* PhotoViewData.swift */; };
@@ -63,6 +64,7 @@
 /* Begin PBXFileReference section */
 		006754C39C9A5262079CB3E0 /* Pods-BackgrounderTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BackgrounderTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BackgrounderTests/Pods-BackgrounderTests.debug.xcconfig"; sourceTree = "<group>"; };
 		371AFE1E20875E0D00028591 /* PhotoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoService.swift; sourceTree = "<group>"; };
+		371AFE21208780D600028591 /* CircleIconButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleIconButton.swift; sourceTree = "<group>"; };
 		37452153207F32580097D202 /* DeepLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLink.swift; sourceTree = "<group>"; };
 		37452158207F6A460097D202 /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
 		3778742B2084C1F90034B000 /* PhotoViewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewData.swift; sourceTree = "<group>"; };
@@ -151,6 +153,14 @@
 			path = API;
 			sourceTree = "<group>";
 		};
+		371AFE20208780C500028591 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				371AFE21208780D600028591 /* CircleIconButton.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
 		37452155207F49AD0097D202 /* Services */ = {
 			isa = PBXGroup;
 			children = (
@@ -175,6 +185,7 @@
 				8DD3B72B207BE8F000E2ECFB /* AppCoordinator.swift */,
 				37452153207F32580097D202 /* DeepLink.swift */,
 				8D513A281FE03F5A00286C2A /* Photos */,
+				371AFE20208780C500028591 /* Common */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -539,6 +550,7 @@
 				8D8AB3421FD728F8005D7494 /* PhotoCell.swift in Sources */,
 				8D8AB33E1FD72101005D7494 /* Photo.swift in Sources */,
 				8D513A2B1FE03F7E00286C2A /* PhotoViewModel.swift in Sources */,
+				371AFE22208780D600028591 /* CircleIconButton.swift in Sources */,
 				8D8AB3361FD71B7B005D7494 /* Unsplash.swift in Sources */,
 				3778742C2084C1F90034B000 /* PhotoViewData.swift in Sources */,
 				371AFE1F20875E0D00028591 /* PhotoService.swift in Sources */,

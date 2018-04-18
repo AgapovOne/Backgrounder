@@ -20,27 +20,19 @@ class PhotoViewController: UIViewController, StoryboardSceneBased {
     @IBOutlet private var backgroundImageView: UIImageView!
     @IBOutlet private var imageView: UIImageView!
     @IBOutlet private var authorLabel: UILabel!
-    @IBOutlet private var closeButton: UIButton! {
+    @IBOutlet private var closeButton: CircleIconButton! {
         didSet {
-            closeButton.titleLabel?.font = Font.icon
-            closeButton.setTitle(Font.Icons.close, for: .normal)
-            closeButton.setTitleShadowColor(UIColor.black.withAlphaComponent(0.5), for: .normal)
+            closeButton.icon = Font.Icons.close
         }
     }
-    @IBOutlet private var saveButton: UIButton! {
+    @IBOutlet private var saveButton: CircleIconButton! {
         didSet {
-            saveButton.titleLabel?.font = Font.icon
-            saveButton.setTitle(Font.Icons.gallery, for: .normal)
-            saveButton.setTitleShadowColor(UIColor.black.withAlphaComponent(0.5), for: .normal)
-            saveButton.setTitleColor(UIColor.white.withAlphaComponent(0.5), for: .disabled)
+            saveButton.icon = Font.Icons.gallery
         }
     }
-    @IBOutlet private var shareButton: UIButton! {
+    @IBOutlet private var shareButton: CircleIconButton! {
         didSet {
-            shareButton.titleLabel?.font = Font.icon
-            shareButton.setTitle(Font.Icons.share, for: .normal)
-            shareButton.setTitleShadowColor(UIColor.black.withAlphaComponent(0.5), for: .normal)
-            shareButton.setTitleColor(UIColor.white.withAlphaComponent(0.5), for: .disabled)
+            shareButton.icon = Font.Icons.share
         }
     }
 
