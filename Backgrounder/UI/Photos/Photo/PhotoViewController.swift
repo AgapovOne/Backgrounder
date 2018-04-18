@@ -178,15 +178,11 @@ class PhotoViewController: UIViewController, StoryboardSceneBased {
             guard translation.y > 0 else { return }
 
             // update views' position based on the translation
-            let imagePosition = CGPoint(x: imageView.center.x,
-                                        y: translation.y + imageView.center.y)
-            let authorPosition = CGPoint(x: authorLabel.center.x,
-                                       y: translation.y + authorLabel.center.y)
-            let closePosition = CGPoint(x: closeButton.center.x,
-                                       y: translation.y + closeButton.center.y)
-            Hero.shared.apply(modifiers: [.position(imagePosition)], to: imageView)
-            Hero.shared.apply(modifiers: [.position(authorPosition)], to: authorLabel)
-            Hero.shared.apply(modifiers: [.position(closePosition)], to: closeButton)
+            ([imageView, authorLabel, closeButton, shareButton, saveButton] as [UIView]).forEach {
+                let pos = CGPoint(x: $0.center.x,
+                                  y: translation.y + $0.center.y)
+                Hero.shared.apply(modifiers: [.position(pos)], to: $0)
+            }
         default:
             // finish or cancel the transition based on the progress and user's touch velocity
             if
