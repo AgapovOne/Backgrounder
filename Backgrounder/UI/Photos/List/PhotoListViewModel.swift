@@ -11,6 +11,7 @@ import Moya
 import RxSwift
 
 class PhotoListViewModel {
+    // MARK: - Declarations
     struct State {
         enum LoadingState {
             case
@@ -32,52 +33,22 @@ class PhotoListViewModel {
 
     typealias ActionClosure = (Action) -> Void
 
+    // MARK: - Properties
     private var state: State {
         didSet {
             actionCallback?(.stateDidUpdate(newState: state, prevState: oldValue))
         }
     }
-    // MARK: - Private
+
     private let disposeBag = DisposeBag()
 
-    private let photoService: PhotoService
+    private let photoAPIService: PhotoAPIService
 
     private var page = 1
 
-    private func load() {
-        switch state.loadingState {
-        case .loading: break
-        default:
-            state.loadingState = .loading
-            photoService
-                .getPhotos(page: page)
-                .subscribe(onNext: { items in
-                    var photos = [PhotoViewData]()
-                    if self.page == 1 {
-                        photos = items.map(PhotoViewData.init)
-                    } else {
-                        photos = self.state.photos + items.map(PhotoViewData.init)
-                    }
-                    self.state = State(
-                        title: self.state.title,
-                        photos: photos,
-                        loadingState: .default
-                    )
-                }, onError: { (error) in
-                    self.state.loadingState = .error(error)
-                })
-                .disposed(by: disposeBag)
-        }
-    }
-
-    private func loadNext() {
-        page += 1
-        load()
-    }
-
     // MARK: - Lifecycle
-    init(title: String, photoService: PhotoService = PhotoService()) {
-        self.photoService = photoService
+    init(title: String, photoAPIService: PhotoAPIService = PhotoAPIService()) {
+        self.photoAPIService = photoAPIService
         state = State(
             title: title,
             photos: [],
@@ -86,13 +57,13 @@ class PhotoListViewModel {
 
     }
 
+    // MARK: - Public interface
     var actionCallback: ActionClosure? {
         didSet {
             actionCallback?(.stateDidUpdate(newState: state, prevState: nil))
         }
     }
 
-    // MARK: - Public interface
     // MARK: Navigation output
     var showPhoto: ((PhotoViewData) -> Void)?
 
@@ -119,5 +90,37 @@ class PhotoListViewModel {
         if indexPath.row == state.photos.count - 1 {
             loadNext()
         }
+    }
+
+    // MARK: - Private
+    private func load() {
+        switch state.loadingState {
+        case .loading: break
+        default:
+            state.loadingState = .loading
+            photoAPIService
+                .getPhotos(page: page)
+                .subscribe(onNext: { items in
+                    var photos = [PhotoViewData]()
+                    if self.page == 1 {
+                        photos = items.map(PhotoViewData.init)
+                    } else {
+                        photos = self.state.photos + items.map(PhotoViewData.init)
+                    }
+                    self.state = State(
+                        title: self.state.title,
+                        photos: photos,
+                        loadingState: .default
+                    )
+                }, onError: { (error) in
+                    self.state.loadingState = .error(error)
+                })
+                .disposed(by: disposeBag)
+        }
+    }
+
+    private func loadNext() {
+        page += 1
+        load()
     }
 }

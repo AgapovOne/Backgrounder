@@ -32,15 +32,17 @@ class PhotoViewModel {
         )
     }
 
+    // MARK: - Public interface
     var actionCallback: ActionClosure? {
         didSet {
             actionCallback?(.stateDidUpdate(newState: state, prevState: nil))
         }
     }
 
-    // Inputs
+    // MARK: Inputs
     func saveButtonPressed() {
         // Download logic
         actionCallback?(.didFinishDownload(isSuccess: true))
+    // MARK: - Private
     }
 }

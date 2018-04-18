@@ -20,20 +20,16 @@ struct PhotoViewData: Hashable {
         return "label\(photo.id)"
     }
 
-    var photoCopyright: String {
-        return "photo by \(photo.user.username) (\(photo.user.name))"
-    }
-
-    var regularImageCacheKey: String {
-        return photo.urls.regular.absoluteString
-    }
-
     var fullPhotoURL: URL {
         return photo.urls.full
     }
 
     var regularPhotoURL: URL {
         return photo.urls.regular
+    }
+
+    var photoCopyright: String {
+        return "photo by \(photo.user.username) (\(photo.user.name))"
     }
 
     init(_ photo: Photo) {

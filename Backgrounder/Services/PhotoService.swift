@@ -16,7 +16,7 @@ class PhotoService {
             case .authorized:
                 PHPhotoLibrary.shared().performChanges({
                     PHAssetChangeRequest.creationRequestForAsset(from: image)
-                }, completionHandler: { (isSuccess, error) in
+                }, completionHandler: { (isSuccess, _) in
                     if isSuccess {
                         completion?(true)
                     } else {
