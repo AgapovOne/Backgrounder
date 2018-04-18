@@ -11,8 +11,6 @@ import Reusable
 import SwiftMessages
 import Kingfisher
 import Hero
-import RxCocoa
-import RxSwift
 
 class PhotoViewController: UIViewController, StoryboardSceneBased {
     // MARK: - Protocols
@@ -38,8 +36,6 @@ class PhotoViewController: UIViewController, StoryboardSceneBased {
     }
 
     // MARK: - Properties
-    private let disposeBag = DisposeBag()
-
     private var viewModel: PhotoViewModel!
 
     private var panGR: UIPanGestureRecognizer!
@@ -115,9 +111,7 @@ class PhotoViewController: UIViewController, StoryboardSceneBased {
     }
 
     private func setupActions() {
-        saveButton.rx.controlEvent(.touchUpInside).subscribe(onNext: { [weak self] in
-            self?.viewModel.saveButtonPressed()
-        }).disposed(by: disposeBag)
+        saveButton.addTarget(self, action: #selector(tapSaveButton), for: .touchUpInside)
     }
 
     // MARK: - Logic
@@ -126,6 +120,12 @@ class PhotoViewController: UIViewController, StoryboardSceneBased {
         view.configureTheme(.success)
         view.configureContent(title: "Saved", body: "Photo saved to your Camera Roll")
         SwiftMessages.show(view: view)
+    }
+
+
+    // MARK: - Actions
+    @objc private func tapSaveButton() {
+        viewModel.saveButtonPressed()
     }
 
     // MARK: - Handlers
