@@ -16,7 +16,7 @@ enum Font {
         static let grid3 = String.fontThemifyIcon("layout.grid3")!
 
         static let close = String.fontThemifyIcon("close")!
-        static let gallery = String.fontThemifyIcon("gallery")!
+        static let download = String.fontThemifyIcon("download")!
         static let share = String.fontThemifyIcon("share")!
     }
 

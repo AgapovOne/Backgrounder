@@ -27,7 +27,7 @@ class PhotoViewController: UIViewController, StoryboardSceneBased {
     }
     @IBOutlet private var saveButton: CircleIconButton! {
         didSet {
-            saveButton.icon = Font.Icons.gallery
+            saveButton.icon = Font.Icons.download
         }
     }
     @IBOutlet private var shareButton: CircleIconButton! {
