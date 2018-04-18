@@ -64,6 +64,7 @@ class PhotoViewController: UIViewController, StoryboardSceneBased {
         }
 
         authorLabel.font = Font.text
+        self.imageView.kf.indicatorType = IndicatorType.activity
     }
 
     private func setupHero() {
@@ -82,16 +83,8 @@ class PhotoViewController: UIViewController, StoryboardSceneBased {
                 self.imageView.hero.id = state.photoViewData.id
                 self.authorLabel.hero.id = state.photoViewData.heroLabelID
 
-                self.imageView.kf.indicatorType = IndicatorType.activity
-                ImageCache.default.retrieveImage(forKey: state.photoViewData.regularPhotoURL.cacheKey, options: nil) { (image, _) in
-                    DispatchQueue.main.async {
-                        self.backgroundImageView.image = image?.kf.blurred(withRadius: 20.0)
-                    }
-
-                    self.imageView.kf.setImage(with: state.photoViewData.fullPhotoURL, placeholder: image, completionHandler: { (_, _, _, _) in
-                        self.viewModel.fullPhotoDownloaded()
-                    })
-                }
+                self.downloadFullPhotoIfNeeded(fullPhotoURL: state.photoViewData.fullPhotoURL,
+                                               regularPhotoURL: state.photoViewData.regularPhotoURL)
 
                 self.authorLabel.text = state.photoViewData.photoCopyright
 
@@ -122,6 +115,26 @@ class PhotoViewController: UIViewController, StoryboardSceneBased {
         SwiftMessages.show(view: view)
     }
 
+    private func downloadFullPhotoIfNeeded(fullPhotoURL: URL, regularPhotoURL: URL) {
+        if
+            imageView.kf.webURL?.cacheKey == fullPhotoURL.cacheKey,
+            ImageCache.default.imageCachedType(forKey: fullPhotoURL.cacheKey).cached
+        {
+
+        } else {
+            ImageCache.default.retrieveImage(forKey: regularPhotoURL.cacheKey, options: nil) { [weak self] (image, _) in
+                DispatchQueue.main.async {
+                    self?.backgroundImageView.image = image?.kf.blurred(withRadius: 20.0)
+                }
+
+                self?.imageView.kf.setImage(with: fullPhotoURL, placeholder: image, completionHandler: { (fullImage, _, _, _) in
+                    if fullImage != nil {
+                        self?.viewModel.fullPhotoDownloaded()
+                    }
+                })
+            }
+        }
+    }
 
     // MARK: - Actions
     @objc private func tapSaveButton() {

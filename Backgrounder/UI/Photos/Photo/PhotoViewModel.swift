@@ -13,7 +13,7 @@ class PhotoViewModel {
     // MARK: - Declarations
     struct State {
         let photoViewData: PhotoViewData
-        var isSaveAvailable: Bool
+        var isFullPhotoAvailable: Bool
     }
 
     enum Action {
@@ -39,9 +39,9 @@ class PhotoViewModel {
         self.photoService = photoService
         self.state = State(
             photoViewData: photo,
-            isSaveAvailable: false
+            isFullPhotoAvailable: false
         )
-        checkPhotoAvailability()
+        updateFullPhotoStatus()
     }
 
     // MARK: - Public interface
@@ -54,7 +54,7 @@ class PhotoViewModel {
     // MARK: Inputs
     func saveButtonPressed() {
         // Download logic
-        checkPhotoAvailability { [weak self] image in
+        ImageCache.default.retrieveImage(forKey: state.photoViewData.fullPhotoURL.cacheKey, options: nil) { [weak self] (image, _) in
             guard let image = image else {
                 DispatchQueue.main.async {
                     self?.actionCallback?(.didFinishDownload(isSuccess: false))
@@ -70,14 +70,11 @@ class PhotoViewModel {
     }
 
     func fullPhotoDownloaded() {
-        checkPhotoAvailability()
+        updateFullPhotoStatus()
     }
 
     // MARK: - Private
-    private func checkPhotoAvailability(completion: ((Image?) -> Void)? = nil) {
-        ImageCache.default.retrieveImage(forKey: state.photoViewData.fullPhotoURL.cacheKey, options: nil) { [weak self] (image, _) in
-            self?.state.isSaveAvailable = image != nil
-            completion?(image)
-        }
+    private func updateFullPhotoStatus() {
+        state.isFullPhotoAvailable = ImageCache.default.imageCachedType(forKey: state.photoViewData.fullPhotoURL.cacheKey).cached
     }
 }
