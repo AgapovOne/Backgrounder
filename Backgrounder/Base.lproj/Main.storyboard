@@ -60,7 +60,7 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IIY-Wz-oPi">
                                 <rect key="frame" x="0.0" y="44" width="375" height="768"/>
                             </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="x0v-cf-brA">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="x0v-cf-brA">
                                 <rect key="frame" x="0.0" y="44" width="375" height="734"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ERb-dG-qyo">
@@ -108,19 +108,19 @@
                         <constraints>
                             <constraint firstItem="D2X-IT-RHD" firstAttribute="bottom" secondItem="6SK-NH-q7E" secondAttribute="bottom" constant="8" id="3p2-20-NIc"/>
                             <constraint firstItem="IIY-Wz-oPi" firstAttribute="leading" secondItem="eFD-1u-7bU" secondAttribute="leading" id="3pJ-dm-47l"/>
+                            <constraint firstItem="D2X-IT-RHD" firstAttribute="trailing" secondItem="x0v-cf-brA" secondAttribute="trailing" id="5cw-In-ua2"/>
                             <constraint firstItem="njf-jh-Yx2" firstAttribute="leading" secondItem="D2X-IT-RHD" secondAttribute="leading" id="CC0-zP-zpd"/>
+                            <constraint firstItem="x0v-cf-brA" firstAttribute="leading" secondItem="D2X-IT-RHD" secondAttribute="leading" id="DIW-ZP-0qY"/>
                             <constraint firstAttribute="trailing" secondItem="IIY-Wz-oPi" secondAttribute="trailing" id="IfE-Es-cdu"/>
                             <constraint firstAttribute="bottom" secondItem="IIY-Wz-oPi" secondAttribute="bottom" id="MzV-IQ-MWd"/>
-                            <constraint firstItem="D2X-IT-RHD" firstAttribute="trailing" secondItem="x0v-cf-brA" secondAttribute="trailing" id="Rl5-5Q-ZQr"/>
                             <constraint firstItem="9YP-WG-JxT" firstAttribute="top" secondItem="D2X-IT-RHD" secondAttribute="top" id="SKH-Me-GQ5"/>
                             <constraint firstItem="D2X-IT-RHD" firstAttribute="trailing" secondItem="ERb-dG-qyo" secondAttribute="trailing" id="VVa-zH-Zk0"/>
+                            <constraint firstItem="x0v-cf-brA" firstAttribute="bottom" secondItem="D2X-IT-RHD" secondAttribute="bottom" id="ZZ3-fA-mnP"/>
                             <constraint firstAttribute="topMargin" secondItem="IIY-Wz-oPi" secondAttribute="top" id="ahO-7e-DoB"/>
-                            <constraint firstItem="D2X-IT-RHD" firstAttribute="top" secondItem="x0v-cf-brA" secondAttribute="top" id="bpa-zf-ugN"/>
-                            <constraint firstItem="x0v-cf-brA" firstAttribute="bottom" secondItem="D2X-IT-RHD" secondAttribute="bottom" id="c4W-Dt-ZrM"/>
                             <constraint firstItem="6SK-NH-q7E" firstAttribute="leading" secondItem="D2X-IT-RHD" secondAttribute="leading" constant="16" id="cdw-Gv-aHb"/>
                             <constraint firstItem="D2X-IT-RHD" firstAttribute="trailing" secondItem="6SK-NH-q7E" secondAttribute="trailing" constant="16" id="eHi-9D-LK2"/>
-                            <constraint firstItem="x0v-cf-brA" firstAttribute="leading" secondItem="D2X-IT-RHD" secondAttribute="leading" id="i5B-wL-0JG"/>
                             <constraint firstItem="ERb-dG-qyo" firstAttribute="width" secondItem="ERb-dG-qyo" secondAttribute="height" multiplier="1:1" id="ng1-ZD-TrT"/>
+                            <constraint firstItem="x0v-cf-brA" firstAttribute="top" secondItem="D2X-IT-RHD" secondAttribute="top" id="odh-Lz-H60"/>
                             <constraint firstItem="9YP-WG-JxT" firstAttribute="leading" secondItem="D2X-IT-RHD" secondAttribute="leading" id="tB4-gE-Peg"/>
                             <constraint firstItem="6SK-NH-q7E" firstAttribute="top" secondItem="njf-jh-Yx2" secondAttribute="bottom" id="x66-Jg-Bvq"/>
                             <constraint firstItem="6SK-NH-q7E" firstAttribute="top" secondItem="ERb-dG-qyo" secondAttribute="bottom" id="xSE-9s-0qe"/>
