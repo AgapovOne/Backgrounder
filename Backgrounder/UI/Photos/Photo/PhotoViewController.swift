@@ -65,13 +65,15 @@ class PhotoViewController: UIViewController, StoryboardSceneBased {
         }
 
         authorLabel.font = Font.text
-        self.imageView.kf.indicatorType = IndicatorType.activity
+        imageView.kf.indicatorType = IndicatorType.activity
+        backgroundImageView.image = UIImage.from(color: Configuration.Color.tintColor)
     }
 
     private func setupHero() {
         hero.isEnabled = true
-        imageView.hero.isEnabled = true
-        authorLabel.hero.isEnabled = true
+        [imageView, authorLabel, closeButton, saveButton, shareButton].forEach {
+            $0.hero.isEnabled = true
+        }
     }
 
     private func setupViewModel() {
@@ -81,7 +83,7 @@ class PhotoViewController: UIViewController, StoryboardSceneBased {
             guard let `self` = self else { return }
             switch action {
             case .stateDidUpdate(let state, let prevState):
-                self.imageView.hero.id = state.photoViewData.id
+                self.imageView.hero.id = state.photoViewData.heroID
                 self.authorLabel.hero.id = state.photoViewData.heroLabelID
 
                 self.downloadFullPhotoIfNeeded(fullPhotoURL: state.photoViewData.fullPhotoURL,

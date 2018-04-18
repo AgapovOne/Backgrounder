@@ -16,6 +16,10 @@ struct PhotoViewData: Hashable {
         return photo.id
     }
 
+    var heroID: String {
+        return id
+    }
+
     var heroLabelID: String {
         return "label\(photo.id)"
     }

@@ -26,7 +26,7 @@ final class PhotoCell: UICollectionViewCell, NibReusable {
     var photo: PhotoViewData! {
         didSet {
             hero.isEnabled = true
-            imageView.hero.id = photo.id
+            imageView.hero.id = photo.heroID
             nameLabel.hero.id = photo.heroLabelID
 
             imageView.kf.setImage(with: photo.regularPhotoURL,
