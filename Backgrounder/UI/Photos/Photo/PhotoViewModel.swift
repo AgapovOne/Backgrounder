@@ -7,10 +7,13 @@
 //
 
 import Foundation
+import Kingfisher
 
 class PhotoViewModel {
+    // MARK: - Declarations
     struct State {
         let photoViewData: PhotoViewData
+        var isSaveAvailable: Bool
     }
 
     enum Action {
@@ -20,16 +23,25 @@ class PhotoViewModel {
 
     typealias ActionClosure = (Action) -> Void
 
+    // MARK: - Properties
     private var state: State {
         didSet {
-            actionCallback?(.stateDidUpdate(newState: state, prevState: oldValue))
+            DispatchQueue.main.async {
+                self.actionCallback?(.stateDidUpdate(newState: self.state, prevState: oldValue))
+            }
         }
     }
 
-    init(photo: PhotoViewData) {
+    private let photoService: PhotoService
+
+    // MARK: - Lifecycle
+    init(photo: PhotoViewData, photoService: PhotoService = PhotoService()) {
+        self.photoService = photoService
         self.state = State(
-            photoViewData: photo
+            photoViewData: photo,
+            isSaveAvailable: false
         )
+        checkPhotoAvailability()
     }
 
     // MARK: - Public interface
@@ -42,7 +54,30 @@ class PhotoViewModel {
     // MARK: Inputs
     func saveButtonPressed() {
         // Download logic
-        actionCallback?(.didFinishDownload(isSuccess: true))
+        checkPhotoAvailability { [weak self] image in
+            guard let image = image else {
+                DispatchQueue.main.async {
+                    self?.actionCallback?(.didFinishDownload(isSuccess: false))
+                }
+                return
+            }
+            self?.photoService.tryToSave(image: image) { isSuccess in
+                DispatchQueue.main.async {
+                    self?.actionCallback?(.didFinishDownload(isSuccess: isSuccess))
+                }
+            }
+        }
+    }
+
+    func fullPhotoDownloaded() {
+        checkPhotoAvailability()
+    }
+
     // MARK: - Private
+    private func checkPhotoAvailability(completion: ((Image?) -> Void)? = nil) {
+        ImageCache.default.retrieveImage(forKey: state.photoViewData.fullPhotoURL.cacheKey, options: nil) { [weak self] (image, _) in
+            self?.state.isSaveAvailable = image != nil
+            completion?(image)
+        }
     }
 }

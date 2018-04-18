@@ -11,6 +11,8 @@ import Reusable
 import SwiftMessages
 import Kingfisher
 import Hero
+import RxCocoa
+import RxSwift
 
 class PhotoViewController: UIViewController, StoryboardSceneBased {
     // MARK: - Protocols
@@ -27,11 +29,16 @@ class PhotoViewController: UIViewController, StoryboardSceneBased {
             closeButton.setTitleShadowColor(UIColor.black.withAlphaComponent(0.5), for: .normal)
         }
     }
-    private lazy var rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save,
-                                                          target: self,
-                                                          action: #selector(didTapSaveButton))
+    @IBOutlet private var saveButton: UIButton! {
+        didSet {
+            saveButton.titleLabel?.font = Font.icon
+            saveButton.setTitle(Font.Icons.save, for: .normal)
+            saveButton.setTitleShadowColor(UIColor.black.withAlphaComponent(0.5), for: .normal)
+        }
+    }
 
     // MARK: - Properties
+    private let disposeBag = DisposeBag()
 
     private var viewModel: PhotoViewModel!
 
@@ -51,11 +58,7 @@ class PhotoViewController: UIViewController, StoryboardSceneBased {
         setupHero()
         setupViewModel()
         setupGestures()
-    }
-
-    // MARK: - UI Actions
-    @objc private func didTapSaveButton() {
-        viewModel.saveButtonPressed()
+        setupActions()
     }
 
     // MARK: - Private methods
@@ -63,8 +66,6 @@ class PhotoViewController: UIViewController, StoryboardSceneBased {
         if #available(iOS 11.0, *) {
             navigationItem.largeTitleDisplayMode = .never
         }
-
-        navigationItem.rightBarButtonItem = rightBarButtonItem
 
         authorLabel.font = Font.text
     }
@@ -86,11 +87,19 @@ class PhotoViewController: UIViewController, StoryboardSceneBased {
                 self.authorLabel.hero.id = state.photoViewData.heroLabelID
 
                 self.imageView.kf.indicatorType = IndicatorType.activity
-                ImageCache.default.retrieveImage(forKey: state.photoViewData.regularImageCacheKey, options: nil) { (image, _) in
-                    self.backgroundImageView.image = image?.kf.blurred(withRadius: 20.0)
-                    self.imageView.kf.setImage(with: state.photoViewData.fullPhotoURL, placeholder: image)
+                ImageCache.default.retrieveImage(forKey: state.photoViewData.regularPhotoURL.cacheKey, options: nil) { (image, _) in
+                    DispatchQueue.main.async {
+                        self.backgroundImageView.image = image?.kf.blurred(withRadius: 20.0)
+                    }
+
+                    self.imageView.kf.setImage(with: state.photoViewData.fullPhotoURL, placeholder: image, completionHandler: { (_, _, _, _) in
+                        self.viewModel.fullPhotoDownloaded()
+                    })
                 }
+
                 self.authorLabel.text = state.photoViewData.photoCopyright
+
+                self.saveButton.isEnabled = state.isSaveAvailable
             case .didFinishDownload(let isSuccess):
                 if isSuccess {
                     self.showSuccessMessage()
@@ -100,10 +109,15 @@ class PhotoViewController: UIViewController, StoryboardSceneBased {
     }
 
     private func setupGestures() {
-
         panGR = UIPanGestureRecognizer(target: self,
                                        action: #selector(handlePan(gestureRecognizer:)))
         view.addGestureRecognizer(panGR)
+    }
+
+    private func setupActions() {
+        saveButton.rx.controlEvent(.touchUpInside).subscribe(onNext: { [weak self] in
+            self?.viewModel.saveButtonPressed()
+        }).disposed(by: disposeBag)
     }
 
     // MARK: - Logic
@@ -156,9 +170,4 @@ class PhotoViewController: UIViewController, StoryboardSceneBased {
             }
         }
     }
-}
-
-// define a small helper function to add two CGPoints
-private func + (left: CGPoint, right: CGPoint) -> CGPoint {
-    return CGPoint(x: left.x + right.x, y: left.y + right.y)
 }

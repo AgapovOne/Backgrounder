@@ -10,6 +10,12 @@ import Foundation
 import Photos
 
 class PhotoService {
+    enum PhotoServiceError: Error {
+        case
+        unknownError,
+        describefulError
+    }
+    
     func tryToSave(image: UIImage, completion: ((Bool) -> Void)? = nil) {
         PHPhotoLibrary.requestAuthorization { (status) in
             switch status {
