@@ -20,6 +20,8 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>App would add images to your phone Photo Library</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>themify.ttf</string>
