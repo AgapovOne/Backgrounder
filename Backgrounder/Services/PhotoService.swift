@@ -17,20 +17,31 @@ class PhotoService {
     }
     
     func tryToSave(image: UIImage, completion: ((Bool) -> Void)? = nil) {
-        PHPhotoLibrary.requestAuthorization { (status) in
-            switch status {
-            case .authorized:
-                PHPhotoLibrary.shared().performChanges({
-                    PHAssetChangeRequest.creationRequestForAsset(from: image)
-                }, completionHandler: { (isSuccess, _) in
-                    if isSuccess {
-                        completion?(true)
-                    } else {
-                        completion?(false)
-                    }
-                })
-            default:
-                completion?(false)
+        func save() {
+            PHPhotoLibrary.shared().performChanges({
+                PHAssetChangeRequest.creationRequestForAsset(from: image)
+            }, completionHandler: { (isSuccess, _) in
+                if isSuccess {
+                    completion?(true)
+                } else {
+                    completion?(false)
+                }
+            })
+        }
+
+        switch PHPhotoLibrary.authorizationStatus() {
+        case .authorized:
+            save()
+        case .denied, .restricted:
+            completion?(false)
+        default:
+            PHPhotoLibrary.requestAuthorization { (status) in
+                switch status {
+                case .authorized:
+                    save()
+                default:
+                    completion?(false)
+                }
             }
         }
     }
