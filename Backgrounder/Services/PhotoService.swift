@@ -8,6 +8,7 @@
 
 import Foundation
 import Photos
+import Kingfisher
 
 class PhotoService {
     enum PhotoServiceError: Error {
@@ -15,8 +16,14 @@ class PhotoService {
         unknownError,
         describefulError
     }
-    
-    func tryToSave(image: UIImage, completion: ((Bool) -> Void)? = nil) {
+
+    private let cache: ImageCache
+
+    init(cache: ImageCache = ImageCache.default) {
+        self.cache = cache
+    }
+
+    func tryToSave(image: Image, completion: ((Bool) -> Void)? = nil) {
         func save() {
             PHPhotoLibrary.shared().performChanges({
                 PHAssetChangeRequest.creationRequestForAsset(from: image)
@@ -43,6 +50,12 @@ class PhotoService {
                     completion?(false)
                 }
             }
+        }
+    }
+
+    func retrieveCachedPhoto(forKey key: String, completion: @escaping ((Image?) -> Void)) {
+        cache.retrieveImage(forKey: key, options: nil) { (image, _) in
+            completion(image)
         }
     }
 }

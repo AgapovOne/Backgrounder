@@ -19,7 +19,7 @@ class PhotoViewModel {
     enum Action {
         case stateDidUpdate(newState: State, prevState: State?)
         case didFinishDownload(isSuccess: Bool)
-        case showShare(image: UIImage)
+        case showShare(image: Image)
     }
 
     typealias ActionClosure = (Action) -> Void
@@ -54,15 +54,14 @@ class PhotoViewModel {
 
     // MARK: Inputs
     func shareButtonPressed() {
-        ImageCache.default.retrieveImage(forKey: state.photoViewData.fullPhotoURL.cacheKey, options: nil) { [weak self] (image, _) in
+        photoService.retrieveCachedPhoto(forKey: state.photoViewData.fullPhotoURL.cacheKey) { [weak self] image in
             guard let image = image else { return }
             self?.actionCallback?(.showShare(image: image))
         }
     }
 
     func saveButtonPressed() {
-        // Download logic
-        ImageCache.default.retrieveImage(forKey: state.photoViewData.fullPhotoURL.cacheKey, options: nil) { [weak self] (image, _) in
+        photoService.retrieveCachedPhoto(forKey: state.photoViewData.fullPhotoURL.cacheKey) { [weak self] image in
             guard let image = image else {
                 DispatchQueue.main.async {
                     self?.actionCallback?(.didFinishDownload(isSuccess: false))
