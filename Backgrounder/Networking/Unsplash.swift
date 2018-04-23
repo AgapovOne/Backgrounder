@@ -13,9 +13,16 @@ enum OrderBy: String {
     case latest, oldest, popular
 }
 
+enum PhotoListType {
+    case
+    all,
+    curated
+}
+
 enum Unsplash {
     case
     photos(
+        type: PhotoListType,
         page: Int,
         perPage: Int,
         orderBy: OrderBy
@@ -27,7 +34,10 @@ extension Unsplash: TargetType {
 
     var path: String {
         switch self {
-        case .photos:
+        case .photos(let type, _, _, _):
+            if case .curated = type {
+                return "/photos/curated"
+            }
             return "/photos"
         }
     }
@@ -38,9 +48,10 @@ extension Unsplash: TargetType {
             return .get
         }
     }
+
     var task: Task {
         switch self {
-        case .photos(let page, let perPage, let orderBy):
+        case .photos(_, let page, let perPage, let orderBy):
             return .requestParameters(parameters: [
                 "page": page,
                 "per_page": perPage,
@@ -48,9 +59,11 @@ extension Unsplash: TargetType {
                 ], encoding: URLEncoding.default)
         }
     }
+
     var sampleData: Data {
         return Data()
     }
+
     var headers: [String: String]? {
         return [
             "Content-type": "application/json",

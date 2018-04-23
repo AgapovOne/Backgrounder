@@ -10,9 +10,16 @@ import Foundation
 import RxSwift
 
 class PhotoAPIService {
+
+    private let photoListType: PhotoListType
+
+    init(type: PhotoListType) {
+        self.photoListType = type
+    }
+
     func getPhotos(page: Int, perPage: Int = 40, orderBy: OrderBy = .latest) -> Observable<[Photo]> {
         return Provider.default.rx
-            .request(.photos(page: page, perPage: perPage, orderBy: orderBy))
+            .request(.photos(type: photoListType, page: page, perPage: perPage, orderBy: orderBy))
             .map(Array<Photo>.self)
             .asObservable()
     }
