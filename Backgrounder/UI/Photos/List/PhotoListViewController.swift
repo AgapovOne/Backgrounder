@@ -61,6 +61,12 @@ final class PhotoListViewController: UIViewController, StoryboardSceneBased {
         collectionView.dataSource = self
         collectionView.refreshControl = refreshControl
 
+        if #available(iOS 11.0, *) {
+            collectionView.contentInset = view.safeAreaInsets
+        } else {
+            collectionView.contentInset = UIEdgeInsets(top: view.layoutMargins.top, left: 0, bottom: 0, right: 0)
+        }
+
         navigationItem.rightBarButtonItem = rightBarButtonItem
 
         [

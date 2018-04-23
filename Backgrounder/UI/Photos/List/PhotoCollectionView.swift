@@ -30,12 +30,6 @@ class PhotoCollectionView: UICollectionView {
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        if #available(iOS 11.0, *) {
-            contentInset = safeAreaInsets
-        } else {
-            contentInset = UIEdgeInsets(top: layoutMargins.top, left: 0, bottom: 0, right: 0)
-        }
-
         layout = .list
     }
 
