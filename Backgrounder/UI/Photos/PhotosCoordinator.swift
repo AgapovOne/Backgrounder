@@ -11,9 +11,9 @@ import Hero
 
 class PhotosCoordinator: Coordinator<DeepLink> {
 
-    override init(router: RouterType) {
+    init(router: RouterType, title: String, type: PhotoListType) {
         super.init(router: router)
-        let vm = PhotoListViewModel(title: "Latest")
+        let vm = PhotoListViewModel(title: title, photoAPIService: PhotoAPIService(type: type))
         let vc = PhotoListViewController.instantiate(viewModel: vm)
         vm.showPhoto = { [weak self] photo in
             self?.showPhotoDetail(photo)

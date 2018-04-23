@@ -47,7 +47,7 @@ class PhotoListViewModel {
     private var page = 1
 
     // MARK: - Lifecycle
-    init(title: String, photoAPIService: PhotoAPIService = PhotoAPIService()) {
+    init(title: String, photoAPIService: PhotoAPIService) {
         self.photoAPIService = photoAPIService
         state = State(
             title: title,
