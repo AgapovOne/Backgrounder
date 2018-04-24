@@ -28,7 +28,7 @@ public protocol CoordinatorType: PresentableCoordinatorType {
 }
 
 
-open class Coordinator<DeepLinkType>: PresentableCoordinator<DeepLinkType>, CoordinatorType  {
+open class Coordinator<DeepLinkType>: PresentableCoordinator<DeepLinkType>, CoordinatorType {
 	
 	public var childCoordinators: [Coordinator<DeepLinkType>] = []
 	
