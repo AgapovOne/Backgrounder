@@ -100,20 +100,23 @@ class PhotoListViewModel {
             state.loadingState = .loading
             photoAPIService
                 .getPhotos(page: page)
-                .subscribe(onNext: { items in
-                    var photos = [PhotoViewData]()
-                    if self.page == 1 {
-                        photos = items.map(PhotoViewData.init)
-                    } else {
-                        photos = self.state.photos + items.map(PhotoViewData.init)
+                .subscribe({ (response) in
+                    switch response {
+                    case .success(let items):
+                        var photos = [PhotoViewData]()
+                        if self.page == 1 {
+                            photos = items.map(PhotoViewData.init)
+                        } else {
+                            photos = self.state.photos + items.map(PhotoViewData.init)
+                        }
+                        self.state = State(
+                            title: self.state.title,
+                            photos: photos,
+                            loadingState: .default
+                        )
+                    case .error(let error):
+                        self.state.loadingState = .error(error)
                     }
-                    self.state = State(
-                        title: self.state.title,
-                        photos: photos,
-                        loadingState: .default
-                    )
-                }, onError: { (error) in
-                    self.state.loadingState = .error(error)
                 })
                 .disposed(by: disposeBag)
         }
