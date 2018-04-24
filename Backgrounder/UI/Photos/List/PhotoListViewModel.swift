@@ -22,9 +22,9 @@ class PhotoListViewModel {
 
         let title: String
 
-        var photos: [PhotoViewData]
+        let photos: [PhotoViewData]
 
-        var loadingState: LoadingState
+        let loadingState: LoadingState
     }
 
     enum Action {
@@ -97,7 +97,9 @@ class PhotoListViewModel {
         switch state.loadingState {
         case .loading: break
         default:
-            state.loadingState = .loading
+            state = State(title: state.title,
+                          photos: state.photos,
+                          loadingState: .loading)
             photoAPIService
                 .getPhotos(page: page)
                 .subscribe({ (response) in
@@ -115,7 +117,9 @@ class PhotoListViewModel {
                             loadingState: .default
                         )
                     case .error(let error):
-                        self.state.loadingState = .error(error)
+                    self.state = State(title: self.state.title,
+                                  photos: self.state.photos,
+                                  loadingState: .error(error))
                     }
                 })
                 .disposed(by: disposeBag)
