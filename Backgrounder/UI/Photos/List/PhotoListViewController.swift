@@ -95,23 +95,25 @@ final class PhotoListViewController: UIViewController, StoryboardSceneBased {
             guard let `self` = self else { return }
             switch action {
             case .stateDidUpdate(let state, let prevState):
-                self.navigationItem.title = state.title
+                DispatchQueue.main.async {
+                    self.navigationItem.title = state.title
 
-                switch state.loadingState {
-                case .loading:
-                    self.rightBarButtonItem.isEnabled = false
-                case .error(let error):
-                    print(error)
-                    self.rightBarButtonItem.isEnabled = true
-                    self.refreshControl.endRefreshing()
-                case .default:
-                    self.rightBarButtonItem.isEnabled = true
-                    self.refreshControl.endRefreshing()
+                    switch state.loadingState {
+                    case .loading:
+                        self.rightBarButtonItem.isEnabled = false
+                    case .error(let error):
+                        print(error)
+                        self.rightBarButtonItem.isEnabled = true
+                        self.refreshControl.endRefreshing()
+                    case .default:
+                        self.rightBarButtonItem.isEnabled = true
+                        self.refreshControl.endRefreshing()
+                    }
+
+                    let changes = diff(old: prevState?.photos ?? [], new: state.photos)
+
+                    self.collectionView.reload(changes: changes, section: 0, completion: { _ in })
                 }
-
-                let changes = diff(old: prevState?.photos ?? [], new: state.photos)
-
-                self.collectionView.reload(changes: changes, section: 0, completion: { _ in })
             }
         }
     }
