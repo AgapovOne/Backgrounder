@@ -21,19 +21,19 @@ class AppCoordinator: Coordinator<DeepLink>, UITabBarControllerDelegate {
 
     var tabs: [UIViewController: Coordinator<DeepLink>] = [:]
 
-    lazy var curatedCoordinator: PhotosCoordinator = {
+    lazy var popularCoordinator: PhotosCoordinator = {
         let navigationController = UINavigationController()
-        navigationController.tabBarItem = UITabBarItem(tabBarSystemItem: .featured, tag: 0)
+        navigationController.tabBarItem = TabBarConfiguration.Item.popular
         let router = Router(navigationController: navigationController)
-        let coordinator = PhotosCoordinator(router: router, title: "Trending", type: .curated)
+        let coordinator = PhotosCoordinator(router: router, title: "Popular", type: .curated)
         return coordinator
     }()
 
-    lazy var latestCoordinator: PhotosCoordinator = {
+    lazy var allCoordinator: PhotosCoordinator = {
         let navigationController = UINavigationController()
-        navigationController.tabBarItem = UITabBarItem(tabBarSystemItem: .recents, tag: 1)
+        navigationController.tabBarItem = TabBarConfiguration.Item.all
         let router = Router(navigationController: navigationController)
-        let coordinator = PhotosCoordinator(router: router, title: "Latest", type: .all)
+        let coordinator = PhotosCoordinator(router: router, title: "All", type: .all)
         return coordinator
     }()
 
@@ -41,7 +41,7 @@ class AppCoordinator: Coordinator<DeepLink>, UITabBarControllerDelegate {
         super.init(router: router)
         router.setRootModule(tabBarController, hideBar: true)
         tabBarController.delegate = self
-        setTabs([curatedCoordinator, latestCoordinator])
+        setTabs([popularCoordinator, allCoordinator])
     }
 
     func setTabs(_ coordinators: [Coordinator<DeepLink>], animated: Bool = false) {
