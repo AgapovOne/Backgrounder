@@ -25,8 +25,6 @@ class PhotoCollectionView: UICollectionView {
         return createCollectionLayout(type: .oneOfThreeGrid)
     }()
 
-    private let padding: CGFloat = Configuration.Size.padding
-
     override func awakeFromNib() {
         super.awakeFromNib()
 

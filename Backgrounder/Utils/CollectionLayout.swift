@@ -36,6 +36,10 @@ enum CollectionLayout {
         }
     }
 
+    var padding: CGFloat {
+        return Configuration.Size.padding
+    }
+
     var next: CollectionLayout {
         switch self {
         case .list:
@@ -62,10 +66,10 @@ enum CollectionLayout {
 }
 
 func createCollectionLayout(type: CollectionLayout,
-                            width: CGFloat = Configuration.Size.screenWidth,
-                            padding: CGFloat = Configuration.Size.padding) -> UICollectionViewFlowLayout {
+                            width: CGFloat = Configuration.Size.screenWidth) -> UICollectionViewFlowLayout {
     let layout = UICollectionViewFlowLayout()
 
+    let padding = type.padding
     let side = countLayout(width: width, padding: padding, itemsPerRow: type.itemsPerRow)
 
     layout.itemSize = CGSize(width: side, height: side)
