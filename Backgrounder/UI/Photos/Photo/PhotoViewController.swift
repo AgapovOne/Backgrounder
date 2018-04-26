@@ -58,6 +58,12 @@ class PhotoViewController: BaseViewController, StoryboardSceneBased {
         setupActions()
     }
 
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        imageView.kf.cancelDownloadTask()
+    }
+
     // MARK: - Private methods
     private func setupUI() {
         if #available(iOS 11.0, *) {
