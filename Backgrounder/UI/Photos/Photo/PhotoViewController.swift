@@ -82,26 +82,28 @@ class PhotoViewController: BaseViewController, StoryboardSceneBased {
         assert(viewModel != nil, "View Model should be instantiated. Use instantiate(viewModel:)")
 
         viewModel.actionCallback = { [weak self] action in
-            guard let `self` = self else { return }
-            switch action {
-            case .stateDidUpdate(let state, let prevState):
-                self.imageView.hero.id = state.photoViewData.heroID
-                self.authorLabel.hero.id = state.photoViewData.heroLabelID
+            DispatchQueue.main.async {
+                guard let `self` = self else { return }
+                switch action {
+                case .stateDidUpdate(let state, let prevState):
+                    self.imageView.hero.id = state.photoViewData.heroID
+                    self.authorLabel.hero.id = state.photoViewData.heroLabelID
 
-                self.downloadFullPhotoIfNeeded(fullPhotoURL: state.photoViewData.fullPhotoURL,
-                                               regularPhotoURL: state.photoViewData.regularPhotoURL)
+                    self.downloadFullPhotoIfNeeded(fullPhotoURL: state.photoViewData.fullPhotoURL,
+                                                   regularPhotoURL: state.photoViewData.regularPhotoURL)
 
-                self.authorLabel.text = state.photoViewData.photoCopyright
+                    self.authorLabel.text = state.photoViewData.photoCopyright
 
-                [self.saveButton, self.shareButton].forEach {
-                    $0.isEnabled = state.isFullPhotoAvailable
+                    [self.saveButton, self.shareButton].forEach {
+                        $0.isEnabled = state.isFullPhotoAvailable
+                    }
+                case .didFinishDownload(let isSuccess):
+                    if isSuccess {
+                        self.showSuccessMessage()
+                    }
+                case .showShare(let image):
+                    self.showShare(image: image)
                 }
-            case .didFinishDownload(let isSuccess):
-                if isSuccess {
-                    self.showSuccessMessage()
-                }
-            case .showShare(let image):
-                self.showShare(image: image)
             }
         }
     }

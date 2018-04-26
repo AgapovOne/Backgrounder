@@ -56,47 +56,4 @@ class AppCoordinator: Coordinator<DeepLink>, UITabBarControllerDelegate {
 
         tabBarController.setViewControllers(vcs, animated: animated)
     }
-
-
-    // Present a vertical flow
-//    func presentAuthFlow() {
-//        let navigationController = UINavigationController()
-//        let navRouter = Router(navigationController: navigationController)
-//        let coordinator = AuthCoordinator(router: navRouter)
-//
-//        coordinator.onCancel = { [weak self, weak coordinator] in
-//            self?.router.dismissModule(animated: true, completion: nil)
-//            self?.removeChild(coordinator)
-//        }
-//
-//        coordinator.onAuthenticated = { [weak self, weak coordinator] token in
-//            self?.store.token = token
-//            self?.router.dismissModule(animated: true, completion: nil)
-//            self?.removeChild(coordinator)
-//        }
-//
-//        addChild(coordinator)
-//        coordinator.start()
-//        router.present(coordinator, animated: true)
-//    }
-
-
-    // MARK: UITabBarControllerDelegate
-
-    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
-//        guard let coordinator = tabs[viewController] else { return true }
-
-//        // Let's protect this tab because we can
-//        if coordinator is AccountCoordinator && !store.isLoggedIn {
-//            presentAuthFlow()
-//            return false
-//        } else {
-//            return true
-//        }
-        return true
-    }
-
-    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-
-    }
 }

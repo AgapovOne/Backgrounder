@@ -27,9 +27,7 @@ class PhotoViewModel {
     // MARK: - Properties
     private var state: State {
         didSet {
-            DispatchQueue.main.async {
-                self.actionCallback?(.stateDidUpdate(newState: self.state, prevState: oldValue))
-            }
+            actionCallback?(.stateDidUpdate(newState: self.state, prevState: oldValue))
         }
     }
 
@@ -63,15 +61,11 @@ class PhotoViewModel {
     func saveButtonPressed() {
         photoService.retrieveCachedPhoto(forKey: state.photoViewData.fullPhotoURL.cacheKey) { [weak self] image in
             guard let image = image else {
-                DispatchQueue.main.async {
-                    self?.actionCallback?(.didFinishDownload(isSuccess: false))
-                }
+                self?.actionCallback?(.didFinishDownload(isSuccess: false))
                 return
             }
             self?.photoService.tryToSave(image: image) { isSuccess in
-                DispatchQueue.main.async {
-                    self?.actionCallback?(.didFinishDownload(isSuccess: isSuccess))
-                }
+                self?.actionCallback?(.didFinishDownload(isSuccess: isSuccess))
             }
         }
     }
