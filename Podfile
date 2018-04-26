@@ -18,6 +18,7 @@ target 'Backgrounder' do
   pod 'SwiftMessages'
   pod 'DeepDiff'
   pod 'Hero'
+  pod 'Hue'
 
   target 'BackgrounderTests' do
     inherit! :search_paths
