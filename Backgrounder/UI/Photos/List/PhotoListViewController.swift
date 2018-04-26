@@ -57,8 +57,8 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
 
     // MARK: - Private methods
     private func setupUI() {
-        view.backgroundColor = .clear
-        collectionView.backgroundColor = .clear
+        view.backgroundColor = Configuration.Color.darkGray
+        collectionView.backgroundColor = Configuration.Color.darkGray
 
         collectionView.delegate = self
         collectionView.dataSource = self
