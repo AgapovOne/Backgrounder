@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		371AFE1F20875E0D00028591 /* PhotoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371AFE1E20875E0D00028591 /* PhotoService.swift */; };
 		371AFE22208780D600028591 /* CircleIconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371AFE21208780D600028591 /* CircleIconButton.swift */; };
+		373946F9209187AE008A0EA1 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373946F8209187AE008A0EA1 /* BaseViewController.swift */; };
+		373946FB20918834008A0EA1 /* BaseTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373946FA20918834008A0EA1 /* BaseTabBarController.swift */; };
 		37452154207F32580097D202 /* DeepLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37452153207F32580097D202 /* DeepLink.swift */; };
 		37452159207F6A460097D202 /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37452158207F6A460097D202 /* UIImage+Extensions.swift */; };
 		3778742C2084C1F90034B000 /* PhotoViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3778742B2084C1F90034B000 /* PhotoViewData.swift */; };
@@ -66,6 +68,8 @@
 		006754C39C9A5262079CB3E0 /* Pods-BackgrounderTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BackgrounderTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BackgrounderTests/Pods-BackgrounderTests.debug.xcconfig"; sourceTree = "<group>"; };
 		371AFE1E20875E0D00028591 /* PhotoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoService.swift; sourceTree = "<group>"; };
 		371AFE21208780D600028591 /* CircleIconButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleIconButton.swift; sourceTree = "<group>"; };
+		373946F8209187AE008A0EA1 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		373946FA20918834008A0EA1 /* BaseTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabBarController.swift; sourceTree = "<group>"; };
 		37452153207F32580097D202 /* DeepLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLink.swift; sourceTree = "<group>"; };
 		37452158207F6A460097D202 /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
 		3778742B2084C1F90034B000 /* PhotoViewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewData.swift; sourceTree = "<group>"; };
@@ -158,7 +162,10 @@
 		371AFE20208780C500028591 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				8D2A53112090BB76006A99F6 /* TabBar.swift */,
 				371AFE21208780D600028591 /* CircleIconButton.swift */,
+				373946F8209187AE008A0EA1 /* BaseViewController.swift */,
+				373946FA20918834008A0EA1 /* BaseTabBarController.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -188,7 +195,6 @@
 				37452153207F32580097D202 /* DeepLink.swift */,
 				8D513A281FE03F5A00286C2A /* Photos */,
 				371AFE20208780C500028591 /* Common */,
-				8D2A53112090BB76006A99F6 /* TabBar.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -554,6 +560,7 @@
 				8D674886207E87F700DB073E /* WindowCoordinator.swift in Sources */,
 				8D8AB3421FD728F8005D7494 /* PhotoCell.swift in Sources */,
 				8D8AB33E1FD72101005D7494 /* Photo.swift in Sources */,
+				373946F9209187AE008A0EA1 /* BaseViewController.swift in Sources */,
 				8D513A2B1FE03F7E00286C2A /* PhotoViewModel.swift in Sources */,
 				371AFE22208780D600028591 /* CircleIconButton.swift in Sources */,
 				8D2A53122090BB76006A99F6 /* TabBar.swift in Sources */,
@@ -568,6 +575,7 @@
 				37452154207F32580097D202 /* DeepLink.swift in Sources */,
 				8D513A2D1FE0440500286C2A /* PhotoAPIService.swift in Sources */,
 				8DD3B72C207BE8F000E2ECFB /* AppCoordinator.swift in Sources */,
+				373946FB20918834008A0EA1 /* BaseTabBarController.swift in Sources */,
 				8D674884207E87F700DB073E /* Router.swift in Sources */,
 				8DDD6C001FDF0F02005C585E /* PhotoListViewModel.swift in Sources */,
 				8D8AB3381FD71D51005D7494 /* Configuration.swift in Sources */,

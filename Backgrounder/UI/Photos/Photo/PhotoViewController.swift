@@ -12,7 +12,7 @@ import SwiftMessages
 import Kingfisher
 import Hero
 
-class PhotoViewController: UIViewController, StoryboardSceneBased {
+class PhotoViewController: BaseViewController, StoryboardSceneBased {
     // MARK: - Protocols
     static let sceneStoryboard = Storyboard.main
 
@@ -64,9 +64,11 @@ class PhotoViewController: UIViewController, StoryboardSceneBased {
             navigationItem.largeTitleDisplayMode = .never
         }
 
+        view.backgroundColor = Configuration.Color.darkGray
+
         authorLabel.font = Font.text
         imageView.kf.indicatorType = IndicatorType.activity
-        backgroundImageView.image = UIImage.from(color: Configuration.Color.tintColor)
+        backgroundImageView.image = UIImage.from(color: Configuration.Color.tint)
     }
 
     private func setupHero() {

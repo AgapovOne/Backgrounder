@@ -24,7 +24,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         window = UIWindow()
         window?.rootViewController = appCoordinator.toPresentable()
-        window?.backgroundColor = .white
         window?.makeKeyAndVisible()
 
         appCoordinator.start()
@@ -37,12 +36,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // MARK: - Private
     private func setupAppearance() {
-        let tint = Configuration.Color.tintColor
+        let tint = Configuration.Color.tint
         let navBar = UINavigationBar.appearance()
-        navBar.barTintColor = .white
-        navBar.tintColor = tint
+        navBar.barTintColor = tint
+        navBar.tintColor = .white
         navBar.titleTextAttributes = [
-            .foregroundColor: tint,
+            .foregroundColor: UIColor.white,
             .font: Font.navbarTitle
         ]
         
@@ -55,7 +54,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //            ]
 //        }
 
-        window?.tintColor = tint
+        let tabBar = UITabBar.appearance()
+        tabBar.barStyle = .black
+        tabBar.barTintColor = tint
+        tabBar.isTranslucent = true
+        tabBar.unselectedItemTintColor = Configuration.Color.gray
+        tabBar.tintColor = .white
+
+        let window = UIWindow.appearance()
+        window.backgroundColor = Configuration.Color.darkGray
+        window.tintColor = tint
     }
 
     private func setupLibraries() {

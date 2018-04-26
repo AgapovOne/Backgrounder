@@ -17,7 +17,7 @@ private enum LaunchInstructor {
 
 class AppCoordinator: Coordinator<DeepLink>, UITabBarControllerDelegate {
 
-    let tabBarController = UITabBarController()
+    let tabBarController = BaseTabBarController()
 
     var tabs: [UIViewController: Coordinator<DeepLink>] = [:]
 

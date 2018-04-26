@@ -22,7 +22,6 @@
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="aLV-Yf-O6j" customClass="PhotoCollectionView" customModule="Backgrounder" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="KHg-Vl-i2r">
                                     <size key="itemSize" width="50" height="50"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -32,7 +31,6 @@
                                 <cells/>
                             </collectionView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="aLV-Yf-O6j" secondAttribute="trailing" id="Qg4-Z3-J0G"/>
                             <constraint firstItem="aLV-Yf-O6j" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="nmX-LX-NN5"/>
@@ -104,7 +102,6 @@
                                 </state>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="D2X-IT-RHD" firstAttribute="bottom" secondItem="6SK-NH-q7E" secondAttribute="bottom" constant="8" id="3p2-20-NIc"/>
                             <constraint firstItem="IIY-Wz-oPi" firstAttribute="leading" secondItem="eFD-1u-7bU" secondAttribute="leading" id="3pJ-dm-47l"/>

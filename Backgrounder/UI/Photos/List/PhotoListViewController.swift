@@ -11,7 +11,7 @@ import Reusable
 import Kingfisher
 import DeepDiff
 
-final class PhotoListViewController: UIViewController, StoryboardSceneBased {
+final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
     // MARK: - Protocols
     static let sceneStoryboard = Storyboard.main
 
@@ -57,6 +57,9 @@ final class PhotoListViewController: UIViewController, StoryboardSceneBased {
 
     // MARK: - Private methods
     private func setupUI() {
+        view.backgroundColor = .clear
+        collectionView.backgroundColor = .clear
+
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.refreshControl = refreshControl
