@@ -17,11 +17,7 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
     static let sceneStoryboard = Storyboard.main
 
     // MARK: - UI Outlets
-    @IBOutlet private var collectionView: PhotoCollectionView! {
-        didSet {
-            collectionView.register(cellType: PhotoCell.self)
-        }
-    }
+    private var collectionView: CollectionView<PhotoCell, SimpleSource<PhotoViewData>>!
     private lazy var refreshControl: UIRefreshControl = {
         let r = UIRefreshControl()
         r.addTarget(self, action: #selector(self.didToggleRefreshControl), for: .valueChanged)
@@ -61,8 +57,12 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
         view.backgroundColor = Configuration.Color.darkGray
         collectionView.backgroundColor = Configuration.Color.darkGray
 
-        collectionView.delegate = self
-        collectionView.dataSource = self
+//        collectionView.delegate = self
+//        collectionView.dataSource = self
+        let layout = CollectionLayout.list
+        let flowLayout = createCollectionLayout(type: layout)
+        collectionView = CollectionView<PhotoCell, SimpleSource<PhotoViewData>>(frame: .zero, layout: flowLayout)
+        collectionView.useDiffs = true
         collectionView.refreshControl = refreshControl
 
         if #available(iOS 11.0, *) {
@@ -70,6 +70,13 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
         } else {
             collectionView.contentInset = UIEdgeInsets(top: view.layoutMargins.top, left: 0, bottom: 0, right: 0)
         }
+
+        view.addSubview(collectionView)
+
+        collectionView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        collectionView.bottomAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
 
         navigationItem.rightBarButtonItem = rightBarButtonItem
 
@@ -85,7 +92,7 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
         })
         navigationItem.leftBarButtonItem = leftBarButtonItem
 
-        leftBarButtonItem.title = collectionView.layout.icon
+        leftBarButtonItem.title = layout.icon
 
         let menuView = BTNavigationDropdownMenu(navigationController: navigationController,
                                                 containerView: navigationController!.view,
@@ -109,7 +116,7 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
         viewModel.actionCallback = { [weak self] action in
             guard let `self` = self else { return }
             switch action {
-            case .stateDidUpdate(let state, let prevState):
+            case .stateDidUpdate(let state, _):
                 DispatchQueue.main.async {
                     switch state.loadingState {
                     case .loading:
@@ -123,9 +130,10 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
                         self.refreshControl.endRefreshing()
                     }
 
-                    let changes = diff(old: prevState?.photos ?? [], new: state.photos)
+//                    let changes = diff(old: prevState?.photos ?? [], new: state.photos)
+//                    self.collectionView.reload(changes: changes, section: 0, completion: { _ in })
 
-                    self.collectionView.reload(changes: changes, section: 0, completion: { _ in })
+                    self.collectionView.source = SimpleSource<PhotoViewData>(state.photos)
                 }
             }
         }
@@ -134,8 +142,9 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
     // MARK: - Actions
     @objc private func didTapLeftBarButtonItem() {
         let layout = CollectionLayout(leftBarButtonItem.title ?? "")?.next ?? .list
+        let flowLayout = createCollectionLayout(type: layout)
 
-        collectionView.layout = layout
+        collectionView.setCollectionViewLayout(flowLayout, animated: true)
         leftBarButtonItem.title = layout.icon
     }
 
@@ -148,7 +157,7 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
     }
 }
 
-extension PhotoListViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+/*extension PhotoListViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return viewModel.numberOfItems()
     }
@@ -173,4 +182,4 @@ extension PhotoListViewController: UICollectionViewDataSource, UICollectionViewD
         }
         cell.cancelDownloadIfNeeded()
     }
-}
+}*/
