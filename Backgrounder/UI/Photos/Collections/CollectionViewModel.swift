@@ -27,8 +27,12 @@ class CollectionViewModel {
         }
     }
 
+    private let collectionAPIService: CollectionAPIService
+
     // MARK: - Lifecycle
-    init() {
+    init(collectionAPIService: CollectionAPIService) {
+        self.collectionAPIService = collectionAPIService
+
         state = State()
     }
 
@@ -39,6 +43,7 @@ class CollectionViewModel {
         }
     }
 
+    // MARK: Navigation output
     // MARK: Inputs
     // MARK: Outputs
     // MARK: - Private

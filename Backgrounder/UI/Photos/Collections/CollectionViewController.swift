@@ -13,6 +13,9 @@ class CollectionViewController: UIViewController, StoryboardSceneBased {
     // MARK: - Protocols
     static let sceneStoryboard = Storyboard.main
 
+    // MARK: - UI
+    @IBOutlet private var collectionView: PhotoCollectionView!
+
     // MARK: - Properties
     private var viewModel: CollectionViewModel!
 

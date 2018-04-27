@@ -138,10 +138,10 @@
             </objects>
             <point key="canvasLocation" x="921.73913043478262" y="87.228260869565219"/>
         </scene>
-        <!--Search View Controller-->
+        <!--Collection View Controller-->
         <scene sceneID="0fl-2m-Hng">
             <objects>
-                <viewController storyboardIdentifier="SearchViewController" id="xMc-fl-c1t" customClass="SearchViewController" customModule="Backgrounder" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CollectionViewController" id="xMc-fl-c1t" customClass="CollectionViewController" customModule="Backgrounder" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="JNx-op-MEC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
