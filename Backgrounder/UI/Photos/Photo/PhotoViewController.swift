@@ -91,7 +91,7 @@ class PhotoViewController: BaseViewController, StoryboardSceneBased {
             DispatchQueue.main.async {
                 guard let `self` = self else { return }
                 switch action {
-                case .stateDidUpdate(let state, let prevState):
+                case .stateDidUpdate(let state, _):
                     self.imageView.hero.id = state.photoViewData.heroID
                     self.authorLabel.hero.id = state.photoViewData.heroLabelID
 
