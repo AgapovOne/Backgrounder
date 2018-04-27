@@ -11,7 +11,7 @@ import Reusable
 
 class CollectionViewController: UIViewController, StoryboardSceneBased {
     // MARK: - Protocols
-    static let sceneStoryboard = UIStoryboard.
+    static let sceneStoryboard = Storyboard.main
 
     // MARK: - Properties
     private var viewModel: CollectionViewModel!
