@@ -15,15 +15,39 @@ enum OrderBy: String {
 
 enum PhotoListType {
     case
-    all,
+    new,
     curated
+
+    static var all: [PhotoListType] { return [.new, .curated] }
+
+    var string: String {
+        switch self {
+        case .new:
+            return "New"
+        case .curated:
+            return "Popular"
+        }
+    }
 }
 
 enum CollectionListType {
     case
-    all,
+    new,
     featured,
     curated
+
+    static var all: [CollectionListType] { return [.new, .featured, .curated] }
+
+    var string: String {
+        switch self {
+        case .new:
+            return "New"
+        case .featured:
+            return "Featured"
+        case .curated:
+            return "Popular"
+        }
+    }
 }
 
 enum Unsplash {
@@ -51,7 +75,7 @@ extension Unsplash: TargetType {
             switch type {
             case .curated:
                 return "/photos/curated"
-            case .all:
+            case .new:
                 return "/photos"
             }
         case .collections(let type, _, _):
@@ -60,7 +84,7 @@ extension Unsplash: TargetType {
                 return "/collections/featured"
             case .curated:
                 return "/collections/curated"
-            case .all:
+            case .new:
                 return "/collections"
             }
         case .collection(let id):

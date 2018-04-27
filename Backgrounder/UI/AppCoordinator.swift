@@ -33,7 +33,7 @@ class AppCoordinator: Coordinator<DeepLink>, UITabBarControllerDelegate {
         let navigationController = UINavigationController()
         navigationController.tabBarItem = TabBarConfiguration.Item.all
         let router = Router(navigationController: navigationController)
-        let coordinator = PhotosCoordinator(router: router, title: "All", startPoint: .photos(type: .all))
+        let coordinator = PhotosCoordinator(router: router, title: "All", startPoint: .photos(type: .new))
         return coordinator
     }()
 
@@ -41,7 +41,7 @@ class AppCoordinator: Coordinator<DeepLink>, UITabBarControllerDelegate {
         let navigationController = UINavigationController()
         navigationController.tabBarItem = TabBarConfiguration.Item.collections
         let router = Router(navigationController: navigationController)
-        let coordinator = PhotosCoordinator(router: router, title: "Collections", startPoint: .collections(type: .all))
+        let coordinator = PhotosCoordinator(router: router, title: "Collections", startPoint: .collections(type: .new))
         return coordinator
     }()
 

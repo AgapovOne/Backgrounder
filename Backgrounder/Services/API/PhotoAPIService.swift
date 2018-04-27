@@ -11,7 +11,7 @@ import RxSwift
 
 class PhotoAPIService {
 
-    private let photoListType: PhotoListType
+    var photoListType: PhotoListType
 
     init(type: PhotoListType) {
         self.photoListType = type
