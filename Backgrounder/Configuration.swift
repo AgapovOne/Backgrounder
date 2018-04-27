@@ -14,6 +14,10 @@ struct Configuration {
         static let unsplashApplicationID = "59af28f7c5647b64e316f8d9ae2665c9bc274cafb6db21e06f9cf5fe063896d4"
     }
 
+    struct Defaults {
+        static let pagination = 30
+    }
+
     struct Color {
         static let tint: UIColor = #colorLiteral(red: 0.2082854211, green: 0.2843391895, blue: 0.3764083385, alpha: 1)
         static let gray: UIColor = UIColor(hex: "7b8994")
