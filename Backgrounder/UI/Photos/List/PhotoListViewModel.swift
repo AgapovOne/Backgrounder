@@ -88,7 +88,7 @@ class PhotoListViewModel {
     }
 
     func configure(cell: PhotoCell, at indexPath: IndexPath) {
-        cell.photo = state.photos[indexPath.row]
+        cell.data = state.photos[indexPath.row]
     }
 
     func numberOfItems() -> Int {
