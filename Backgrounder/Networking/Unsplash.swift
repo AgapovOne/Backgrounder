@@ -19,6 +19,13 @@ enum PhotoListType {
     curated
 }
 
+enum CollectionListType {
+    case
+    all,
+    featured,
+    curated
+}
+
 enum Unsplash {
     case
     photos(
@@ -26,7 +33,13 @@ enum Unsplash {
         page: Int,
         perPage: Int,
         orderBy: OrderBy
-    )
+    ),
+    collections(
+        type: CollectionListType,
+        page: Int,
+        perPage: Int
+    ),
+    collection(id: Int)
 }
 
 extension Unsplash: TargetType {
@@ -35,16 +48,29 @@ extension Unsplash: TargetType {
     var path: String {
         switch self {
         case .photos(let type, _, _, _):
-            if case .curated = type {
+            switch type {
+            case .curated:
                 return "/photos/curated"
+            case .all:
+                return "/photos"
             }
-            return "/photos"
+        case .collections(let type, _, _):
+            switch type {
+            case .featured:
+                return "/collections/featured"
+            case .curated:
+                return "/collections/curated"
+            case .all:
+                return "/collections"
+            }
+        case .collection(let id):
+            return "/collection/\(id)"
         }
     }
 
     var method: Moya.Method {
         switch self {
-        case .photos:
+        case .photos, .collections, .collection:
             return .get
         }
     }
@@ -57,6 +83,13 @@ extension Unsplash: TargetType {
                 "per_page": perPage,
                 "order_by": orderBy.rawValue
                 ], encoding: URLEncoding.default)
+        case .collections(_, let page, let perPage):
+            return .requestParameters(parameters: [
+                "page": page,
+                "per_page": perPage,
+                ], encoding: URLEncoding.default)
+        case .collection:
+            return .requestPlain
         }
     }
 
