@@ -11,6 +11,8 @@
 		371AFE22208780D600028591 /* CircleIconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371AFE21208780D600028591 /* CircleIconButton.swift */; };
 		373946F9209187AE008A0EA1 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373946F8209187AE008A0EA1 /* BaseViewController.swift */; };
 		373946FB20918834008A0EA1 /* BaseTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373946FA20918834008A0EA1 /* BaseTabBarController.swift */; };
+		373947202092EED5008A0EA1 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3739471E2092EED5008A0EA1 /* CollectionViewController.swift */; };
+		373947212092EED5008A0EA1 /* CollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3739471F2092EED5008A0EA1 /* CollectionViewModel.swift */; };
 		37452154207F32580097D202 /* DeepLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37452153207F32580097D202 /* DeepLink.swift */; };
 		37452159207F6A460097D202 /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37452158207F6A460097D202 /* UIImage+Extensions.swift */; };
 		3778742C2084C1F90034B000 /* PhotoViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3778742B2084C1F90034B000 /* PhotoViewData.swift */; };
@@ -70,6 +72,8 @@
 		371AFE21208780D600028591 /* CircleIconButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleIconButton.swift; sourceTree = "<group>"; };
 		373946F8209187AE008A0EA1 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		373946FA20918834008A0EA1 /* BaseTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabBarController.swift; sourceTree = "<group>"; };
+		3739471E2092EED5008A0EA1 /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
+		3739471F2092EED5008A0EA1 /* CollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewModel.swift; sourceTree = "<group>"; };
 		37452153207F32580097D202 /* DeepLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLink.swift; sourceTree = "<group>"; };
 		37452158207F6A460097D202 /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
 		3778742B2084C1F90034B000 /* PhotoViewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewData.swift; sourceTree = "<group>"; };
@@ -177,6 +181,15 @@
 			path = Search;
 			sourceTree = "<group>";
 		};
+		3739470D2092E891008A0EA1 /* Collections */ = {
+			isa = PBXGroup;
+			children = (
+				3739471E2092EED5008A0EA1 /* CollectionViewController.swift */,
+				3739471F2092EED5008A0EA1 /* CollectionViewModel.swift */,
+			);
+			path = Collections;
+			sourceTree = "<group>";
+		};
 		37452155207F49AD0097D202 /* Services */ = {
 			isa = PBXGroup;
 			children = (
@@ -214,6 +227,7 @@
 				8D8AB33F1FD728C3005D7494 /* List */,
 				8D424C9B1FD87FF400B0F925 /* Photo */,
 				373946FE2091E961008A0EA1 /* Search */,
+				3739470D2092E891008A0EA1 /* Collections */,
 			);
 			path = Photos;
 			sourceTree = "<group>";
@@ -592,10 +606,12 @@
 				8D8AB33B1FD71FAD005D7494 /* Provider.swift in Sources */,
 				8D513A2F1FE05B3600286C2A /* Schedulers.swift in Sources */,
 				8D9EB1441FD711BD0097A535 /* AppDelegate.swift in Sources */,
+				373947202092EED5008A0EA1 /* CollectionViewController.swift in Sources */,
 				8D513A361FE1C09600286C2A /* Fonts.swift in Sources */,
 				37BCBEF4207E170F0032FF60 /* Defaults.swift in Sources */,
 				8DBCE47E1FE98F7E0019BB17 /* PhotosCoordinator.swift in Sources */,
 				8D674883207E87F700DB073E /* Coordinator.swift in Sources */,
+				373947212092EED5008A0EA1 /* CollectionViewModel.swift in Sources */,
 				37452159207F6A460097D202 /* UIImage+Extensions.swift in Sources */,
 				8D674882207E87F700DB073E /* WindowRouter.swift in Sources */,
 				8D424C981FD87BED00B0F925 /* Urls.swift in Sources */,
