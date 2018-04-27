@@ -11,7 +11,7 @@ import Foundation
 class CollectionViewModel {
     // MARK: - Declarations
     struct State {
-
+        let title: String
     }
 
     enum Action {
@@ -30,10 +30,10 @@ class CollectionViewModel {
     private let collectionAPIService: CollectionAPIService
 
     // MARK: - Lifecycle
-    init(collectionAPIService: CollectionAPIService) {
+    init(title: String, collectionAPIService: CollectionAPIService) {
         self.collectionAPIService = collectionAPIService
 
-        state = State()
+        state = State(title: title)
     }
 
     // MARK: - Public interface

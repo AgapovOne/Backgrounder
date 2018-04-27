@@ -45,7 +45,7 @@ class CollectionViewController: UIViewController, StoryboardSceneBased {
                 guard let `self` = self else { return }
                 switch action {
                 case .stateDidUpdate(let state, let prevState):
-                    break
+                    self.navigationItem.title = state.title
                 }
             }
         }
