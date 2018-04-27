@@ -89,7 +89,7 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
 
         let menuView = BTNavigationDropdownMenu(navigationController: navigationController,
                                                 containerView: navigationController!.view,
-                                                title: BTTitle.title("All"),
+                                                title: viewModel.dropdownItem,
                                                 items: viewModel.dropdownItems)
         menuView.applyDefaultStyle()
 
@@ -111,8 +111,6 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
             switch action {
             case .stateDidUpdate(let state, let prevState):
                 DispatchQueue.main.async {
-                    self.navigationItem.title = state.title
-
                     switch state.loadingState {
                     case .loading:
                         self.rightBarButtonItem.isEnabled = false

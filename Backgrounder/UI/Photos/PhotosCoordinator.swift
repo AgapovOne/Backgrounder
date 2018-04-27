@@ -12,8 +12,8 @@ import Hero
 class PhotosCoordinator: Coordinator<DeepLink> {
     // MARK: - Declarations
     enum StartPoint {
-        case photos(type: PhotoListType)
-        case collections(type: CollectionListType)
+        case photos
+        case collections
     }
 
     init(router: RouterType, title: String, startPoint: StartPoint) {
@@ -21,11 +21,11 @@ class PhotosCoordinator: Coordinator<DeepLink> {
 
         let vc: UIViewController
         switch startPoint {
-        case .collections(let type):
-            let vm = CollectionViewModel(title: title, collectionAPIService: CollectionAPIService(type: type))
+        case .collections:
+            let vm = CollectionViewModel(title: title, collectionAPIService: CollectionAPIService())
             vc = CollectionViewController.instantiate(viewModel: vm)
-        case .photos(let type):
-            let vm = PhotoListViewModel(title: title, photoAPIService: PhotoAPIService(type: type))
+        case .photos:
+            let vm = PhotoListViewModel(photoAPIService: PhotoAPIService())
             vc = PhotoListViewController.instantiate(viewModel: vm)
             vm.showPhoto = { [weak self] photo in
                 self?.showPhotoDetail(photo)

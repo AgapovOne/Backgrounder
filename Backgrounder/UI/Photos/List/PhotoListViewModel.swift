@@ -20,8 +20,6 @@ class PhotoListViewModel {
             error(Error)
         }
 
-        let title: String
-
         let photos: [PhotoViewData]
 
         let loadingState: LoadingState
@@ -47,10 +45,9 @@ class PhotoListViewModel {
     private var page = 1
 
     // MARK: - Lifecycle
-    init(title: String, photoAPIService: PhotoAPIService) {
+    init(photoAPIService: PhotoAPIService) {
         self.photoAPIService = photoAPIService
         state = State(
-            title: title,
             photos: [],
             loadingState: .default
         )
@@ -82,6 +79,10 @@ class PhotoListViewModel {
     }
 
     // MARK: Outputs
+    var dropdownItem: String {
+        return photoAPIService.photoListType.string
+    }
+
     var dropdownItems: [String] {
         return PhotoListType.all.map({ $0.string })
     }
@@ -105,9 +106,10 @@ class PhotoListViewModel {
         switch state.loadingState {
         case .loading: break
         default:
-            state = State(title: state.title,
-                          photos: state.photos,
-                          loadingState: .loading)
+            state = State(
+                photos: state.photos,
+                loadingState: .loading
+            )
             photoAPIService
                 .getPhotos(page: page)
                 .subscribe({ (response) in
@@ -120,14 +122,14 @@ class PhotoListViewModel {
                             photos = self.state.photos + items.map(PhotoViewData.init)
                         }
                         self.state = State(
-                            title: self.state.title,
                             photos: photos,
                             loadingState: .default
                         )
                     case .error(let error):
-                    self.state = State(title: self.state.title,
-                                  photos: self.state.photos,
-                                  loadingState: .error(error))
+                    self.state = State(
+                        photos: self.state.photos,
+                        loadingState: .error(error)
+                        )
                     }
                 })
                 .disposed(by: disposeBag)
