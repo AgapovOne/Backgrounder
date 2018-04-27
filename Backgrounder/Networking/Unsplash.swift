@@ -13,43 +13,6 @@ enum OrderBy: String {
     case latest, oldest, popular
 }
 
-enum PhotoListType {
-    case
-    new,
-    curated
-
-    static var all: [PhotoListType] { return [.new, .curated] }
-
-    var string: String {
-        switch self {
-        case .new:
-            return "New"
-        case .curated:
-            return "Popular"
-        }
-    }
-}
-
-enum CollectionListType {
-    case
-    new,
-    featured,
-    curated
-
-    static var all: [CollectionListType] { return [.new, .featured, .curated] }
-
-    var string: String {
-        switch self {
-        case .new:
-            return "New"
-        case .featured:
-            return "Featured"
-        case .curated:
-            return "Popular"
-        }
-    }
-}
-
 enum Unsplash {
     case
     photos(
