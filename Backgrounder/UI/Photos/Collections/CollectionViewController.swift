@@ -14,7 +14,7 @@ class CollectionViewController: UIViewController, StoryboardSceneBased {
     static let sceneStoryboard = Storyboard.main
 
     // MARK: - UI
-    @IBOutlet private var collectionView: PhotoCollectionView!
+    @IBOutlet private var collectionView: UICollectionView!
 
     // MARK: - Properties
     private var viewModel: CollectionViewModel!
@@ -35,6 +35,8 @@ class CollectionViewController: UIViewController, StoryboardSceneBased {
 
     // MARK: - Private methods
     private func setupUI() {
+        view.backgroundColor = Configuration.Color.darkGray
+        collectionView.backgroundColor = Configuration.Color.darkGray
     }
 
     private func setupViewModel() {
