@@ -21,19 +21,11 @@ class AppCoordinator: Coordinator<DeepLink>, UITabBarControllerDelegate {
 
     var tabs: [UIViewController: Coordinator<DeepLink>] = [:]
 
-    lazy var popularCoordinator: PhotosCoordinator = {
+    lazy var photosCoordinator: PhotosCoordinator = {
         let navigationController = UINavigationController()
-        navigationController.tabBarItem = TabBarConfiguration.Item.popular
+        navigationController.tabBarItem = TabBarConfiguration.Item.photos
         let router = Router(navigationController: navigationController)
-        let coordinator = PhotosCoordinator(router: router, title: "Popular", startPoint: .photos(type: .curated))
-        return coordinator
-    }()
-
-    lazy var allCoordinator: PhotosCoordinator = {
-        let navigationController = UINavigationController()
-        navigationController.tabBarItem = TabBarConfiguration.Item.all
-        let router = Router(navigationController: navigationController)
-        let coordinator = PhotosCoordinator(router: router, title: "All", startPoint: .photos(type: .new))
+        let coordinator = PhotosCoordinator(router: router, title: "Photos", startPoint: .photos)
         return coordinator
     }()
 
@@ -41,7 +33,7 @@ class AppCoordinator: Coordinator<DeepLink>, UITabBarControllerDelegate {
         let navigationController = UINavigationController()
         navigationController.tabBarItem = TabBarConfiguration.Item.collections
         let router = Router(navigationController: navigationController)
-        let coordinator = PhotosCoordinator(router: router, title: "Collections", startPoint: .collections(type: .new))
+        let coordinator = PhotosCoordinator(router: router, title: "Collections", startPoint: .collections)
         return coordinator
     }()
 
@@ -49,7 +41,10 @@ class AppCoordinator: Coordinator<DeepLink>, UITabBarControllerDelegate {
         super.init(router: router)
         router.setRootModule(tabBarController, hideBar: true)
         tabBarController.delegate = self
-        setTabs([popularCoordinator, allCoordinator, collectionsCoordinator])
+        setTabs([
+            photosCoordinator,
+            collectionsCoordinator
+            ])
     }
 
     func setTabs(_ coordinators: [Coordinator<DeepLink>], animated: Bool = false) {

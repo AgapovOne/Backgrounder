@@ -18,20 +18,16 @@ private func image(code: String) -> UIImage {
                    size: iconSize)
 }
 
-private let popularImage = image(code: "image")
+private let photosImage = image(code: "image")
 private let collectionImage = image(code: "gallery")
-private let allImage = image(code: "layout.media.center.alt")
 
 enum TabBarConfiguration {
     enum Item {
-        static let popular = UITabBarItem(title: "Popular",
-                                          image: popularImage,
-                                          selectedImage: popularImage)
+        static let photos = UITabBarItem(title: "Photos",
+                                              image: photosImage,
+                                              selectedImage: photosImage)
         static let collections = UITabBarItem(title: "Collections",
                                               image: collectionImage,
                                               selectedImage: collectionImage)
-        static let all = UITabBarItem(title: "All",
-                                          image: allImage,
-                                          selectedImage: allImage)
     }
 }
