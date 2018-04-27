@@ -54,7 +54,6 @@ class PhotoListViewModel {
             photos: [],
             loadingState: .default
         )
-
     }
 
     // MARK: - Public interface
@@ -68,6 +67,11 @@ class PhotoListViewModel {
     var showPhoto: ((PhotoViewData) -> Void)?
 
     // MARK: Inputs
+    func didSelectNavigationBarItem(at index: Int) {
+        photoAPIService.photoListType = PhotoListType.all[index]
+        reload()
+    }
+
     func didSelectItem(at indexPath: IndexPath) {
         showPhoto?(state.photos[indexPath.row])
     }
@@ -78,6 +82,10 @@ class PhotoListViewModel {
     }
 
     // MARK: Outputs
+    var dropdownItems: [String] {
+        return PhotoListType.all.map({ $0.string })
+    }
+
     func configure(cell: PhotoCell, at indexPath: IndexPath) {
         cell.photo = state.photos[indexPath.row]
     }

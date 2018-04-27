@@ -19,6 +19,7 @@ target 'Backgrounder' do
   pod 'DeepDiff'
   pod 'Hero'
   pod 'Hue'
+  pod 'BTNavigationDropdownMenu', :git => 'https://github.com/zkrige/BTNavigationDropdownMenu.git'
 
   target 'BackgrounderTests' do
     inherit! :search_paths

@@ -10,6 +10,7 @@ import UIKit
 import Reusable
 import Kingfisher
 import DeepDiff
+import BTNavigationDropdownMenu
 
 final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
     // MARK: - Protocols
@@ -85,6 +86,17 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
         navigationItem.leftBarButtonItem = leftBarButtonItem
 
         leftBarButtonItem.title = collectionView.layout.icon
+
+        let menuView = BTNavigationDropdownMenu(navigationController: navigationController,
+                                                containerView: navigationController!.view,
+                                                title: BTTitle.title("All"),
+                                                items: viewModel.dropdownItems)
+        menuView.applyDefaultStyle()
+
+        navigationItem.titleView = menuView
+        menuView.didSelectItemAtIndexHandler = { [weak self] index in
+            self?.viewModel.didSelectNavigationBarItem(at: index)
+        }
     }
 
     private func setupHero() {

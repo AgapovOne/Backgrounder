@@ -2,6 +2,7 @@ PODS:
   - Alamofire (4.6.0)
   - AlamofireNetworkActivityIndicator (2.2.0):
     - Alamofire (~> 4.5)
+  - BTNavigationDropdownMenu (0.4.1)
   - DeepDiff (1.1.2)
   - Hero (1.1.0)
   - Hue (3.0.1)
@@ -26,6 +27,7 @@ PODS:
 
 DEPENDENCIES:
   - AlamofireNetworkActivityIndicator
+  - BTNavigationDropdownMenu (from `https://github.com/zkrige/BTNavigationDropdownMenu.git`)
   - DeepDiff
   - Hero
   - Hue
@@ -53,9 +55,19 @@ SPEC REPOS:
     - SwiftIconFont
     - SwiftMessages
 
+EXTERNAL SOURCES:
+  BTNavigationDropdownMenu:
+    :git: https://github.com/zkrige/BTNavigationDropdownMenu.git
+
+CHECKOUT OPTIONS:
+  BTNavigationDropdownMenu:
+    :commit: 0e1bd3a84079f1bdec8bffc4db0f383bd9ee7523
+    :git: https://github.com/zkrige/BTNavigationDropdownMenu.git
+
 SPEC CHECKSUMS:
   Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
   AlamofireNetworkActivityIndicator: 81e1630e7cfed22a4e4e82a174c59e651dc4f8ca
+  BTNavigationDropdownMenu: 4a88996ad514f2feff98481eb2d6a5cb7520f76c
   DeepDiff: 35c661301baeb2db083ea1b9af183daab6af1c05
   Hero: ce59e81c79390613d97b43da7179e2c5e1017e04
   Hue: 93e852fa6211ab35922ad8c293f51c43d6c79eb2
@@ -68,6 +80,6 @@ SPEC CHECKSUMS:
   SwiftIconFont: ebd8ee931a1e7072b61a87aec53f3a0786ef7f2b
   SwiftMessages: 1bacc783c8f10bdfdc57c14860cae8a1f1fa6591
 
-PODFILE CHECKSUM: 30dcd459d546e6374d2da65290687da01a8afefd
+PODFILE CHECKSUM: 2ff7a0015f744468e382e11bfff57109c5e5bfad
 
 COCOAPODS: 1.5.0
