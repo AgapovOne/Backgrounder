@@ -30,7 +30,7 @@ final class PhotoCell: UICollectionViewCell, NibReusable {
             nameLabel.hero.id = photo.heroLabelID
 
             imageView.kf.setImage(with: photo.regularPhotoURL,
-                                  placeholder: UIImage.from(color: Configuration.Color.tint))
+                                  placeholder: UIImage.from(color: photo.color))
             nameLabel.text = photo.photoCopyright
         }
     }

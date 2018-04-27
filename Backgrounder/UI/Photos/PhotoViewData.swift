@@ -6,7 +6,7 @@
 //  Copyright © 2018 Alex Agapov. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 struct PhotoViewData: Hashable {
 
@@ -34,6 +34,10 @@ struct PhotoViewData: Hashable {
 
     var photoCopyright: String {
         return "photo by \(photo.user.username) (\(photo.user.name))"
+    }
+
+    var color: UIColor {
+        return UIColor(hex: photo.color)
     }
 
     init(_ photo: Photo) {

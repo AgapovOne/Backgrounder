@@ -15,6 +15,7 @@ struct Photo: Codable, Equatable {
     let urls: Urls
     let width: Int
     let height: Int
+    let color: String
 }
 
 extension Photo: Hashable {

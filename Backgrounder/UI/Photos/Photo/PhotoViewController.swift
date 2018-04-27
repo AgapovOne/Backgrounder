@@ -95,7 +95,8 @@ class PhotoViewController: BaseViewController, StoryboardSceneBased {
                     self.imageView.hero.id = state.photoViewData.heroID
                     self.authorLabel.hero.id = state.photoViewData.heroLabelID
 
-                    self.downloadFullPhotoIfNeeded(fullPhotoURL: state.photoViewData.fullPhotoURL,
+                    self.downloadFullPhotoIfNeeded(color: state.photoViewData.color,
+                                                   fullPhotoURL: state.photoViewData.fullPhotoURL,
                                                    regularPhotoURL: state.photoViewData.regularPhotoURL)
 
                     self.authorLabel.text = state.photoViewData.photoCopyright
@@ -141,25 +142,30 @@ class PhotoViewController: BaseViewController, StoryboardSceneBased {
         present(activityViewController, animated: true)
     }
 
-    private func downloadFullPhotoIfNeeded(fullPhotoURL: URL, regularPhotoURL: URL) {
+    private func downloadFullPhotoIfNeeded(color: UIColor, fullPhotoURL: URL, regularPhotoURL: URL) {
         if
             imageView.kf.webURL?.cacheKey == fullPhotoURL.cacheKey,
             ImageCache.default.imageCachedType(forKey: fullPhotoURL.cacheKey).cached
         {
 
         } else {
-            ImageCache.default.retrieveImage(forKey: regularPhotoURL.cacheKey, options: nil) { [weak self] (image, _) in
-                image.flatMap { image in
-                    DispatchQueue.main.async {
-                        self?.backgroundImageView.image = image.kf.blurred(withRadius: 20.0)
-                    }
-                }
 
-                self?.imageView.kf.setImage(with: fullPhotoURL, placeholder: image, completionHandler: { (fullImage, _, _, _) in
+            backgroundImageView.kf.setImage(with: regularPhotoURL,
+                                            placeholder: UIImage.from(color: color),
+                                            options: [.processor(BlurImageProcessor(blurRadius: 20))])
+
+            imageView.kf.setImage(
+                with: regularPhotoURL,
+                placeholder: UIImage.from(color: color)
+            ) { [weak self] (image, _, _, _) in
+                self?.imageView.kf.setImage(
+                    with: fullPhotoURL,
+                    placeholder: image
+                ) { (fullImage, _, _, _) in
                     if fullImage != nil {
                         self?.viewModel.fullPhotoDownloaded()
                     }
-                })
+                }
             }
         }
     }
