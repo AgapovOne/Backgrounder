@@ -46,6 +46,7 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        setupCollection()
         setupUI()
         setupHero()
         setupViewModel()
@@ -54,16 +55,32 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
     }
 
     // MARK: - Private methods
-    private func setupUI() {
-        view.backgroundColor = Configuration.Color.darkGray
-        collectionView.backgroundColor = Configuration.Color.darkGray
-
-//        collectionView.delegate = self
-//        collectionView.dataSource = self
+    private func setupCollection() {
         let layout = CollectionLayout.list
         let flowLayout = createCollectionLayout(type: layout)
         collectionView = CollectionView<PhotoCell, SimpleSource<PhotoViewData>>(frame: .zero, layout: flowLayout)
         collectionView.useDiffs = true
+
+        leftBarButtonItem.title = layout.icon
+
+        collectionView.configureCell = { [weak self] cell, indexPath in
+            self?.viewModel.configure(cell: cell, at: indexPath)
+        }
+        collectionView.didTapItem = { [weak self] indexPath in
+            self?.viewModel.didSelectItem(at: indexPath)
+        }
+        collectionView.willDisplayCell = { [weak self] cell, indexPath in
+            self?.viewModel.willDisplayCell(for: indexPath)
+        }
+        collectionView.didEndDisplayingCell = { cell, indexPath in
+            cell.cancelDownloadIfNeeded()
+        }
+    }
+
+    private func setupUI() {
+        view.backgroundColor = Configuration.Color.darkGray
+        collectionView.backgroundColor = Configuration.Color.darkGray
+
         collectionView.refreshControl = refreshControl
 
         if #available(iOS 11.0, *) {
@@ -73,11 +90,9 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
         }
 
         view.addSubview(collectionView)
-
-        collectionView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        collectionView.bottomAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        constrain(collectionView) { cv in
+            cv.edges == cv.superview!.edges
+        }
 
         navigationItem.rightBarButtonItem = rightBarButtonItem
 
@@ -93,7 +108,6 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
         })
         navigationItem.leftBarButtonItem = leftBarButtonItem
 
-        leftBarButtonItem.title = layout.icon
 
         let menuView = BTNavigationDropdownMenu(navigationController: navigationController,
                                                 containerView: navigationController!.view,
@@ -131,9 +145,6 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
                         self.refreshControl.endRefreshing()
                     }
 
-//                    let changes = diff(old: prevState?.photos ?? [], new: state.photos)
-//                    self.collectionView.reload(changes: changes, section: 0, completion: { _ in })
-
                     self.collectionView.source = SimpleSource<PhotoViewData>(state.photos)
                 }
             }
@@ -157,30 +168,3 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
         viewModel.reload()
     }
 }
-
-/*extension PhotoListViewController: UICollectionViewDataSource, UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.numberOfItems()
-    }
-
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell: PhotoCell = collectionView.dequeueReusableCell(for: indexPath)
-        viewModel.configure(cell: cell, at: indexPath)
-        return cell
-    }
-
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        viewModel.didSelectItem(at: indexPath)
-    }
-
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        viewModel.willDisplayCell(for: indexPath)
-    }
-
-    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        guard let cell = cell as? PhotoCell else {
-            fatalError("Cell should be of type PhotoCell")
-        }
-        cell.cancelDownloadIfNeeded()
-    }
-}*/
