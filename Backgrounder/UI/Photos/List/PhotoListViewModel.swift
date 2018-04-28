@@ -91,10 +91,6 @@ class PhotoListViewModel {
         cell.data = state.photos[indexPath.row]
     }
 
-    func numberOfItems() -> Int {
-        return state.photos.count
-    }
-
     func willDisplayCell(for indexPath: IndexPath) {
         if indexPath.row == state.photos.count - 1 {
             loadNext()
