@@ -9,7 +9,8 @@ import UIKit
 class CollectionView<Cell: UICollectionViewCell, S: Source>:
 UICollectionView, UICollectionViewDelegateFlowLayout where Cell: ConfigurableCell, Cell.VD == S.SourceType {
 
-    typealias ItemSelectionHandler = (IndexPath) -> Void
+    typealias IndexPathHandler = (IndexPath) -> Void
+    typealias CellAndIndexPathHandler = (Cell, IndexPath) -> Void
 
     var customDataSource: DataSource<S, Cell>!
 
@@ -59,7 +60,10 @@ UICollectionView, UICollectionViewDelegateFlowLayout where Cell: ConfigurableCel
     }
 
     // MARK: - Interactions
-    var didTapItem: ItemSelectionHandler?
+    var didTapItem: IndexPathHandler?
+    var willDisplayCell: CellAndIndexPathHandler?
+    var didEndDisplayingCell: CellAndIndexPathHandler?
+
     var configureCell: ((Cell, IndexPath) -> Void)? {
         didSet {
             self.customDataSource.configureCell = self.configureCell
@@ -69,6 +73,16 @@ UICollectionView, UICollectionViewDelegateFlowLayout where Cell: ConfigurableCel
     // MARK: - UICollectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         self.didTapItem?(indexPath)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        guard let cell = cell as? Cell else { return }
+        self.willDisplayCell?(cell, indexPath)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        guard let cell = cell as? Cell else { return }
+        self.didEndDisplayingCell?(cell, indexPath)
     }
 
 //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
