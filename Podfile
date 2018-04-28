@@ -4,17 +4,20 @@ inhibit_all_warnings!
 target 'Backgrounder' do
   use_frameworks!
 
+  # Networking
   pod 'Moya/RxSwift'
   pod 'AlamofireNetworkActivityIndicator'
 
   pod 'RxSwift'
   pod 'RxCocoa'
-  
+
+  # Default pods
   pod 'Reusable'
-  pod 'SwiftIconFont'
   pod 'Kingfisher'
 
   # UI
+  pod 'Cartography'
+  pod 'SwiftIconFont'
   pod 'SwiftMessages'
   pod 'DeepDiff'
   pod 'Hero'

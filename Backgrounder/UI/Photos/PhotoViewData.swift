@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct PhotoViewData: Hashable {
+struct PhotoViewData: CellViewData, Hashable {
 
     private let photo: Photo
 
