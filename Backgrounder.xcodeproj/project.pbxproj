@@ -37,11 +37,9 @@
 		8D513A2F1FE05B3600286C2A /* Schedulers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D513A2E1FE05B3600286C2A /* Schedulers.swift */; };
 		8D513A341FE1A05900286C2A /* themify.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8D513A331FE1A03700286C2A /* themify.ttf */; };
 		8D513A361FE1C09600286C2A /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D513A351FE1C09600286C2A /* Fonts.swift */; };
-		8D674882207E87F700DB073E /* WindowRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D67487D207E87F700DB073E /* WindowRouter.swift */; };
 		8D674883207E87F700DB073E /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D67487E207E87F700DB073E /* Coordinator.swift */; };
 		8D674884207E87F700DB073E /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D67487F207E87F700DB073E /* Router.swift */; };
 		8D674885207E87F700DB073E /* Presentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D674880207E87F700DB073E /* Presentable.swift */; };
-		8D674886207E87F700DB073E /* WindowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D674881207E87F700DB073E /* WindowCoordinator.swift */; };
 		8D8AB3361FD71B7B005D7494 /* Unsplash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8AB3351FD71B7B005D7494 /* Unsplash.swift */; };
 		8D8AB3381FD71D51005D7494 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8AB3371FD71D51005D7494 /* Configuration.swift */; };
 		8D8AB33B1FD71FAD005D7494 /* Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8AB33A1FD71FAD005D7494 /* Provider.swift */; };
@@ -110,11 +108,9 @@
 		8D513A2E1FE05B3600286C2A /* Schedulers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schedulers.swift; sourceTree = "<group>"; };
 		8D513A331FE1A03700286C2A /* themify.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = themify.ttf; sourceTree = "<group>"; };
 		8D513A351FE1C09600286C2A /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
-		8D67487D207E87F700DB073E /* WindowRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowRouter.swift; sourceTree = "<group>"; };
 		8D67487E207E87F700DB073E /* Coordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		8D67487F207E87F700DB073E /* Router.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		8D674880207E87F700DB073E /* Presentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Presentable.swift; sourceTree = "<group>"; };
-		8D674881207E87F700DB073E /* WindowCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowCoordinator.swift; sourceTree = "<group>"; };
 		8D8AB3351FD71B7B005D7494 /* Unsplash.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Unsplash.swift; sourceTree = "<group>"; };
 		8D8AB3371FD71D51005D7494 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		8D8AB33A1FD71FAD005D7494 /* Provider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Provider.swift; sourceTree = "<group>"; };
@@ -384,8 +380,6 @@
 				8D67487E207E87F700DB073E /* Coordinator.swift */,
 				8D674880207E87F700DB073E /* Presentable.swift */,
 				8D67487F207E87F700DB073E /* Router.swift */,
-				8D674881207E87F700DB073E /* WindowCoordinator.swift */,
-				8D67487D207E87F700DB073E /* WindowRouter.swift */,
 			);
 			path = Coordination;
 			sourceTree = "<group>";
@@ -424,6 +418,7 @@
 				8D9EB13E1FD711BD0097A535 /* Resources */,
 				F92A41B4408E2556AAA92F03 /* [CP] Embed Pods Frameworks */,
 				8DBCE4741FE97AC50019BB17 /* Swiftlint */,
+				8D3A384D20942ACB006BE9E8 /* Unused */,
 			);
 			buildRules = (
 			);
@@ -553,6 +548,20 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		8D3A384D20942ACB006BE9E8 /* Unused */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = Unused;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /usr/local/bin/fish;
+			shellScript = "unused xcode";
+		};
 		8DBCE4741FE97AC50019BB17 /* Swiftlint */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -577,6 +586,7 @@
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AlamofireNetworkActivityIndicator/AlamofireNetworkActivityIndicator.framework",
 				"${BUILT_PRODUCTS_DIR}/BTNavigationDropdownMenu/BTNavigationDropdownMenu.framework",
+				"${BUILT_PRODUCTS_DIR}/Cartography/Cartography.framework",
 				"${BUILT_PRODUCTS_DIR}/DeepDiff/DeepDiff.framework",
 				"${BUILT_PRODUCTS_DIR}/Hero/Hero.framework",
 				"${BUILT_PRODUCTS_DIR}/Hue/Hue.framework",
@@ -594,6 +604,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireNetworkActivityIndicator.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BTNavigationDropdownMenu.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cartography.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DeepDiff.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Hero.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Hue.framework",
@@ -620,7 +631,6 @@
 			files = (
 				3704794F20936539006AF476 /* PhotoCollectionCell.swift in Sources */,
 				8D2717FB1FDDCB0400F7769D /* PhotosNavigationController.swift in Sources */,
-				8D674886207E87F700DB073E /* WindowCoordinator.swift in Sources */,
 				3704795720936B35006AF476 /* DataSource.swift in Sources */,
 				8D8AB3421FD728F8005D7494 /* PhotoCell.swift in Sources */,
 				8D8AB33E1FD72101005D7494 /* Photo.swift in Sources */,
@@ -663,7 +673,6 @@
 				37047948209353BA006AF476 /* CollectionAPIService.swift in Sources */,
 				3704795920936B35006AF476 /* CollectionView.swift in Sources */,
 				37452159207F6A460097D202 /* UIImage+Extensions.swift in Sources */,
-				8D674882207E87F700DB073E /* WindowRouter.swift in Sources */,
 				8D424C981FD87BED00B0F925 /* Urls.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
