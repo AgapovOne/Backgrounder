@@ -9,11 +9,19 @@
 import Foundation
 
 struct Collection: Codable, Equatable {
-    let id: String
+    let id: Int
     let title: String
     let description: String?
     let curated: Bool
     let featured: Bool
+//    let urls: Urls
+//    let coverPhoto: Photo
+
+    enum CodingKeys: String, CodingKey {
+        case id, title, description, curated, featured
+//        case urls = "links"
+//        case coverPhoto = "cover_photo"
+    }
 }
 
 extension Collection: Hashable {
