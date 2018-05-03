@@ -22,8 +22,8 @@ class PhotosCoordinator: Coordinator<DeepLink> {
         let vc: UIViewController
         switch startPoint {
         case .collections:
-            let vm = CollectionViewModel(title: title, collectionAPIService: CollectionAPIService())
-            vc = CollectionViewController.instantiate(viewModel: vm)
+            let vm = CollectionListViewModel(title: title, collectionAPIService: CollectionAPIService())
+            vc = CollectionListViewController.instantiate(viewModel: vm)
         case .photos:
             let vm = PhotoListViewModel(photoAPIService: PhotoAPIService())
             vc = PhotoListViewController.instantiate(viewModel: vm)
