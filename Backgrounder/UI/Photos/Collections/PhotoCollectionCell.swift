@@ -11,7 +11,8 @@ import Reusable
 import Kingfisher
 import Hero
 
-final class PhotoCollectionCell: UICollectionViewCell, NibReusable {
+final class PhotoCollectionCell: UICollectionViewCell, ConfigurableCell {
+    typealias VD = CollectionViewData
 
     @IBOutlet private var imageView: UIImageView!
     @IBOutlet private var titleLabel: UILabel!
@@ -24,11 +25,11 @@ final class PhotoCollectionCell: UICollectionViewCell, NibReusable {
         imageView.layer.masksToBounds = true
     }
 
-    var photo: Collection! {
+    var data: VD? {
         didSet {
-//            hero.isEnabled = true
-//            imageView.hero.id = photo.heroID
-//            nameLabel.hero.id = photo.heroLabelID
+            hero.isEnabled = true
+//            imageView.hero.id = data.heroID
+//            nameLabel.hero.id = data.heroLabelID
 //
 //            imageView.kf.setImage(with: photo.regularPhotoURL,
 //                                  placeholder: UIImage.from(color: photo.color))
