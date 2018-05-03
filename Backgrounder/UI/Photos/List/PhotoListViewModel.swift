@@ -21,7 +21,6 @@ class PhotoListViewModel {
         }
 
         let photos: [PhotoViewData]
-
         let loadingState: LoadingState
     }
 
