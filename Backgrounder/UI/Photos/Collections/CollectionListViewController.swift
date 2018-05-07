@@ -46,7 +46,7 @@ class CollectionListViewController: UIViewController, StoryboardSceneBased {
     private func setupCollection() {
         let layout = UICollectionViewFlowLayout()
         let padding = Configuration.Size.padding
-        let side = Configuration.Size.screenWidth - padding
+        let side = Configuration.Size.screenWidth - padding * 2
         layout.itemSize = CGSize(width: side, height: (side - padding * 2) / 2 + 60)
         layout.minimumInteritemSpacing = padding
         layout.minimumLineSpacing = padding
