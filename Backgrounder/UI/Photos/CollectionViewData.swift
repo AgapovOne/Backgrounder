@@ -24,18 +24,23 @@ struct CollectionViewData: CellViewData, Hashable {
         return "label\(collection.id)"
     }
 
-//    var fullPhotoURL: URL {
-//        return collection.urls.full
-//    }
-//
-//    var regularPhotoURL: URL {
-//        return collection.urls.regular
-//    }
-//
-//    var photoCopyright: String {
+    var coverFullPhotoURL: URL {
+        return collection.coverPhoto.urls.full
+    }
+
+    var coverRegularPhotoURL: URL {
+        return collection.coverPhoto.urls.regular
+    }
+
+    var title: String {
+        return collection.title
+    }
+
+    var description: String {
 //        return "photo by \(collection.user.username) (\(collection.user.name))"
-//    }
-//
+        return collection.description ?? "~~~NO DESCRIPTION!!!~~~"
+    }
+
 //    var color: UIColor {
 //        return UIColor(hex: collection.color)
 //    }

@@ -15,12 +15,12 @@ struct Collection: Codable, Equatable {
     let curated: Bool
     let featured: Bool
 //    let urls: Urls
-//    let coverPhoto: Photo
+    let coverPhoto: Photo
 
     enum CodingKeys: String, CodingKey {
         case id, title, description, curated, featured
 //        case urls = "links"
-//        case coverPhoto = "cover_photo"
+        case coverPhoto = "cover_photo"
     }
 }
 
