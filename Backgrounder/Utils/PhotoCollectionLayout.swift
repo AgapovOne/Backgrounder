@@ -1,5 +1,5 @@
 //
-//  Layout.swift
+//  PhotoCollectionLayout.swift
 //  Backgrounder
 //
 //  Created by Alex Agapov on 11/12/2017.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-enum CollectionLayout {
+enum PhotoCollectionLayout {
     case
     list,
     halfGrid,
@@ -40,7 +40,7 @@ enum CollectionLayout {
         return Configuration.Size.padding
     }
 
-    var next: CollectionLayout {
+    var next: PhotoCollectionLayout {
         switch self {
         case .list:
             return .halfGrid
@@ -65,7 +65,7 @@ enum CollectionLayout {
     }
 }
 
-func createCollectionLayout(type: CollectionLayout,
+func createCollectionLayout(type: PhotoCollectionLayout,
                             width: CGFloat = Configuration.Size.screenWidth) -> UICollectionViewFlowLayout {
     let layout = UICollectionViewFlowLayout()
 

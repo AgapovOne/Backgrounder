@@ -56,7 +56,7 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
 
     // MARK: - Private methods
     private func setupCollection() {
-        let layout = CollectionLayout.list
+        let layout = PhotoCollectionLayout.list
         let flowLayout = createCollectionLayout(type: layout)
         collectionView = CollectionView<PhotoCell, SimpleSource<PhotoViewData>>(frame: .zero, layout: flowLayout)
         collectionView.useDiffs = true
@@ -153,7 +153,7 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
 
     // MARK: - Actions
     @objc private func didTapLeftBarButtonItem() {
-        let layout = CollectionLayout(leftBarButtonItem.title ?? "")?.next ?? .list
+        let layout = PhotoCollectionLayout(leftBarButtonItem.title ?? "")?.next ?? .list
         let flowLayout = createCollectionLayout(type: layout)
 
         collectionView.setCollectionViewLayout(flowLayout, animated: true)

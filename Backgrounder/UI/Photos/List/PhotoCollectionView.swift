@@ -9,7 +9,7 @@
 import UIKit
 
 class PhotoCollectionView: UICollectionView {
-    var layout: CollectionLayout = .list {
+    var layout: PhotoCollectionLayout = .list {
         didSet {
             setLayout(layout)
         }
@@ -31,7 +31,7 @@ class PhotoCollectionView: UICollectionView {
         layout = .list
     }
 
-    private func setLayout(_ type: CollectionLayout, animated: Bool = true) {
+    private func setLayout(_ type: PhotoCollectionLayout, animated: Bool = true) {
         var flowLayout: UICollectionViewFlowLayout
         switch type {
         case .list:
