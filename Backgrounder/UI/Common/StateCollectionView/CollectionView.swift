@@ -84,9 +84,4 @@ UICollectionView, UICollectionViewDelegateFlowLayout where Cell: ConfigurableCel
         guard let cell = cell as? Cell else { return }
         self.didEndDisplayingCell?(cell, indexPath)
     }
-
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        guard let vm = source?.data(section: indexPath.section, row: indexPath.row) else { return .zero }
-//        return Cell.size(for: vm)
-//    }
 }
