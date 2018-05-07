@@ -11,57 +11,56 @@ import XCTest
 
 class UtilsTest: XCTestCase {
 
-    var width: CGFloat = 0
-    var padding: CGFloat = 0
-    var items: CGFloat = 0
+    typealias Input = (width: CGFloat, padding: CGFloat, items: CGFloat)
+    var inputs = [Input]()
 
-    var expected: CGFloat = 0
+    var expected = [CGFloat]()
 
-    func test1Item() {
-        width = 60
-        padding = 8
-        items = 1
+    func testSinglePaddingItems() {
+        inputs = [
+            (36, 8, 1),
+            (64, 8, 2),
+            (92, 8, 3),
+            (120, 8, 4)
+        ]
 
-        expected = 28
+        expected = [
+            20,
+            20,
+            20,
+            20
+        ]
 
-        let result = countLayout(width: width, padding: padding, itemsPerRow: items)
+        inputs.enumerated().forEach { (n, input) in
+            let result = countSinglePaddingLayout(width: input.width,
+                                                  padding: input.padding,
+                                                  itemsPerRow: input.items)
 
-        XCTAssertEqual(result, expected, "Should count layout one item for a grid")
+            XCTAssertEqual(result, expected[n], "Should count layout one item for a grid")
+        }
     }
 
-    func test2Items() {
-        width = 60
-        padding = 8
-        items = 2
+    func testDoublePaddingItems() {
+        inputs = [
+            (60, 8, 1),
+            (60, 8, 2),
+            (336, 8, 3),
+            (88, 8, 4)
+        ]
 
-        expected = 10
+        expected = [
+            28,
+            10,
+            96,
+            8
+        ]
 
-        let result = countLayout(width: width, padding: padding, itemsPerRow: items)
+        inputs.enumerated().forEach { (n, input) in
+            let result = countDoublePaddingLayout(width: input.width,
+                                                  padding: input.padding,
+                                                  itemsPerRow: input.items)
 
-        XCTAssertEqual(result, expected, "Should count layout one item for a grid")
-    }
-
-    func test3Items() {
-        width = 336
-        padding = 8
-        items = 3
-
-        expected = 96
-
-        let result = countLayout(width: width, padding: padding, itemsPerRow: items)
-
-        XCTAssertEqual(result, expected, "Should count layout one item for a grid")
-    }
-
-    func test4Items() {
-        width = 88
-        padding = 8
-        items = 4
-
-        expected = 8
-
-        let result = countLayout(width: width, padding: padding, itemsPerRow: items)
-
-        XCTAssertEqual(result, expected, "Should count layout one item for a grid")
+            XCTAssertEqual(result, expected[n], "Should count layout one item for a grid")
+        }
     }
 }

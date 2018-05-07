@@ -70,19 +70,24 @@ func createCollectionLayout(type: PhotoCollectionLayout,
     let layout = UICollectionViewFlowLayout()
 
     let padding = type.padding
-    let side = countLayout(width: width, padding: padding, itemsPerRow: type.itemsPerRow)
+    let side = countSinglePaddingLayout(width: width, padding: padding, itemsPerRow: type.itemsPerRow)
 
     layout.itemSize = CGSize(width: side, height: side)
     layout.minimumInteritemSpacing = padding
     layout.minimumLineSpacing = padding
-    layout.sectionInset = UIEdgeInsets(top: padding * 2,
-                                       left: padding * 2,
-                                       bottom: padding * 2,
-                                       right: padding * 2)
+    layout.sectionInset = UIEdgeInsets(top: padding,
+                                       left: padding,
+                                       bottom: padding,
+                                       right: padding)
     return layout
 }
 
+// Single padding at leading/trailing
+func countSinglePaddingLayout(width: CGFloat, padding: CGFloat, itemsPerRow: CGFloat) -> CGFloat {
+    return (width - (padding * (itemsPerRow + 1))) / itemsPerRow
+}
+
 // Double padding at leading/trailing
-func countLayout(width: CGFloat, padding: CGFloat, itemsPerRow: CGFloat) -> CGFloat {
+func countDoublePaddingLayout(width: CGFloat, padding: CGFloat, itemsPerRow: CGFloat) -> CGFloat {
     return (width - (padding * (itemsPerRow + 3))) / itemsPerRow
 }
