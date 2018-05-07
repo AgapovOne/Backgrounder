@@ -20,30 +20,29 @@ struct CollectionViewData: CellViewData, Hashable {
         return id
     }
 
-    var heroLabelID: String {
-        return "label\(collection.id)"
-    }
+//    var heroLabelID: String {
+//        return "label\(collection.id)"
+//    }
 
-    var coverFullPhotoURL: URL {
-        return collection.coverPhoto.urls.full
-    }
+//    var coverFullPhotoURL: URL? {
+//        return collection.coverPhoto?.urls.full
+//    }
 
-    var coverRegularPhotoURL: URL {
-        return collection.coverPhoto.urls.regular
+    var coverRegularPhotoURL: URL? {
+        return collection.coverPhoto?.urls.regular
     }
 
     var title: String {
         return collection.title
     }
 
-    var description: String {
-//        return "photo by \(collection.user.username) (\(collection.user.name))"
-        return collection.description ?? "~~~NO DESCRIPTION!!!~~~"
+    var description: String? {
+        return collection.description
     }
 
-//    var color: UIColor {
-//        return UIColor(hex: collection.color)
-//    }
+    var coverRegularPhotoColor: UIColor {
+        return UIColor(hex: collection.coverPhoto?.color ?? "")
+    }
 
     init(_ collection: Collection) {
         self.collection = collection

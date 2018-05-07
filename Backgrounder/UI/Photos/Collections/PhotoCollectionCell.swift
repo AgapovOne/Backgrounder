@@ -22,10 +22,11 @@ final class PhotoCollectionCell: UICollectionViewCell, ConfigurableCell {
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        textContainerView.layer.cornerRadius = Configuration.Size.padding
-        textContainerView.layer.masksToBounds = true
+        [textContainerView, imageView].forEach {
+            $0?.layer.cornerRadius = Configuration.Size.padding
+            $0?.layer.masksToBounds = true
+        }
 
-        textContainerView.backgroundColor = Configuration.Color.gray
     }
 
     var data: VD? {
@@ -35,8 +36,8 @@ final class PhotoCollectionCell: UICollectionViewCell, ConfigurableCell {
 //            imageView.hero.id = data.heroID
 //            nameLabel.hero.id = data.heroLabelID
 
-            imageView.kf.setImage(with: data.coverRegularPhotoURL)
-//                                  placeholder: UIImage.from(color: photo.color))
+            imageView.kf.setImage(with: data.coverRegularPhotoURL,
+                                  placeholder: UIImage.from(color: data.coverRegularPhotoColor))
             titleLabel.text = data.title
             descriptionLabel.text = data.description
         }
