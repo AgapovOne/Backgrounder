@@ -42,8 +42,18 @@ class CollectionListViewController: UIViewController, StoryboardSceneBased {
 
     // MARK: - Private methods
     private func setupCollection() {
-        let flowLayout = createCollectionLayout(type: CollectionLayout.list)
-        collectionView = CollectionView<PhotoCollectionCell, SimpleSource<CollectionViewData>>(frame: .zero, layout: flowLayout)
+        let layout = UICollectionViewFlowLayout()
+        let padding = Configuration.Size.padding
+        let side = Configuration.Size.screenWidth - padding * 2 * 2
+        layout.estimatedItemSize = CGSize(width: side, height: (side - padding * 2) / 2 + 60)
+        layout.minimumInteritemSpacing = padding
+        layout.minimumLineSpacing = padding
+        layout.sectionInset = UIEdgeInsets(top: padding * 2,
+                                           left: padding * 2,
+                                           bottom: padding * 2,
+                                           right: padding * 2)
+
+        collectionView = CollectionView<PhotoCollectionCell, SimpleSource<CollectionViewData>>(frame: .zero, layout: layout)
         collectionView.useDiffs = true
 
         collectionView.configureCell = { [weak self] cell, indexPath in
