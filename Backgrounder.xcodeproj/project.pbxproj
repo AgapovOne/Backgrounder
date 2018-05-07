@@ -270,6 +270,7 @@
 		8D513A301FE197DD00286C2A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				8D9EB14A1FD711BD0097A535 /* Assets.xcassets */,
 				8D513A311FE197E300286C2A /* Fonts */,
 			);
 			path = Resources;
@@ -300,7 +301,6 @@
 			children = (
 				8D9EB14C1FD711BD0097A535 /* LaunchScreen.storyboard */,
 				8D9EB14F1FD711BD0097A535 /* Info.plist */,
-				8D9EB14A1FD711BD0097A535 /* Assets.xcassets */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
