@@ -29,7 +29,6 @@
 		3778259B209B2C9000C04B44 /* CollectionViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3778259A209B2C9000C04B44 /* CollectionViewData.swift */; };
 		3778742C2084C1F90034B000 /* PhotoViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3778742B2084C1F90034B000 /* PhotoViewData.swift */; };
 		37BCBEF4207E170F0032FF60 /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BCBEF3207E170F0032FF60 /* Defaults.swift */; };
-		8D2717FB1FDDCB0400F7769D /* PhotosNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2717FA1FDDCB0400F7769D /* PhotosNavigationController.swift */; };
 		8D2A53122090BB76006A99F6 /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2A53112090BB76006A99F6 /* TabBar.swift */; };
 		8D424C961FD87BE700B0F925 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D424C951FD87BE700B0F925 /* User.swift */; };
 		8D424C981FD87BED00B0F925 /* Urls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D424C971FD87BED00B0F925 /* Urls.swift */; };
@@ -47,7 +46,6 @@
 		8D8AB33E1FD72101005D7494 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8AB33D1FD72101005D7494 /* Photo.swift */; };
 		8D8AB3421FD728F8005D7494 /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8AB3401FD728F8005D7494 /* PhotoCell.swift */; };
 		8D8AB3431FD728F8005D7494 /* PhotoCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8D8AB3411FD728F8005D7494 /* PhotoCollectionCell.xib */; };
-		8D8AB3451FD734D2005D7494 /* PhotoCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8AB3441FD734D2005D7494 /* PhotoCollectionView.swift */; };
 		8D9EB1441FD711BD0097A535 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9EB1431FD711BD0097A535 /* AppDelegate.swift */; };
 		8D9EB1461FD711BD0097A535 /* PhotoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9EB1451FD711BD0097A535 /* PhotoListViewController.swift */; };
 		8D9EB1491FD711BD0097A535 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D9EB1471FD711BD0097A535 /* Main.storyboard */; };
@@ -101,7 +99,6 @@
 		37BCBEF3207E170F0032FF60 /* Defaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
 		4865F5B5A319E04274791EE3 /* Pods_BackgrounderTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BackgrounderTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E850FC5C999953D5F2A0A3E /* Pods-BackgrounderTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BackgrounderTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BackgrounderTests/Pods-BackgrounderTests.release.xcconfig"; sourceTree = "<group>"; };
-		8D2717FA1FDDCB0400F7769D /* PhotosNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosNavigationController.swift; sourceTree = "<group>"; };
 		8D2A53112090BB76006A99F6 /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 		8D424C951FD87BE700B0F925 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		8D424C971FD87BED00B0F925 /* Urls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Urls.swift; sourceTree = "<group>"; };
@@ -119,7 +116,6 @@
 		8D8AB33D1FD72101005D7494 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		8D8AB3401FD728F8005D7494 /* PhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
 		8D8AB3411FD728F8005D7494 /* PhotoCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PhotoCollectionCell.xib; sourceTree = "<group>"; };
-		8D8AB3441FD734D2005D7494 /* PhotoCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionView.swift; sourceTree = "<group>"; };
 		8D9EB1401FD711BD0097A535 /* Backgrounder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Backgrounder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D9EB1431FD711BD0097A535 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8D9EB1451FD711BD0097A535 /* PhotoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoListViewController.swift; sourceTree = "<group>"; };
@@ -319,8 +315,6 @@
 		8D8AB33F1FD728C3005D7494 /* List */ = {
 			isa = PBXGroup;
 			children = (
-				8D2717FA1FDDCB0400F7769D /* PhotosNavigationController.swift */,
-				8D8AB3441FD734D2005D7494 /* PhotoCollectionView.swift */,
 				8D8AB3401FD728F8005D7494 /* PhotoCell.swift */,
 				3704794E20936539006AF476 /* PhotoCell.xib */,
 				8D9EB1451FD711BD0097A535 /* PhotoListViewController.swift */,
@@ -619,7 +613,6 @@
 			files = (
 				3778259B209B2C9000C04B44 /* CollectionViewData.swift in Sources */,
 				3704794F20936539006AF476 /* PhotoCollectionCell.swift in Sources */,
-				8D2717FB1FDDCB0400F7769D /* PhotosNavigationController.swift in Sources */,
 				3704795720936B35006AF476 /* DataSource.swift in Sources */,
 				8D8AB3421FD728F8005D7494 /* PhotoCell.swift in Sources */,
 				8D8AB33E1FD72101005D7494 /* Photo.swift in Sources */,
@@ -648,7 +641,6 @@
 				8DDD6C001FDF0F02005C585E /* PhotoListViewModel.swift in Sources */,
 				8D8AB3381FD71D51005D7494 /* Configuration.swift in Sources */,
 				8D424C961FD87BE700B0F925 /* User.swift in Sources */,
-				8D8AB3451FD734D2005D7494 /* PhotoCollectionView.swift in Sources */,
 				8D8AB33B1FD71FAD005D7494 /* Provider.swift in Sources */,
 				8D513A2F1FE05B3600286C2A /* Schedulers.swift in Sources */,
 				8D9EB1441FD711BD0097A535 /* AppDelegate.swift in Sources */,
