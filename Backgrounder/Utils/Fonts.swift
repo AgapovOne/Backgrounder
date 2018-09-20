@@ -20,7 +20,7 @@ enum Font {
         static let share = String.fontThemifyIcon("share")!
     }
 
-    static let icon = UIFont.icon(from: .Themify, ofSize: 15.0)
+    static let icon = UIFont.icon(from: .themify, ofSize: 15.0)
 
 //    static let heading1 = UIFont(FontName.avenirNext, size: 24.0)
 //    static let heading2 = UIFont(FontName.avenirNext, size: 20.0)

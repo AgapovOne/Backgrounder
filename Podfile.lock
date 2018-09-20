@@ -1,30 +1,32 @@
 PODS:
-  - Alamofire (4.6.0)
-  - AlamofireNetworkActivityIndicator (2.2.0):
-    - Alamofire (~> 4.5)
+  - Alamofire (4.7.3)
+  - AlamofireNetworkActivityIndicator (2.3.0):
+    - Alamofire (~> 4.7)
   - BTNavigationDropdownMenu (0.4.1)
-  - Cartography (3.0.1)
-  - DeepDiff (1.1.2)
-  - Hero (1.1.0)
+  - Cartography (3.1.0)
+  - DeepDiff (1.2.0)
+  - Hero (1.3.1)
   - Hue (3.0.1)
-  - Kingfisher (4.6.1)
-  - Moya/Core (11.0.0):
+  - Kingfisher (4.10.0)
+  - Moya/Core (11.0.2):
     - Alamofire (~> 4.1)
     - Result (~> 3.0)
-  - Moya/RxSwift (11.0.0):
+  - Moya/RxSwift (11.0.2):
     - Moya/Core
     - RxSwift (~> 4.0)
   - Result (3.2.4)
-  - Reusable (4.0.0):
-    - Reusable/Storyboard (= 4.0.0)
-    - Reusable/View (= 4.0.0)
-  - Reusable/Storyboard (4.0.0)
-  - Reusable/View (4.0.0)
-  - RxCocoa (4.1.2):
+  - Reusable (4.0.3):
+    - Reusable/Storyboard (= 4.0.3)
+    - Reusable/View (= 4.0.3)
+  - Reusable/Storyboard (4.0.3)
+  - Reusable/View (4.0.3)
+  - RxCocoa (4.3.0):
     - RxSwift (~> 4.0)
-  - RxSwift (4.1.2)
-  - SwiftIconFont (2.7.3)
-  - SwiftMessages (4.1.0)
+  - RxSwift (4.3.0)
+  - SwiftIconFont (2.8.0)
+  - SwiftMessages (6.0.0):
+    - SwiftMessages/App (= 6.0.0)
+  - SwiftMessages/App (6.0.0)
 
 DEPENDENCIES:
   - AlamofireNetworkActivityIndicator
@@ -42,7 +44,7 @@ DEPENDENCIES:
   - SwiftMessages
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  https://github.com/cocoapods/specs.git:
     - Alamofire
     - AlamofireNetworkActivityIndicator
     - Cartography
@@ -68,22 +70,22 @@ CHECKOUT OPTIONS:
     :git: https://github.com/zkrige/BTNavigationDropdownMenu.git
 
 SPEC CHECKSUMS:
-  Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
-  AlamofireNetworkActivityIndicator: 81e1630e7cfed22a4e4e82a174c59e651dc4f8ca
+  Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
+  AlamofireNetworkActivityIndicator: 18346ff6d770d9513d0ac6f2d99706f40f93dbaa
   BTNavigationDropdownMenu: 4a88996ad514f2feff98481eb2d6a5cb7520f76c
-  Cartography: f8c899bb0f5cf20758644a8eea59a75e98a03a5d
-  DeepDiff: 35c661301baeb2db083ea1b9af183daab6af1c05
-  Hero: ce59e81c79390613d97b43da7179e2c5e1017e04
+  Cartography: 1988b7578871a56c036e7af17195cb2190edf18c
+  DeepDiff: 0ee83ac6942d441f677c22e981548c6e0937f2b6
+  Hero: 1c3c625ba05856f305d29f5c270f8766c5ff2df7
   Hue: 93e852fa6211ab35922ad8c293f51c43d6c79eb2
-  Kingfisher: 1f9157d9c02b380cbd0b7cc890161195164eb634
-  Moya: be29766339783963a70d1279d69c891ab3a1393c
+  Kingfisher: 43c4b802d8b5256cf1f4379e9cd10b329be6d3e2
+  Moya: a725035953bc1c0eb1be505ab903984501d82440
   Result: d2d07204ce72856f1fd9130bbe42c35a7b0fea10
-  Reusable: 98e5fff1e0e2e00872199699b276dde08ee56c07
-  RxCocoa: d88ba0f1f6abf040011a9eb4b539324fc426843a
-  RxSwift: e49536837d9901277638493ea537394d4b55f570
-  SwiftIconFont: ebd8ee931a1e7072b61a87aec53f3a0786ef7f2b
-  SwiftMessages: 1bacc783c8f10bdfdc57c14860cae8a1f1fa6591
+  Reusable: 12b67a60e1f3e8c523cc910795dab733f58fbc7e
+  RxCocoa: 71b9cce833fbcb89a8eec11816dd225830c2bd3c
+  RxSwift: a9717a34df3179fe63563f76e046ad345078dd3a
+  SwiftIconFont: ddaccaa3bb90fc21ebc528cfdf793342618a5cc2
+  SwiftMessages: da7c981256a65b3e58022d9027a36584cf4eccf5
 
 PODFILE CHECKSUM: f9d2469f8fbf0cb512d7b78c5d87f18bceb975c6
 
-COCOAPODS: 1.5.0
+COCOAPODS: 1.5.3

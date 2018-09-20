@@ -73,7 +73,7 @@ extension Unsplash: TargetType {
         case .collections(_, let page, let perPage):
             return .requestParameters(parameters: [
                 "page": page,
-                "per_page": perPage,
+                "per_page": perPage
                 ], encoding: URLEncoding.default)
         case .collection:
             return .requestPlain

@@ -97,13 +97,13 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
         navigationItem.rightBarButtonItem = rightBarButtonItem
 
         [
-            UIControlState.normal,
-            UIControlState.focused,
-            UIControlState.highlighted
+            UIControl.State.normal,
+            UIControl.State.focused,
+            UIControl.State.highlighted
         ]
             .forEach({
             leftBarButtonItem.setTitleTextAttributes([
-                NSAttributedStringKey.font: Font.icon
+                NSAttributedString.Key.font: Font.icon
                 ], for: $0)
         })
         navigationItem.leftBarButtonItem = leftBarButtonItem
