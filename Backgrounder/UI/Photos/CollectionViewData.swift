@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct CollectionViewData: CellViewData, Hashable {
+struct CollectionViewData: Hashable {
 
     private let collection: Collection
 

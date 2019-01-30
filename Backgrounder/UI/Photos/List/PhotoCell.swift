@@ -11,8 +11,7 @@ import Reusable
 import Kingfisher
 import Hero
 
-final class PhotoCell: UICollectionViewCell, ConfigurableCell {
-    typealias VD = PhotoViewData
+final class PhotoCell: UICollectionViewCell {
 
     @IBOutlet private var imageView: UIImageView!
     @IBOutlet private var nameLabel: UILabel!
@@ -24,7 +23,7 @@ final class PhotoCell: UICollectionViewCell, ConfigurableCell {
         imageView.layer.masksToBounds = true
     }
 
-    var data: VD? {
+    var data: PhotoViewData? {
         didSet {
             guard let data = data else { return }
             hero.isEnabled = true

@@ -11,8 +11,7 @@ import Reusable
 import Kingfisher
 import Hero
 
-final class PhotoCollectionCell: UICollectionViewCell, ConfigurableCell {
-    typealias VD = CollectionViewData
+final class PhotoCollectionCell: UICollectionViewCell, NibReusable {
 
     @IBOutlet private var imageView: UIImageView!
     @IBOutlet private var textContainerView: UIView!
@@ -29,7 +28,7 @@ final class PhotoCollectionCell: UICollectionViewCell, ConfigurableCell {
 
     }
 
-    var data: VD? {
+    var data: CollectionViewData? {
         didSet {
             guard let data = data else { return }
             hero.isEnabled = true
