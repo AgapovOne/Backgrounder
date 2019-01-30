@@ -15,7 +15,20 @@ class CollectionListViewController: UIViewController, StoryboardSceneBased {
     static let sceneStoryboard = Storyboard.main
 
     // MARK: - UI
-    private var collectionView: CollectionView<PhotoCollectionCell, SimpleSource<CollectionViewData>>!
+    private var collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        let padding = Configuration.Size.padding
+        let side = Configuration.Size.screenWidth - padding * 2
+        layout.itemSize = CGSize(width: side, height: (side - padding * 2) / 2 + 60)
+        layout.minimumInteritemSpacing = padding
+        layout.minimumLineSpacing = padding
+        layout.sectionInset = UIEdgeInsets(top: padding,
+                                           left: padding,
+                                           bottom: padding,
+                                           right: padding)
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        return collectionView
+    }()
     private lazy var refreshControl: UIRefreshControl = {
         let r = UIRefreshControl()
         r.addTarget(self, action: #selector(self.didToggleRefreshControl), for: .valueChanged)
@@ -44,21 +57,12 @@ class CollectionListViewController: UIViewController, StoryboardSceneBased {
 
     // MARK: - Private methods
     private func setupCollection() {
-        let layout = UICollectionViewFlowLayout()
-        let padding = Configuration.Size.padding
-        let side = Configuration.Size.screenWidth - padding * 2
-        layout.itemSize = CGSize(width: side, height: (side - padding * 2) / 2 + 60)
-        layout.minimumInteritemSpacing = padding
-        layout.minimumLineSpacing = padding
-        layout.sectionInset = UIEdgeInsets(top: padding,
-                                           left: padding,
-                                           bottom: padding,
-                                           right: padding)
+        collectionView.register(cellType: PhotoCollectionCell.self)
 
-        collectionView = CollectionView<PhotoCollectionCell, SimpleSource<CollectionViewData>>(frame: .zero, layout: layout)
-        collectionView.useDiffs = true
 
-        collectionView.configureCell = { [weak self] cell, indexPath in
+
+
+/*        collectionView.configureCell = { [weak self] cell, indexPath in
             self?.viewModel.configure(cell: cell, at: indexPath)
         }
         collectionView.didTapItem = { [weak self] indexPath in
@@ -69,7 +73,7 @@ class CollectionListViewController: UIViewController, StoryboardSceneBased {
         }
         collectionView.didEndDisplayingCell = { cell, indexPath in
             cell.cancelDownloadIfNeeded()
-        }
+        }*/
     }
 
     private func setupUI() {
@@ -114,7 +118,8 @@ class CollectionListViewController: UIViewController, StoryboardSceneBased {
                             self.refreshControl.endRefreshing()
                         }
 
-                        self.collectionView.source = SimpleSource<CollectionViewData>(state.collections)
+//                        self.collectionView.source = SimpleSource<CollectionViewData>(state.collections)
+                        // TODO: Update data source for collection
                     }
                 }
             }

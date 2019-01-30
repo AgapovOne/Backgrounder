@@ -18,7 +18,12 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
     static let sceneStoryboard = Storyboard.main
 
     // MARK: - UI Outlets
-    private var collectionView: CollectionView<PhotoCell, SimpleSource<PhotoViewData>>!
+    private lazy var layout = PhotoCollectionLayout.list
+    private lazy var collectionView: UICollectionView = {
+        let flowLayout = createCollectionLayout(type: layout)
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
+        return collectionView
+    }()
     private lazy var refreshControl: UIRefreshControl = {
         let r = UIRefreshControl()
         r.addTarget(self, action: #selector(self.didToggleRefreshControl), for: .valueChanged)
@@ -56,13 +61,8 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
 
     // MARK: - Private methods
     private func setupCollection() {
-        let layout = PhotoCollectionLayout.list
-        let flowLayout = createCollectionLayout(type: layout)
-        collectionView = CollectionView<PhotoCell, SimpleSource<PhotoViewData>>(frame: .zero, layout: flowLayout)
-        collectionView.useDiffs = true
-
         leftBarButtonItem.title = layout.icon
-
+/*
         collectionView.configureCell = { [weak self] cell, indexPath in
             self?.viewModel.configure(cell: cell, at: indexPath)
         }
@@ -74,7 +74,7 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
         }
         collectionView.didEndDisplayingCell = { cell, indexPath in
             cell.cancelDownloadIfNeeded()
-        }
+        }*/
     }
 
     private func setupUI() {
@@ -145,7 +145,8 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
                         self.refreshControl.endRefreshing()
                     }
 
-                    self.collectionView.source = SimpleSource<PhotoViewData>(state.photos)
+//                    self.collectionView.source = SimpleSource<PhotoViewData>(state.photos)
+                    // TODO: Set data source for cv
                 }
             }
         }
