@@ -6,8 +6,8 @@
 //  Copyright © 2018 Alex Agapov. All rights reserved.
 //
 
-import BTNavigationDropdownMenu
-
+//import BTNavigationDropdownMenu
+/*
 extension BTNavigationDropdownMenu {
     func applyDefaultStyle() {
         navigationBarTitleFont = Font.navbarTitle
@@ -20,3 +20,4 @@ extension BTNavigationDropdownMenu {
         cellSelectionColor = Configuration.Color.tint
     }
 }
+*/
