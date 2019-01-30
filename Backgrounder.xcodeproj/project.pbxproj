@@ -790,11 +790,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 7J9NCU659T;
+				DEVELOPMENT_TEAM = NBD557Z94K;
 				INFOPLIST_FILE = "$(SRCROOT)/Backgrounder/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.agapovco.Backgrounder;
+				PRODUCT_BUNDLE_IDENTIFIER = com.agapovco.Backgrounder.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -807,11 +807,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 7J9NCU659T;
+				DEVELOPMENT_TEAM = NBD557Z94K;
 				INFOPLIST_FILE = "$(SRCROOT)/Backgrounder/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.agapovco.Backgrounder;
+				PRODUCT_BUNDLE_IDENTIFIER = com.agapovco.Backgrounder.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
