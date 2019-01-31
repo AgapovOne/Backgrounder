@@ -19,12 +19,14 @@ class CollectionAPIService {
     func getCollections(page: Int) -> Single<[Collection]> {
         return Provider.default.rx
             .request(.collections(type: collectionListType, page: page, perPage: Configuration.Defaults.pagination))
+            .filterSuccessfulStatusCodes()
             .map(Array<Collection>.self)
     }
 
     func getCollection(id: Int) -> Single<Collection> {
         return Provider.default.rx
             .request(.collection(id: id))
+            .filterSuccessfulStatusCodes()
             .map(Collection.self)
     }
 }
