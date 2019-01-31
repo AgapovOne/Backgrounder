@@ -95,13 +95,22 @@ class CollectionListViewController: UIViewController, StoryboardSceneBased {
             .asDriver(onErrorJustReturn: [])
 
         collectionsDriver
-            .drive(collectionView.rx.items(cellIdentifier: PhotoCollectionCell.reuseIdentifier, cellType: PhotoCollectionCell.self)) { _, collection, cell in
+            .drive(collectionView.rx.items(
+                cellIdentifier: PhotoCollectionCell.reuseIdentifier,
+                cellType: PhotoCollectionCell.self)
+            ) { _, collection, cell in
                 cell.data = collection
             }
             .disposed(by: disposeBag)
 
         collectionView.rx.modelSelected(CollectionViewData.self)
             .bind(to: viewModel.didSelectItem)
+            .disposed(by: disposeBag)
+
+        collectionView.rx.itemSelected
+            .subscribe(onNext: { [weak self] indexPath in
+                self?.collectionView.deselectItem(at: indexPath, animated: true)
+            })
             .disposed(by: disposeBag)
 
         collectionView.rx.willDisplayCell
