@@ -9,6 +9,8 @@
 import UIKit
 import Reusable
 import Cartography
+import RxSwift
+import RxCocoa
 
 class CollectionListViewController: UIViewController, StoryboardSceneBased {
     // MARK: - Protocols
@@ -29,14 +31,12 @@ class CollectionListViewController: UIViewController, StoryboardSceneBased {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         return collectionView
     }()
-    private lazy var refreshControl: UIRefreshControl = {
-        let r = UIRefreshControl()
-        r.addTarget(self, action: #selector(self.didToggleRefreshControl), for: .valueChanged)
-        return r
-    }()
+    private lazy var refreshControl = UIRefreshControl()
 
     // MARK: - Properties
     private var viewModel: CollectionListViewModel!
+
+    private let disposeBag = DisposeBag()
 
     // MARK: - Lifecycle
     static func instantiate(viewModel: CollectionListViewModel) -> CollectionListViewController {
@@ -51,29 +51,11 @@ class CollectionListViewController: UIViewController, StoryboardSceneBased {
         setupCollection()
         setupUI()
         setupViewModel()
-
-        refreshControl.sendActions(for: .valueChanged)
     }
 
     // MARK: - Private methods
     private func setupCollection() {
         collectionView.register(cellType: PhotoCollectionCell.self)
-
-
-
-
-/*        collectionView.configureCell = { [weak self] cell, indexPath in
-            self?.viewModel.configure(cell: cell, at: indexPath)
-        }
-        collectionView.didTapItem = { [weak self] indexPath in
-            self?.viewModel.didSelectItem(at: indexPath)
-        }
-        collectionView.willDisplayCell = { [weak self] cell, indexPath in
-            self?.viewModel.willDisplayCell(for: indexPath)
-        }
-        collectionView.didEndDisplayingCell = { cell, indexPath in
-            cell.cancelDownloadIfNeeded()
-        }*/
     }
 
     private func setupUI() {
@@ -100,34 +82,69 @@ class CollectionListViewController: UIViewController, StoryboardSceneBased {
     private func setupViewModel() {
         assert(viewModel != nil, "View Model should be instantiated. Use instantiate(viewModel:)")
 
-        viewModel.actionCallback = { [weak self] action in
-            DispatchQueue.main.async {
-                guard let `self` = self else { return }
-                switch action {
-                case .stateDidUpdate(let state, let prevState):
-                    DispatchQueue.main.async {
-                        self.navigationItem.title = state.title
+        viewModel.title
+            .bind(to: navigationItem.rx.title)
+            .disposed(by: disposeBag)
 
-                        switch state.loadingState {
-                        case .loading:
-                            break
-                        case .error(let error):
-                            print(error)
-                            self.refreshControl.endRefreshing()
-                        case .default:
-                            self.refreshControl.endRefreshing()
-                        }
+        viewModel.isLoading
+            .filter({ !$0 }) // Only stop refresh control, don't start it
+            .drive(refreshControl.rx.isRefreshing)
+            .disposed(by: disposeBag)
 
-//                        self.collectionView.source = SimpleSource<CollectionViewData>(state.collections)
-                        // TODO: Update data source for collection
-                    }
-                }
+        let collectionsDriver = viewModel.collections
+            .asDriver(onErrorJustReturn: [])
+
+        collectionsDriver
+            .drive(collectionView.rx.items(cellIdentifier: PhotoCollectionCell.reuseIdentifier, cellType: PhotoCollectionCell.self)) { _, collection, cell in
+                cell.data = collection
             }
-        }
-    }
+            .disposed(by: disposeBag)
 
-    // MARK: - Actions
-    @objc private func didToggleRefreshControl() {
-        viewModel.reload()
+        collectionView.rx.modelSelected(CollectionViewData.self)
+            .bind(to: viewModel.didSelectItem)
+            .disposed(by: disposeBag)
+
+        collectionView.rx.willDisplayCell
+            .bind(to: viewModel.willDisplayCell)
+            .disposed(by: disposeBag)
+
+        collectionView.rx.didEndDisplayingCell
+            .bind(to: viewModel.didEndDisplayingCell)
+            .disposed(by: disposeBag)
+
+        refreshControl.rx.controlEvent(.valueChanged)
+            .startWith(()) // Initial load
+            .bind(to: viewModel.load)
+            .disposed(by: disposeBag)
+
+        collectionView.rx.contentOffset
+            .map { [weak self] _ in
+                self?.collectionView.isNearBottomEdge(edgeOffset: startLoadingOffset) ?? false
+            }
+            .filter { $0 }
+            .map { _ in () }
+            .bind(to: viewModel.loadNext)
+            .disposed(by: disposeBag)
+
+        /*        collectionView.configureCell = { [weak self] cell, indexPath in
+         self?.viewModel.configure(cell: cell, at: indexPath)
+         }
+         collectionView.didTapItem = { [weak self] indexPath in
+         self?.viewModel.didSelectItem(at: indexPath)
+         }
+         collectionView.willDisplayCell = { [weak self] cell, indexPath in
+         self?.viewModel.willDisplayCell(for: indexPath)
+         }
+         collectionView.didEndDisplayingCell = { cell, indexPath in
+         cell.cancelDownloadIfNeeded()
+         }*/
     }
 }
+
+extension UIScrollView {
+    func isNearBottomEdge(edgeOffset: CGFloat = 0) -> Bool {
+        return self.contentOffset.y + self.frame.size.height + edgeOffset > self.contentSize.height
+    }
+}
+
+private let startLoadingOffset: CGFloat = 200.0

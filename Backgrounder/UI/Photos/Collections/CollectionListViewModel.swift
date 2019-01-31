@@ -8,123 +8,84 @@
 
 import Foundation
 import RxSwift
+import RxCocoa
 
 class CollectionListViewModel {
-    // MARK: - Declarations
-    struct State {
-        enum LoadingState {
-            case
-            `default`,
-            loading,
-            error(Error)
-        }
 
-        let title: String
+    // MARK: - Inputs
+    let load: AnyObserver<Void>
+    let loadNext: AnyObserver<Void>
 
-        let collections: [CollectionViewData]
-        let loadingState: LoadingState
-    }
+    let didSelectItem: AnyObserver<CollectionViewData>
 
-    enum Action {
-        case stateDidUpdate(newState: State, prevState: State?)
-    }
+    typealias DisplayCellType = (cell: UICollectionViewCell, at: IndexPath)
+    let willDisplayCell: AnyObserver<DisplayCellType>
+    let didEndDisplayingCell: AnyObserver<DisplayCellType>
 
-    typealias ActionClosure = (Action) -> Void
+    // MARK: - Outputs
+    let title: Observable<String>
+
+    let collections: Driver<[CollectionViewData]>
+    let isLoading: Driver<Bool>
+
+    // MARK: Navigation output
+    let showCollection: Observable<CollectionViewData>
 
     // MARK: - Properties
-    private var state: State {
-        didSet {
-            actionCallback?(.stateDidUpdate(newState: self.state, prevState: oldValue))
-        }
-    }
-
-    private let disposeBag = DisposeBag()
-
     private let collectionAPIService: CollectionAPIService
 
-    private var page = 1
+//    private var page = 1 // starts at 1
 
     // MARK: - Lifecycle
     init(title: String, collectionAPIService: CollectionAPIService) {
         self.collectionAPIService = collectionAPIService
 
-        state = State(title: title,
-                      collections: [],
-                      loadingState: .default)
-    }
+        let _load = PublishSubject<Void>()
+        load = _load.asObserver()
 
-    // MARK: - Public interface
-    var actionCallback: ActionClosure? {
-        didSet {
-            actionCallback?(.stateDidUpdate(newState: state, prevState: nil))
-        }
-    }
+        let _loadNext = PublishSubject<Void>()
+        loadNext = _loadNext.asObserver()
 
-    // MARK: Navigation output
-    var showCollection: ((CollectionViewData) -> Void)?
+        let _willDisplayCell = PublishSubject<DisplayCellType>()
+        willDisplayCell = _willDisplayCell.asObserver()
 
-    // MARK: Inputs
-    func didSelectItem(at indexPath: IndexPath) {
-        showCollection?(state.collections[indexPath.row])
-    }
+        let _didEndDisplayingCell = PublishSubject<DisplayCellType>()
+        didEndDisplayingCell = _didEndDisplayingCell.asObserver()
 
-    func reload() {
-        page = 1
-        load()
-    }
+        let _didSelectItem = PublishSubject<CollectionViewData>()
+        didSelectItem = _didSelectItem.asObserver()
 
-    // MARK: Outputs
-    func configure(cell: PhotoCollectionCell, at indexPath: IndexPath) {
-        cell.data = state.collections[indexPath.row]
-    }
+        showCollection = _didSelectItem.asObservable()
 
-    func willDisplayCell(for indexPath: IndexPath) {
-        if indexPath.row == state.collections.count - 1 {
-            loadNext()
-        }
-    }
+        self.title = Single.just(title).asObservable()
 
-    // MARK: - Private
-    // MARK: - Private
-    private func load() {
-        switch state.loadingState {
-        case .loading: break
-        default:
-            state = State(
-                title: state.title,
-                collections: state.collections,
-                loadingState: .loading
-            )
-            collectionAPIService
-                .getCollections(page: page)
-                .subscribe({ (response) in
-                    switch response {
-                    case .success(let items):
-                        var collections = [CollectionViewData]()
-                        if self.page == 1 {
-                            collections = items.map(CollectionViewData.init)
-                        } else {
-                            collections = self.state.collections + items.map(CollectionViewData.init)
-                        }
-                        self.state = State(
-                            title: self.state.title,
-                            collections: collections,
-                            loadingState: .default
-                        )
-                    case .error(let error):
-                        self.state = State(
-                            title: self.state.title,
-                            collections: self.state.collections,
-                            loadingState: .error(error)
-                        )
-                    }
-                })
-                .disposed(by: disposeBag)
-        }
-    }
+        let firstLoad = _load
+//            .do(onNext: { [weak self] _ in
+//                self?.page = 1
+//            })
+            .startWith(())
 
-    private func loadNext() {
-        page += 1
-        load()
+        let nextLoad = _loadNext
+//            .do(onNext: { [weak self] _ in
+//            self?.page += 1
+//        })
+
+        let request = Observable.merge(firstLoad, nextLoad)
+            .flatMapLatest { _ -> Observable<[CollectionViewData]> in
+//                guard let self = self else { return Observable.error(RxError.unknown) }
+                return collectionAPIService
+                    .getCollections(page: 1)
+                    .map({ $0.map(CollectionViewData.init) })
+                    .asObservable()
+            }
+            .debug()
+
+        collections = request
+            .asDriver(onErrorJustReturn: [])
+
+        isLoading = Observable
+            .merge(_load.map({ true }), request.catchErrorJustReturn([])
+                .map({ _ in false }))
+                .asDriver(onErrorJustReturn: false)
     }
 }
