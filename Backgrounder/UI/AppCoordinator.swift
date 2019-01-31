@@ -42,7 +42,7 @@ class AppCoordinator: Coordinator<DeepLink>, UITabBarControllerDelegate {
         router.setRootModule(tabBarController, hideBar: true)
         tabBarController.delegate = self
         setTabs([
-            photosCoordinator,
+            //            photosCoordinator, // TODO: Return photos coordinator when it's ready for new MVVM-Rx
             collectionsCoordinator
             ])
     }
