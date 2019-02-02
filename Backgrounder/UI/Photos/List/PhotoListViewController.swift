@@ -11,6 +11,8 @@ import Reusable
 import Cartography
 import Kingfisher
 import DeepDiff
+import Moya
+import RxSwift
 //import BTNavigationDropdownMenu
 
 final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
@@ -22,6 +24,9 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
     private lazy var collectionView: UICollectionView = {
         let flowLayout = createCollectionLayout(type: layout)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.register(cellType: PhotoCell.self)
         return collectionView
     }()
     private lazy var refreshControl: UIRefreshControl = {
@@ -39,12 +44,21 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
                                                           action: #selector(didTapRightBarButtonItem))
 
     // MARK: - Properties
-    private var viewModel: PhotoListViewModel!
+    private let disposeBag = DisposeBag()
+
+    private var page = 1
+    private var photos: [PhotoViewData] = []
+
+    // MARK: Input from outside
+    private var showPhoto: ((PhotoViewData) -> Void)?
+
+    private var photoAPIService: PhotoAPIService!
 
     // MARK: - Lifecycle
-    static func instantiate(viewModel: PhotoListViewModel) -> PhotoListViewController {
+    static func instantiate(photoAPIService: PhotoAPIService, showPhoto: ((PhotoViewData) -> Void)?) -> PhotoListViewController {
         let vc = PhotoListViewController.instantiate()
-        vc.viewModel = viewModel
+        vc.photoAPIService = photoAPIService
+        vc.showPhoto = showPhoto
         return vc
     }
 
@@ -126,30 +140,7 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
     }
 
     private func setupViewModel() {
-        assert(viewModel != nil, "View Model should be instantiated. Use instantiate(viewModel:)")
 
-        viewModel.actionCallback = { [weak self] action in
-            guard let `self` = self else { return }
-            switch action {
-            case .stateDidUpdate(let state, _):
-                DispatchQueue.main.async {
-                    switch state.loadingState {
-                    case .loading:
-                        self.rightBarButtonItem.isEnabled = false
-                    case .error(let error):
-                        print(error)
-                        self.rightBarButtonItem.isEnabled = true
-                        self.refreshControl.endRefreshing()
-                    case .default:
-                        self.rightBarButtonItem.isEnabled = true
-                        self.refreshControl.endRefreshing()
-                    }
-
-//                    self.collectionView.source = SimpleSource<PhotoViewData>(state.photos)
-                    // TODO: Set data source for cv
-                }
-            }
-        }
     }
 
     // MARK: - Actions
@@ -162,10 +153,82 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
     }
 
     @objc private func didTapRightBarButtonItem() {
-        viewModel.reload()
+        reload()
     }
 
     @objc private func didToggleRefreshControl() {
-        viewModel.reload()
+        reload()
+    }
+
+    // MARK: Inputs
+    func didSelectNavigationBarItem(at index: Int) {
+        photoAPIService.photoListType = PhotoListType.all[index]
+        reload()
+    }
+
+    func reload() {
+        page = 1
+        load()
+    }
+
+    // MARK: Outputs
+    var dropdownItem: String {
+        return photoAPIService.photoListType.string
+    }
+
+    var dropdownItems: [String] {
+        return PhotoListType.all.map({ $0.string })
+    }
+
+    // MARK: - Private
+    private func load() {
+        rightBarButtonItem.isEnabled = false
+        photoAPIService
+            .getPhotos(page: page)
+            .observeOn(MainScheduler.instance)
+            .subscribe({ (response) in
+                switch response {
+                case .success(let items):
+                    if self.page == 1 {
+                        self.photos = items.map(PhotoViewData.init)
+                    } else {
+                        self.photos += items.map(PhotoViewData.init)
+                    }
+                    self.collectionView.reloadData()
+                case .error(let error):
+                    print(error)
+                }
+                self.rightBarButtonItem.isEnabled = true
+                self.refreshControl.endRefreshing()
+            })
+            .disposed(by: disposeBag)
+    }
+
+    private func loadNext() {
+        page += 1
+        load()
+    }
+
+}
+
+extension PhotoListViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return photos.count
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell: PhotoCell = collectionView.dequeueReusableCell(for: indexPath)
+        cell.data = photos[indexPath.row]
+        return cell
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        showPhoto?(photos[indexPath.row])
+    }
+
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if indexPath.row == photos.count - 1 {
+            loadNext()
+        }
     }
 }

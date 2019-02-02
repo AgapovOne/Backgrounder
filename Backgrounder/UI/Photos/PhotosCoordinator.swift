@@ -33,11 +33,10 @@ class PhotosCoordinator: Coordinator<DeepLink> {
                 // TODO: Show collection details
             })
         case .photos:
-            let vm = PhotoListViewModel(photoAPIService: PhotoAPIService())
-            vc = PhotoListViewController.instantiate(viewModel: vm)
-            vm.showPhoto = { [weak self] photo in
+            vc = PhotoListViewController.instantiate(photoAPIService: PhotoAPIService(),
+                                                     showPhoto: { [weak self] photo in
                 self?.showPhotoDetail(photo)
-            }
+            })
         }
         router.setRootModule(vc, hideBar: false)
     }

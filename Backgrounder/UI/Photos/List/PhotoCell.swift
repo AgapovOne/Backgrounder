@@ -11,7 +11,7 @@ import Reusable
 import Kingfisher
 import Hero
 
-final class PhotoCell: UICollectionViewCell {
+final class PhotoCell: UICollectionViewCell, NibReusable {
 
     @IBOutlet private var imageView: UIImageView!
     @IBOutlet private var nameLabel: UILabel!
