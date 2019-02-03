@@ -52,15 +52,15 @@ class PhotoViewModel {
 
     // MARK: Inputs
     func shareButtonPressed() {
-        photoService.retrieveCachedPhoto(forKey: state.photoViewData.fullPhotoURL.cacheKey) { [weak self] image in
-            guard let image = image else { return }
+        ImageCache.default.retrieveImage(forKey: state.photoViewData.fullPhotoURL.cacheKey) { [weak self] result in
+            guard let image = result.value?.image else { return }
             self?.actionCallback?(.showShare(image: image))
         }
     }
 
     func saveButtonPressed() {
-        photoService.retrieveCachedPhoto(forKey: state.photoViewData.fullPhotoURL.cacheKey) { [weak self] image in
-            guard let image = image else {
+        ImageCache.default.retrieveImage(forKey: state.photoViewData.fullPhotoURL.cacheKey) { [weak self] result in
+            guard let image = result.value?.image else {
                 self?.actionCallback?(.didFinishDownload(isSuccess: false))
                 return
             }
