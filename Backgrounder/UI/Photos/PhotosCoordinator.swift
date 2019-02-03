@@ -29,9 +29,11 @@ class PhotosCoordinator: Coordinator<DeepLink> {
         case .collections:
             let vm = CollectionListViewModel(title: title, collectionAPIService: CollectionAPIService())
             vc = CollectionListViewController.instantiate(viewModel: vm)
-            vm.showCollection.subscribe(onNext: { _ in
-                // TODO: Show collection details
-            })
+            vm.showCollection
+                .subscribe(onNext: { _ in
+                    // TODO: Show collection details
+                })
+                .disposed(by: disposeBag)
         case .photos:
             vc = PhotoListViewController.instantiate(photoAPIService: PhotoAPIService(),
                                                      showPhoto: { [weak self] photo in
