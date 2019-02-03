@@ -52,10 +52,4 @@ class PhotoService {
             }
         }
     }
-
-    func retrieveCachedPhoto(forKey key: String, completion: @escaping ((Image?) -> Void)) {
-        cache.retrieveImage(forKey: key, options: nil) { (image, _) in
-            completion(image)
-        }
-    }
 }

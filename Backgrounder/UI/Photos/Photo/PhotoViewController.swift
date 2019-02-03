@@ -143,31 +143,32 @@ class PhotoViewController: BaseViewController, StoryboardSceneBased {
     }
 
     private func downloadFullPhotoIfNeeded(color: UIColor, fullPhotoURL: URL, regularPhotoURL: URL) {
-        if
-            imageView.kf.webURL?.cacheKey == fullPhotoURL.cacheKey,
-            ImageCache.default.imageCachedType(forKey: fullPhotoURL.cacheKey).cached
-        {
+            backgroundImageView.image = UIImage.from(color: color)
 
-        } else {
-
-            backgroundImageView.kf.setImage(with: regularPhotoURL,
-                                            placeholder: UIImage.from(color: color),
-                                            options: [.processor(BlurImageProcessor(blurRadius: 20))])
-
-            imageView.kf.setImage(
-                with: regularPhotoURL,
-                placeholder: UIImage.from(color: color)
-            ) { [weak self] (image, _, _, _) in
+            let completion: (Image?) -> Void = { [weak self] image in
+                if let image = image {
+                    self?.backgroundImageView.image = image.kf.blurred(withRadius: 20)
+                }
                 self?.imageView.kf.setImage(
                     with: fullPhotoURL,
                     placeholder: image
-                ) { (fullImage, _, _, _) in
-                    if fullImage != nil {
+                ) { result in
+                    if result.value?.image != nil {
                         self?.viewModel.fullPhotoDownloaded()
                     }
                 }
             }
-        }
+
+            let key = regularPhotoURL.cacheKey
+            if ImageCache.default.isCached(forKey: key) {
+                ImageCache.default.retrieveImage(forKey: key) { result in
+                    completion(result.value?.image)
+                }
+            } else {
+                ImageDownloader.default.downloadImage(with: regularPhotoURL) { result in
+                    completion(result.value?.image)
+                }
+            }
     }
 
     // MARK: - Actions
