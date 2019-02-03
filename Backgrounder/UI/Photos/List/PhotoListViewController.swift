@@ -76,19 +76,6 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
     // MARK: - Private methods
     private func setupCollection() {
         leftBarButtonItem.title = layout.icon
-/*
-        collectionView.configureCell = { [weak self] cell, indexPath in
-            self?.viewModel.configure(cell: cell, at: indexPath)
-        }
-        collectionView.didTapItem = { [weak self] indexPath in
-            self?.viewModel.didSelectItem(at: indexPath)
-        }
-        collectionView.willDisplayCell = { [weak self] cell, indexPath in
-            self?.viewModel.willDisplayCell(for: indexPath)
-        }
-        collectionView.didEndDisplayingCell = { cell, indexPath in
-            cell.cancelDownloadIfNeeded()
-        }*/
     }
 
     private func setupUI() {
@@ -208,7 +195,6 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
         page += 1
         load()
     }
-
 }
 
 extension PhotoListViewController: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -230,5 +216,9 @@ extension PhotoListViewController: UICollectionViewDelegate, UICollectionViewDat
         if indexPath.row == photos.count - 1 {
             loadNext()
         }
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        (cell as? PhotoCell)?.cancelDownloadIfNeeded()
     }
 }
