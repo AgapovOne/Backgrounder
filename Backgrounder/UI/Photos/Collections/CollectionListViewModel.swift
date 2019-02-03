@@ -78,7 +78,6 @@ class CollectionListViewModel {
                     .map({ $0.map(CollectionViewData.init) })
                     .asObservable()
             }
-            .debug()
 
         collections = request
             .asDriver(onErrorJustReturn: [])

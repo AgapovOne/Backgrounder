@@ -118,7 +118,7 @@ class CollectionListViewController: UIViewController, StoryboardSceneBased {
             .disposed(by: disposeBag)
 
         collectionView.rx.didEndDisplayingCell
-            .subscribe(onNext: { [weak self] cellInfo in
+            .subscribe(onNext: { cellInfo in
                 (cellInfo.cell as? PhotoCell)?.cancelDownloadIfNeeded()
             })
             .disposed(by: disposeBag)
