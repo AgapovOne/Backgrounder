@@ -118,7 +118,9 @@ class CollectionListViewController: UIViewController, StoryboardSceneBased {
             .disposed(by: disposeBag)
 
         collectionView.rx.didEndDisplayingCell
-            .bind(to: viewModel.didEndDisplayingCell)
+            .subscribe(onNext: { [weak self] cellInfo in
+                (cellInfo.cell as? PhotoCell)?.cancelDownloadIfNeeded()
+            })
             .disposed(by: disposeBag)
 
         refreshControl.rx.controlEvent(.valueChanged)
@@ -134,19 +136,6 @@ class CollectionListViewController: UIViewController, StoryboardSceneBased {
             .map { _ in () }
             .bind(to: viewModel.loadNext)
             .disposed(by: disposeBag)
-
-        /*        collectionView.configureCell = { [weak self] cell, indexPath in
-         self?.viewModel.configure(cell: cell, at: indexPath)
-         }
-         collectionView.didTapItem = { [weak self] indexPath in
-         self?.viewModel.didSelectItem(at: indexPath)
-         }
-         collectionView.willDisplayCell = { [weak self] cell, indexPath in
-         self?.viewModel.willDisplayCell(for: indexPath)
-         }
-         collectionView.didEndDisplayingCell = { cell, indexPath in
-         cell.cancelDownloadIfNeeded()
-         }*/
     }
 }
 
