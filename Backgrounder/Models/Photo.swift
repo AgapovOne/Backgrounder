@@ -19,5 +19,7 @@ struct Photo: Codable, Equatable {
 }
 
 extension Photo: Hashable {
-    var hashValue: Int { return id.hashValue }
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
 }

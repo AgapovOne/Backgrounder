@@ -129,10 +129,7 @@ final public class Router: NSObject, RouterType {
 	
 // MARK: UINavigationControllerDelegate
 extension Router: UINavigationControllerDelegate {
-	public func navigationController(_ navigationController: UINavigationController,
-                                     didShow viewController: UIViewController,
-                                     animated: Bool) {
-		
+	public func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
 		// Ensure the view controller is popping
 		guard let poppedViewController = navigationController.transitionCoordinator?.viewController(forKey: .from),
 			!navigationController.viewControllers.contains(poppedViewController) else {
