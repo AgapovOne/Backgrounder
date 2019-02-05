@@ -10,7 +10,7 @@ import UIKit
 import Hero
 import RxSwift
 
-class PhotosCoordinator: Coordinator<DeepLink> {
+final class PhotosCoordinator: Coordinator<DeepLink> {
     // MARK: - Declarations
     enum StartPoint {
         case photos

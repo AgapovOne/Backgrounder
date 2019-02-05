@@ -10,7 +10,7 @@ import Foundation
 import Photos
 import Kingfisher
 
-class PhotoService {
+final class PhotoService {
     enum PhotoServiceError: Error {
         case
         unknownError,

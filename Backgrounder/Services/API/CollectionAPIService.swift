@@ -8,7 +8,7 @@
 
 import RxSwift
 
-class CollectionAPIService {
+final class CollectionAPIService {
 
     var collectionListType = Defaults.collectionListType {
         didSet {

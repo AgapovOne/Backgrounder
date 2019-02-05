@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CircleIconButton: UIButton {
+final class CircleIconButton: UIButton {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }

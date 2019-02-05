@@ -8,7 +8,7 @@
 
 import RxSwift
 
-class PhotoAPIService {
+final class PhotoAPIService {
 
     var photoListType = Defaults.photoListType {
         didSet {

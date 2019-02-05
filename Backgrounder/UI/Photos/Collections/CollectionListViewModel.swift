@@ -10,7 +10,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-class CollectionListViewModel {
+final class CollectionListViewModel {
 
     // MARK: - Inputs
     let load: AnyObserver<Void>

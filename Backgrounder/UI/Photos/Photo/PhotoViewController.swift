@@ -12,7 +12,7 @@ import SwiftMessages
 import Kingfisher
 import Hero
 
-class PhotoViewController: BaseViewController, StoryboardSceneBased {
+final class PhotoViewController: BaseViewController, StoryboardSceneBased {
     // MARK: - Protocols
     static let sceneStoryboard = Storyboard.main
 

@@ -15,7 +15,7 @@ private enum LaunchInstructor {
     }
 }
 
-class AppCoordinator: Coordinator<DeepLink>, UITabBarControllerDelegate {
+final class AppCoordinator: Coordinator<DeepLink>, UITabBarControllerDelegate {
 
     let tabBarController = BaseTabBarController()
 

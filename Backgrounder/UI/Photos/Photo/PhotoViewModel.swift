@@ -9,7 +9,7 @@
 import Foundation
 import Kingfisher
 
-class PhotoViewModel {
+final class PhotoViewModel {
     // MARK: - Declarations
     struct State {
         let photoViewData: PhotoViewData

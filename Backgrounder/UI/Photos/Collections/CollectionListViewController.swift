@@ -12,7 +12,7 @@ import Cartography
 import RxSwift
 import RxCocoa
 
-class CollectionListViewController: UIViewController, StoryboardSceneBased {
+final class CollectionListViewController: UIViewController, StoryboardSceneBased {
     // MARK: - Protocols
     static let sceneStoryboard = Storyboard.main
 
