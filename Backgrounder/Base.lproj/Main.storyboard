@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -35,7 +33,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IIY-Wz-oPi">
-                                <rect key="frame" x="0.0" y="44" width="375" height="768"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="x0v-cf-brA">
                                 <rect key="frame" x="0.0" y="44" width="375" height="734"/>
@@ -92,7 +90,7 @@
                             <constraint firstItem="9YP-WG-JxT" firstAttribute="top" secondItem="D2X-IT-RHD" secondAttribute="top" id="SKH-Me-GQ5"/>
                             <constraint firstItem="D2X-IT-RHD" firstAttribute="trailing" secondItem="ERb-dG-qyo" secondAttribute="trailing" id="VVa-zH-Zk0"/>
                             <constraint firstItem="x0v-cf-brA" firstAttribute="bottom" secondItem="D2X-IT-RHD" secondAttribute="bottom" id="ZZ3-fA-mnP"/>
-                            <constraint firstAttribute="topMargin" secondItem="IIY-Wz-oPi" secondAttribute="top" id="ahO-7e-DoB"/>
+                            <constraint firstAttribute="top" secondItem="IIY-Wz-oPi" secondAttribute="top" id="ahO-7e-DoB"/>
                             <constraint firstItem="6SK-NH-q7E" firstAttribute="leading" secondItem="D2X-IT-RHD" secondAttribute="leading" constant="16" id="cdw-Gv-aHb"/>
                             <constraint firstItem="D2X-IT-RHD" firstAttribute="trailing" secondItem="6SK-NH-q7E" secondAttribute="trailing" constant="16" id="eHi-9D-LK2"/>
                             <constraint firstItem="ERb-dG-qyo" firstAttribute="width" secondItem="ERb-dG-qyo" secondAttribute="height" multiplier="1:1" id="ng1-ZD-TrT"/>
