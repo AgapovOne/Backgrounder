@@ -25,7 +25,7 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
         let flowLayout = createCollectionLayout(type: layout)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.delegate = self
-        collectionView.dataSource = self
+        collectionView.dataSource = dataSource
         collectionView.register(cellType: PhotoCell.self)
         return collectionView
     }()
@@ -46,8 +46,9 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
     // MARK: - Properties
     private let disposeBag = DisposeBag()
 
+    private let dataSource = PhotoListDataSource()
+
     private var page = 1
-    private var photos: [PhotoViewData] = []
 
     // MARK: Input from outside
     private var showPhoto: ((PhotoViewData) -> Void)?
@@ -177,9 +178,9 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
                 switch response {
                 case .success(let items):
                     if self.page == 1 {
-                        self.photos = items.map(PhotoViewData.init)
+                        self.dataSource.photos = items.map(PhotoViewData.init)
                     } else {
-                        self.photos += items.map(PhotoViewData.init)
+                        self.dataSource.photos += items.map(PhotoViewData.init)
                     }
                     self.collectionView.reloadData()
                 case .error(let error):
@@ -197,23 +198,13 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
     }
 }
 
-extension PhotoListViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return photos.count
-    }
-
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell: PhotoCell = collectionView.dequeueReusableCell(for: indexPath)
-        cell.data = photos[indexPath.row]
-        return cell
-    }
-
+extension PhotoListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        showPhoto?(photos[indexPath.row])
+        showPhoto?(dataSource.photos[indexPath.row])
     }
 
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if indexPath.row == photos.count - 1 {
+        if indexPath.row == dataSource.photos.count - 1 {
             loadNext()
         }
     }
