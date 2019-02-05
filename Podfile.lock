@@ -2,6 +2,7 @@ PODS:
   - Alamofire (4.8.1)
   - AlamofireNetworkActivityIndicator (2.3.0):
     - Alamofire (~> 4.7)
+  - BTNavigationDropdownMenu (0.5)
   - Cartography (3.1.0)
   - DeepDiff (1.4.0)
   - Hero (1.4.0)
@@ -31,6 +32,7 @@ PODS:
 
 DEPENDENCIES:
   - AlamofireNetworkActivityIndicator
+  - BTNavigationDropdownMenu
   - Cartography
   - DeepDiff
   - Hero
@@ -47,6 +49,7 @@ SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
     - AlamofireNetworkActivityIndicator
+    - BTNavigationDropdownMenu
     - Cartography
     - DeepDiff
     - Hero
@@ -64,6 +67,7 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: 16ce2c353fb72865124ddae8a57c5942388f4f11
   AlamofireNetworkActivityIndicator: 18346ff6d770d9513d0ac6f2d99706f40f93dbaa
+  BTNavigationDropdownMenu: ba3a26fdb6a56c4721c31df8a0875106c259663a
   Cartography: 1988b7578871a56c036e7af17195cb2190edf18c
   DeepDiff: c4dea751ace912310e0668ec3b2e5ebf06831c0d
   Hero: bac92350d7201a1a940003e0767c7b52ce7c99a1
@@ -78,6 +82,6 @@ SPEC CHECKSUMS:
   SwiftIconFont: 2ba18554a77c44948dc35b561b344e3c23834a84
   SwiftMessages: 8b3cc68dba2f1c91aac1a74c90b10287aac35371
 
-PODFILE CHECKSUM: ac46480e3bd762f538fb686cfe9b75afee85bec8
+PODFILE CHECKSUM: 67724c1fc89af6acc7682f1a48096ea461782736
 
 COCOAPODS: 1.5.3

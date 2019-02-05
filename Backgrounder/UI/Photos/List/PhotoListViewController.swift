@@ -13,7 +13,7 @@ import Kingfisher
 import DeepDiff
 import Moya
 import RxSwift
-//import BTNavigationDropdownMenu
+import BTNavigationDropdownMenu
 
 final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
     // MARK: - Protocols
@@ -39,9 +39,6 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
                                                          style: .plain,
                                                          target: self,
                                                          action: #selector(didTapLeftBarButtonItem))
-    private lazy var rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh,
-                                                          target: self,
-                                                          action: #selector(didTapRightBarButtonItem))
 
     // MARK: - Properties
     private let disposeBag = DisposeBag()
@@ -54,6 +51,14 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
     private var showPhoto: ((PhotoViewData) -> Void)?
 
     private var photoAPIService: PhotoAPIService!
+
+    private var dropdownItem: String {
+        return photoAPIService.photoListType.string
+    }
+
+    private var dropdownItems: [String] {
+        return PhotoListType.all.map({ $0.string })
+    }
 
     // MARK: - Lifecycle
     static func instantiate(photoAPIService: PhotoAPIService, showPhoto: ((PhotoViewData) -> Void)?) -> PhotoListViewController {
@@ -96,31 +101,29 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
             cv.edges == cv.superview!.edges
         }
 
-        navigationItem.rightBarButtonItem = rightBarButtonItem
-
         [
             UIControl.State.normal,
             UIControl.State.focused,
             UIControl.State.highlighted
-        ]
+            ]
             .forEach({
-            leftBarButtonItem.setTitleTextAttributes([
-                NSAttributedString.Key.font: Font.icon
-                ], for: $0)
-        })
+                leftBarButtonItem.setTitleTextAttributes([
+                    NSAttributedString.Key.font: Font.icon
+                    ], for: $0)
+            })
         navigationItem.leftBarButtonItem = leftBarButtonItem
 
 
-//        let menuView = BTNavigationDropdownMenu(navigationController: navigationController,
-//                                                containerView: navigationController!.view,
-//                                                title: viewModel.dropdownItem,
-//                                                items: viewModel.dropdownItems)
-//        menuView.applyDefaultStyle()
-//
-//        navigationItem.titleView = menuView
-//        menuView.didSelectItemAtIndexHandler = { [weak self] index in
-//            self?.viewModel.didSelectNavigationBarItem(at: index)
-//        }
+        let menuView = BTNavigationDropdownMenu(navigationController: navigationController,
+                                                containerView: navigationController!.view,
+                                                title: dropdownItem,
+                                                items: dropdownItems)
+        menuView.applyDefaultStyle()
+
+        navigationItem.titleView = menuView
+        menuView.didSelectItemAtIndexHandler = { [weak self] index in
+            self?.didSelectNavigationBarItem(at: index)
+        }
     }
 
     private func setupHero() {
@@ -140,37 +143,22 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
         leftBarButtonItem.title = layout.icon
     }
 
-    @objc private func didTapRightBarButtonItem() {
-        reload()
-    }
-
     @objc private func didToggleRefreshControl() {
         reload()
     }
 
-    // MARK: Inputs
-    func didSelectNavigationBarItem(at index: Int) {
+    private func didSelectNavigationBarItem(at index: Int) {
         photoAPIService.photoListType = PhotoListType.all[index]
         reload()
     }
 
-    func reload() {
+    // MARK: - Private
+    private func reload() {
         page = 1
         load()
     }
 
-    // MARK: Outputs
-    var dropdownItem: String {
-        return photoAPIService.photoListType.string
-    }
-
-    var dropdownItems: [String] {
-        return PhotoListType.all.map({ $0.string })
-    }
-
-    // MARK: - Private
     private func load() {
-        rightBarButtonItem.isEnabled = false
         photoAPIService
             .getPhotos(page: page)
             .observeOn(MainScheduler.instance)
@@ -186,7 +174,6 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
                 case .error(let error):
                     print(error)
                 }
-                self.rightBarButtonItem.isEnabled = true
                 self.refreshControl.endRefreshing()
             })
             .disposed(by: disposeBag)

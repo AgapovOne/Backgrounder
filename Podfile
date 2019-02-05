@@ -22,6 +22,7 @@ target 'Backgrounder' do
   pod 'DeepDiff'
   pod 'Hero'
   pod 'Hue'
+  pod 'BTNavigationDropdownMenu'
 
   target 'BackgrounderTests' do
     inherit! :search_paths
