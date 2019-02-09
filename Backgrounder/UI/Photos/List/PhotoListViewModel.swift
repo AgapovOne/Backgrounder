@@ -105,7 +105,9 @@ final class PhotoListViewModel {
     }
 
     func selectPhotoType(_ name: String) {
-        photoAPIService.photoListType = PhotoListType(name)
+        let newType = PhotoListType(name)
+        photoAPIService.photoListType = newType
+        photoListTypeName.accept(newType.string)
         reload()
     }
 
