@@ -25,6 +25,7 @@ enum Font {
 //    static let heading1 = UIFont(FontName.avenirNext, size: 24.0)
 //    static let heading2 = UIFont(FontName.avenirNext, size: 20.0)
     static let text = UIFont(FontName.avenirNext, size: 15.0)
+    static let navbarItem = UIFont(FontName.avenirNextMedium, size: 15.0)
     static let navbarTitle = UIFont(FontName.avenirNextMedium, size: 18.0)
     static let navbarLargeTitle = UIFont(FontName.avenirNextBold, size: 34.0)
 }

@@ -33,6 +33,10 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
         return refreshControl
     }()
 
+    private lazy var photoTypeBarButtonItem = UIBarButtonItem(title: "",
+                                                           style: .plain,
+                                                           target: nil,
+                                                           action: nil)
     private lazy var layoutBarButtonItem = UIBarButtonItem(title: "",
                                                          style: .plain,
                                                          target: nil,
@@ -70,6 +74,7 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
 
     // MARK: - Private methods
     private func setupCollection() {
+        photoTypeBarButtonItem.title = viewModel.photoListTypeName
         layoutBarButtonItem.title = layout.icon
     }
 
@@ -95,29 +100,24 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
         [
             UIControl.State.normal,
             UIControl.State.focused,
-            UIControl.State.highlighted
+            UIControl.State.highlighted,
+            UIControl.State.disabled
             ]
             .forEach({
+                photoTypeBarButtonItem.setTitleTextAttributes([
+                    .font: Font.navbarItem
+                    ], for: $0)
                 layoutBarButtonItem.setTitleTextAttributes([
-                    NSAttributedString.Key.font: Font.icon
+                    .font: Font.icon
                     ], for: $0)
             })
-        navigationItem.rightBarButtonItem = layoutBarButtonItem
+        photoTypeBarButtonItem.setTitleTextAttributes([
+            .foregroundColor: UIColor.white.withAlphaComponent(0.15),
+            .font: Font.navbarItem
+            ], for: .disabled)
+        navigationItem.rightBarButtonItems = [layoutBarButtonItem, photoTypeBarButtonItem]
 
-        if viewModel.hasDropdownItems {
-            let menuView = BTNavigationDropdownMenu(navigationController: navigationController,
-                                                    containerView: navigationController!.view,
-                                                    title: viewModel.dropdownItem,
-                                                    items: viewModel.dropdownItems)
-            menuView.applyDefaultStyle()
-
-            navigationItem.titleView = menuView
-            menuView.didSelectItemAtIndexHandler = { [weak self] index in
-                self?.viewModel.selectNavigationType(at: index)
-            }
-        } else {
-            navigationItem.title = viewModel.title
-        }
+        navigationItem.title = viewModel.title
 
         definesPresentationContext = true
 
@@ -158,6 +158,24 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
             })
             .disposed(by: disposeBag)
 
+        photoTypeBarButtonItem.rx.tap
+            .subscribe(onNext: { [weak self] in
+                guard let self = self else { return }
+                let alert = UIAlertController(title: "How to order photos", message: nil, preferredStyle: .actionSheet)
+                for name in self.viewModel.photoListTypes {
+                    alert.addAction(UIAlertAction(title: name, style: .default, handler: { [weak self] _ in
+                        guard let self = self else { return }
+                        self.viewModel.selectPhotoType(name)
+                        self.photoTypeBarButtonItem.title = name
+                    }))
+                }
+
+                alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+
+                self.present(alert, animated: true, completion: nil)
+            })
+            .disposed(by: disposeBag)
+
         layoutBarButtonItem.rx.tap
             .subscribe(onNext: { [weak self] in
                 guard let self = self else { return }
@@ -187,7 +205,6 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
             })
             .disposed(by: disposeBag)
 
-
         // Outputs
         viewModel.photos
             .asDriver { error in
@@ -205,6 +222,13 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
             .filter({ $0 == false })
             .drive(refreshControl.rx.isRefreshing)
             .disposed(by: disposeBag)
+
+        viewModel.query
+            .map { query in
+                query?.nonEmpty == nil
+            }
+            .asDriver(onErrorJustReturn: false)
+            .drive(photoTypeBarButtonItem.rx.isEnabled)
+            .disposed(by: disposeBag)
     }
 }
-

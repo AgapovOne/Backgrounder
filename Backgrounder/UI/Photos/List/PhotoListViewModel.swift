@@ -72,11 +72,11 @@ final class PhotoListViewModel {
         }
     }
 
-    var dropdownItem: String {
+    var photoListTypeName: String {
         return photoAPIService.photoListType.string
     }
 
-    var dropdownItems: [String] {
+    var photoListTypes: [String] {
         return PhotoListType.all.map({ $0.string })
     }
 
@@ -97,8 +97,8 @@ final class PhotoListViewModel {
         load()
     }
 
-    func selectNavigationType(at index: Int) {
-        photoAPIService.photoListType = PhotoListType.all[index]
+    func selectPhotoType(_ name: String) {
+        photoAPIService.photoListType = PhotoListType(name)
         load()
     }
 
