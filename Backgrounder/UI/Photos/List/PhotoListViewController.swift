@@ -97,16 +97,15 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
         }
 
         [UIControl.State.normal,
-         UIControl.State.focused,
-         UIControl.State.highlighted,
-         UIControl.State.disabled]
+            UIControl.State.focused,
+            UIControl.State.highlighted,
+            UIControl.State.disabled]
             .forEach({
                 photoTypeBarButtonItem.setTitleTextAttributes([.font: Font.navbarItem], for: $0)
                 layoutBarButtonItem.setTitleTextAttributes([.font: Font.icon], for: $0)
             })
         photoTypeBarButtonItem.setTitleTextAttributes([.foregroundColor: UIColor.white.withAlphaComponent(0.15),
-                                                       .font: Font.navbarItem],
-                                                      for: .disabled)
+                                                       .font: Font.navbarItem], for: .disabled)
         navigationItem.rightBarButtonItems = [layoutBarButtonItem, photoTypeBarButtonItem]
 
         navigationItem.title = viewModel.title
