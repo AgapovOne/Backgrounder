@@ -30,21 +30,28 @@ final class PhotosCoordinator: Coordinator<DeepLink> {
             let vm = CollectionListViewModel(title: title, collectionAPIService: CollectionAPIService())
             vc = CollectionListViewController.instantiate(viewModel: vm)
             vm.showCollection
-                .subscribe(onNext: { _ in
-                    // TODO: Show collection details
+                .subscribe(onNext: { [weak self] viewData in
+                    guard let self = self else { return }
+                    let vc = self.photoList(kind: .collectionPhotos(id: viewData.collection.id))
+                    router.push(vc)
                 })
                 .disposed(by: disposeBag)
         case .photos:
-            let vm = PhotoListViewModel(photoAPIService: PhotoAPIService(),
-                                        showPhoto: { [weak self] photo in
-                                            self?.showPhotoDetail(photo)
-            })
-            vc = PhotoListViewController.instantiate(viewModel: vm)
+            vc = photoList(kind: .photos)
         }
         router.setRootModule(vc, hideBar: false)
     }
 
     // MARK: - Private
+    private func photoList(kind: PhotoListViewModel.RequestKind) -> PhotoListViewController {
+        let vm = PhotoListViewModel(photoAPIService: PhotoAPIService(),
+                                    requestKind: kind,
+                                    showPhoto: { [weak self] photo in
+                                        self?.showPhotoDetail(photo)
+        })
+        return PhotoListViewController.instantiate(viewModel: vm)
+    }
+
     private func showPhotoDetail(_ photo: PhotoViewData) {
         let vc = PhotoViewController.instantiate(viewModel: PhotoViewModel(photo: photo))
         router.present(vc)

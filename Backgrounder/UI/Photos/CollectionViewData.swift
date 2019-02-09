@@ -10,7 +10,7 @@ import UIKit
 
 struct CollectionViewData: Hashable {
 
-    private let collection: Collection
+    let collection: Collection
 
     var id: String {
         return "\(collection.id)"

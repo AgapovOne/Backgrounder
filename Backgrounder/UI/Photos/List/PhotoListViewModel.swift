@@ -12,15 +12,43 @@ import RxCocoa
 
 final class PhotoListViewModel {
 
+    // MARK: - Declarations
+    enum RequestKind {
+        case photos
+        case collectionPhotos(id: Int)
+
+        var hasDropdownItems: Bool {
+            switch self {
+            case .photos:
+                return true
+            case .collectionPhotos:
+                return false
+            }
+        }
+    }
+
     // MARK: - Properties
+    // MARK: Private
     private let disposeBag = DisposeBag()
 
     private let photoAPIService: PhotoAPIService
+    private let requestKind: RequestKind
     private let showPhoto: ((PhotoViewData) -> Void)?
 
     private var page = 1
+    private var request: Single<[Photo]> {
+        switch requestKind {
+        case .photos:
+            return photoAPIService.getPhotos(page: page)
+        case .collectionPhotos(id: let id):
+            return photoAPIService.getCollectionPhotos(id: id, page: page)
+        }
+    }
 
     // MARK: Public
+    var hasDropdownItems: Bool {
+        return requestKind.hasDropdownItems
+    }
     private(set) var photos = BehaviorRelay<[PhotoViewData]>(value: [])
 
     private(set) var isLoading = BehaviorRelay<Bool>(value: false)
@@ -33,8 +61,9 @@ final class PhotoListViewModel {
         return PhotoListType.all.map({ $0.string })
     }
 
-    init(photoAPIService: PhotoAPIService, showPhoto: ((PhotoViewData) -> Void)?) {
+    init(photoAPIService: PhotoAPIService, requestKind: RequestKind, showPhoto: ((PhotoViewData) -> Void)?) {
         self.photoAPIService = photoAPIService
+        self.requestKind = requestKind
         self.showPhoto = showPhoto
     }
 
@@ -61,8 +90,7 @@ final class PhotoListViewModel {
     // MARK: - Private
     private func load() {
         isLoading.accept(true)
-        photoAPIService
-            .getPhotos(page: page)
+        request
             .observeOn(MainScheduler.instance)
             .subscribe({ [weak self] (response) in
                 guard let self = self else { return }
@@ -80,5 +108,4 @@ final class PhotoListViewModel {
             })
             .disposed(by: disposeBag)
     }
-
 }

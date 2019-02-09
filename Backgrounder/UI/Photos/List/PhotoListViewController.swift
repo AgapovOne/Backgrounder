@@ -89,15 +89,17 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
         navigationItem.leftBarButtonItem = leftBarButtonItem
 
 
-        let menuView = BTNavigationDropdownMenu(navigationController: navigationController,
-                                                containerView: navigationController!.view,
-                                                title: viewModel.dropdownItem,
-                                                items: viewModel.dropdownItems)
-        menuView.applyDefaultStyle()
+        if viewModel.hasDropdownItems {
+            let menuView = BTNavigationDropdownMenu(navigationController: navigationController,
+                                                    containerView: navigationController!.view,
+                                                    title: viewModel.dropdownItem,
+                                                    items: viewModel.dropdownItems)
+            menuView.applyDefaultStyle()
 
-        navigationItem.titleView = menuView
-        menuView.didSelectItemAtIndexHandler = { [weak self] index in
-            self?.didSelectNavigationBarItem(at: index)
+            navigationItem.titleView = menuView
+            menuView.didSelectItemAtIndexHandler = { [weak self] index in
+                self?.viewModel.selectNavigationType(at: index)
+            }
         }
     }
 
@@ -140,10 +142,6 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
 
         collectionView.setCollectionViewLayout(flowLayout, animated: true)
         leftBarButtonItem.title = layout.icon
-    }
-
-    private func didSelectNavigationBarItem(at index: Int) {
-        viewModel.selectNavigationType(at: index)
     }
 }
 
