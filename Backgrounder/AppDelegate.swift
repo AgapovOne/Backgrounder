@@ -44,15 +44,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             .foregroundColor: UIColor.white,
             .font: Font.navbarTitle
         ]
-        
-//      Commented out. Caused crashes on iOS 11 with Navigation Controller containing TabBarController
-//        if #available(iOS 11.0, *) {
-//            navBar.prefersLargeTitles = true
-//            navBar.largeTitleTextAttributes = [
-//                .foregroundColor: tint,
-//                .font: Font.navbarLargeTitle
-//            ]
-//        }
 
         let tabBar = UITabBar.appearance()
         tabBar.barStyle = .black
