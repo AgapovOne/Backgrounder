@@ -2,7 +2,6 @@ PODS:
   - Alamofire (4.8.1)
   - AlamofireNetworkActivityIndicator (2.3.0):
     - Alamofire (~> 4.7)
-  - BTNavigationDropdownMenu (0.5)
   - Cartography (3.1.0)
   - DeepDiff (1.4.0)
   - Hero (1.4.0)
@@ -20,19 +19,20 @@ PODS:
     - Reusable/View (= 4.0.5)
   - Reusable/Storyboard (4.0.5)
   - Reusable/View (4.0.5)
-  - RxAtomic (4.4.0)
-  - RxCocoa (4.4.0):
+  - Reveal-SDK (20)
+  - RxAtomic (4.4.1)
+  - RxCocoa (4.4.1):
     - RxSwift (~> 4.0)
-  - RxSwift (4.4.0):
+  - RxSwift (4.4.1):
     - RxAtomic (~> 4.4)
   - SwiftIconFont (3.0.0)
+  - SwiftLint (0.30.1)
   - SwiftMessages (6.0.2):
     - SwiftMessages/App (= 6.0.2)
   - SwiftMessages/App (6.0.2)
 
 DEPENDENCIES:
   - AlamofireNetworkActivityIndicator
-  - BTNavigationDropdownMenu
   - Cartography
   - DeepDiff
   - Hero
@@ -40,16 +40,17 @@ DEPENDENCIES:
   - Kingfisher
   - Moya/RxSwift
   - Reusable
+  - Reveal-SDK
   - RxCocoa
   - RxSwift
   - SwiftIconFont
+  - SwiftLint
   - SwiftMessages
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
     - AlamofireNetworkActivityIndicator
-    - BTNavigationDropdownMenu
     - Cartography
     - DeepDiff
     - Hero
@@ -58,16 +59,17 @@ SPEC REPOS:
     - Moya
     - Result
     - Reusable
+    - Reveal-SDK
     - RxAtomic
     - RxCocoa
     - RxSwift
     - SwiftIconFont
+    - SwiftLint
     - SwiftMessages
 
 SPEC CHECKSUMS:
   Alamofire: 16ce2c353fb72865124ddae8a57c5942388f4f11
   AlamofireNetworkActivityIndicator: 18346ff6d770d9513d0ac6f2d99706f40f93dbaa
-  BTNavigationDropdownMenu: ba3a26fdb6a56c4721c31df8a0875106c259663a
   Cartography: 1988b7578871a56c036e7af17195cb2190edf18c
   DeepDiff: c4dea751ace912310e0668ec3b2e5ebf06831c0d
   Hero: bac92350d7201a1a940003e0767c7b52ce7c99a1
@@ -76,12 +78,14 @@ SPEC CHECKSUMS:
   Moya: cf730b3cd9e005401ef37a85143aa141a12fd38f
   Result: bd966fac789cc6c1563440b348ab2598cc24d5c7
   Reusable: 188be1a54ac0691bc66e5bb24ec6eb91971b315b
-  RxAtomic: eacf60db868c96bfd63320e28619fe29c179656f
-  RxCocoa: df63ebf7b9a70d6b4eeea407ed5dd4efc8979749
-  RxSwift: 5976ecd04fc2fefd648827c23de5e11157faa973
+  Reveal-SDK: 43206a57f575632fd304e85385cc259b5d359e32
+  RxAtomic: f8d6adc1ccb87a767811269e4875887bc74dbf19
+  RxCocoa: 2f35a76bf8887872e28a1914112395b11b8e0e64
+  RxSwift: 92fcf68dfef21f3e2ab1965363d9e7b3d787597e
   SwiftIconFont: 2ba18554a77c44948dc35b561b344e3c23834a84
+  SwiftLint: a54bf1fe12b55c68560eb2a7689dfc81458508f7
   SwiftMessages: 8b3cc68dba2f1c91aac1a74c90b10287aac35371
 
-PODFILE CHECKSUM: 67724c1fc89af6acc7682f1a48096ea461782736
+PODFILE CHECKSUM: 8267f12fed350fb37e9c5f60e98dcf5b40ceb6aa
 
 COCOAPODS: 1.5.3

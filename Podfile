@@ -22,7 +22,10 @@ target 'Backgrounder' do
   pod 'DeepDiff'
   pod 'Hero'
   pod 'Hue'
-  pod 'BTNavigationDropdownMenu'
+
+  # Helpers
+  pod 'SwiftLint'
+  pod 'Reveal-SDK'
 
   target 'BackgrounderTests' do
     inherit! :search_paths

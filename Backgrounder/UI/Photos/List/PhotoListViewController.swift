@@ -13,7 +13,6 @@ import Kingfisher
 import DeepDiff
 import Moya
 import RxSwift
-import BTNavigationDropdownMenu
 
 final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
     // MARK: - Protocols
