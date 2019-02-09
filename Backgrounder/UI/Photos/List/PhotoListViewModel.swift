@@ -54,14 +54,15 @@ final class PhotoListViewModel {
     }
 
     // MARK: Public
+    let photos = BehaviorRelay<[PhotoViewData]>(value: [])
+
+    let isLoading = BehaviorRelay<Bool>(value: false)
+    let query = BehaviorRelay<String?>(value: nil)
+
     var hasDropdownItems: Bool {
         return requestKind.hasDropdownItems
     }
-    var query = BehaviorRelay<String?>(value: nil)
-    private(set) var photos = BehaviorRelay<[PhotoViewData]>(value: [])
-
-    private(set) var isLoading = BehaviorRelay<Bool>(value: false)
-
+    
     var title: String {
         switch requestKind {
         case .photos:
