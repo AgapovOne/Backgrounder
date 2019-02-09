@@ -30,10 +30,10 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
     }()
     private lazy var refreshControl = UIRefreshControl()
 
-    private lazy var leftBarButtonItem = UIBarButtonItem(title: "",
+    private lazy var rightBarButtonItem = UIBarButtonItem(title: "",
                                                          style: .plain,
                                                          target: self,
-                                                         action: #selector(didTapLeftBarButtonItem))
+                                                         action: #selector(didTapRightBarButtonItem))
 
     private let disposeBag = DisposeBag()
     private var viewModel: PhotoListViewModel!
@@ -56,7 +56,7 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
 
     // MARK: - Private methods
     private func setupCollection() {
-        leftBarButtonItem.title = layout.icon
+        rightBarButtonItem.title = layout.icon
     }
 
     private func setupUI() {
@@ -82,11 +82,11 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
             UIControl.State.highlighted
             ]
             .forEach({
-                leftBarButtonItem.setTitleTextAttributes([
+                rightBarButtonItem.setTitleTextAttributes([
                     NSAttributedString.Key.font: Font.icon
                     ], for: $0)
             })
-        navigationItem.leftBarButtonItem = leftBarButtonItem
+        navigationItem.rightBarButtonItem = rightBarButtonItem
 
 
         if viewModel.hasDropdownItems {
@@ -136,12 +136,12 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
     }
 
     // MARK: - Actions
-    @objc private func didTapLeftBarButtonItem() {
-        let layout = PhotoCollectionLayout(leftBarButtonItem.title ?? "")?.next ?? .list
+    @objc private func didTapRightBarButtonItem() {
+        let layout = PhotoCollectionLayout(rightBarButtonItem.title ?? "")?.next ?? .list
         let flowLayout = createCollectionLayout(type: layout)
 
         collectionView.setCollectionViewLayout(flowLayout, animated: true)
-        leftBarButtonItem.title = layout.icon
+        rightBarButtonItem.title = layout.icon
     }
 }
 
