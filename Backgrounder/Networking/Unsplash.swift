@@ -14,19 +14,23 @@ enum OrderBy: String {
 }
 
 enum Unsplash {
-    case
-    photos(
+    case photos(
         type: PhotoListType,
         page: Int,
         perPage: Int,
         orderBy: OrderBy
-    ),
-    collections(
+    )
+    case collections(
         type: CollectionListType,
         page: Int,
         perPage: Int
-    ),
-    collection(id: Int)
+    )
+    case collection(id: Int)
+    case collectionPhotos(
+        id: Int,
+        page: Int,
+        perPage: Int
+    )
 }
 
 extension Unsplash: TargetType {
@@ -52,12 +56,14 @@ extension Unsplash: TargetType {
             }
         case .collection(let id):
             return "/collection/\(id)"
+        case .collectionPhotos(id: let id, _, _):
+            return "/collections/\(id)/photos"
         }
     }
 
     var method: Moya.Method {
         switch self {
-        case .photos, .collections, .collection:
+        case .photos, .collections, .collection, .collectionPhotos:
             return .get
         }
     }
@@ -77,6 +83,12 @@ extension Unsplash: TargetType {
                 ], encoding: URLEncoding.default)
         case .collection:
             return .requestPlain
+        case .collectionPhotos(_, let page, let perPage):
+        return .requestParameters(parameters: [
+            "page": page,
+            "per_page": perPage
+            ], encoding: URLEncoding.default)
+
         }
     }
 
