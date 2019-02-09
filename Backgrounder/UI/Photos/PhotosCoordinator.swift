@@ -35,10 +35,11 @@ final class PhotosCoordinator: Coordinator<DeepLink> {
                 })
                 .disposed(by: disposeBag)
         case .photos:
-            vc = PhotoListViewController.instantiate(photoAPIService: PhotoAPIService(),
-                                                     showPhoto: { [weak self] photo in
-                self?.showPhotoDetail(photo)
+            let vm = PhotoListViewModel(photoAPIService: PhotoAPIService(),
+                                        showPhoto: { [weak self] photo in
+                                            self?.showPhotoDetail(photo)
             })
+            vc = PhotoListViewController.instantiate(viewModel: vm)
         }
         router.setRootModule(vc, hideBar: false)
     }

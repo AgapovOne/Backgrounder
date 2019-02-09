@@ -25,46 +25,23 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
         let flowLayout = createCollectionLayout(type: layout)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.delegate = self
-        collectionView.dataSource = dataSource
         collectionView.register(cellType: PhotoCell.self)
         return collectionView
     }()
-    private lazy var refreshControl: UIRefreshControl = {
-        let r = UIRefreshControl()
-        r.addTarget(self, action: #selector(self.didToggleRefreshControl), for: .valueChanged)
-        return r
-    }()
+    private lazy var refreshControl = UIRefreshControl()
 
     private lazy var leftBarButtonItem = UIBarButtonItem(title: "",
                                                          style: .plain,
                                                          target: self,
                                                          action: #selector(didTapLeftBarButtonItem))
 
-    // MARK: - Properties
     private let disposeBag = DisposeBag()
-
-    private let dataSource = PhotoListDataSource()
-
-    private var page = 1
-
-    // MARK: Input from outside
-    private var showPhoto: ((PhotoViewData) -> Void)?
-
-    private var photoAPIService: PhotoAPIService!
-
-    private var dropdownItem: String {
-        return photoAPIService.photoListType.string
-    }
-
-    private var dropdownItems: [String] {
-        return PhotoListType.all.map({ $0.string })
-    }
+    private var viewModel: PhotoListViewModel!
 
     // MARK: - Lifecycle
-    static func instantiate(photoAPIService: PhotoAPIService, showPhoto: ((PhotoViewData) -> Void)?) -> PhotoListViewController {
+    static func instantiate(viewModel: PhotoListViewModel) -> PhotoListViewController {
         let vc = PhotoListViewController.instantiate()
-        vc.photoAPIService = photoAPIService
-        vc.showPhoto = showPhoto
+        vc.viewModel = viewModel
         return vc
     }
 
@@ -75,8 +52,6 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
         setupUI()
         setupHero()
         setupViewModel()
-
-        refreshControl.sendActions(for: .valueChanged)
     }
 
     // MARK: - Private methods
@@ -116,8 +91,8 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
 
         let menuView = BTNavigationDropdownMenu(navigationController: navigationController,
                                                 containerView: navigationController!.view,
-                                                title: dropdownItem,
-                                                items: dropdownItems)
+                                                title: viewModel.dropdownItem,
+                                                items: viewModel.dropdownItems)
         menuView.applyDefaultStyle()
 
         navigationItem.titleView = menuView
@@ -131,7 +106,31 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
     }
 
     private func setupViewModel() {
+        // Inputs
+        refreshControl.rx.controlEvent(.valueChanged)
+            .startWith(())
+            .subscribe(onNext: { [weak self] in
+                self?.viewModel.reload()
+            })
+            .disposed(by: disposeBag)
 
+        // Outputs
+        viewModel.photos
+            .asDriver { error in
+                print(error)
+                return .just([])
+            }
+            .drive(collectionView.rx.items(cellIdentifier: PhotoCell.reuseIdentifier, cellType: PhotoCell.self)) { _, item, cell in
+                cell.data = item
+            }
+            .disposed(by: disposeBag)
+
+        let isLoading = viewModel.isLoading.asDriver(onErrorJustReturn: false)
+
+        isLoading
+            .filter({ $0 == false })
+            .drive(refreshControl.rx.isRefreshing)
+            .disposed(by: disposeBag)
     }
 
     // MARK: - Actions
@@ -143,56 +142,19 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
         leftBarButtonItem.title = layout.icon
     }
 
-    @objc private func didToggleRefreshControl() {
-        reload()
-    }
-
     private func didSelectNavigationBarItem(at index: Int) {
-        photoAPIService.photoListType = PhotoListType.all[index]
-        reload()
-    }
-
-    // MARK: - Private
-    private func reload() {
-        page = 1
-        load()
-    }
-
-    private func load() {
-        photoAPIService
-            .getPhotos(page: page)
-            .observeOn(MainScheduler.instance)
-            .subscribe({ (response) in
-                switch response {
-                case .success(let items):
-                    if self.page == 1 {
-                        self.dataSource.photos = items.map(PhotoViewData.init)
-                    } else {
-                        self.dataSource.photos += items.map(PhotoViewData.init)
-                    }
-                    self.collectionView.reloadData()
-                case .error(let error):
-                    print(error)
-                }
-                self.refreshControl.endRefreshing()
-            })
-            .disposed(by: disposeBag)
-    }
-
-    private func loadNext() {
-        page += 1
-        load()
+        viewModel.selectNavigationType(at: index)
     }
 }
 
 extension PhotoListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        showPhoto?(dataSource.photos[indexPath.row])
+        viewModel.selectItem(at: indexPath)
     }
 
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if indexPath.row == dataSource.photos.count - 1 {
-            loadNext()
+        if indexPath.row == viewModel.photos.value.count - 1 {
+            viewModel.loadNext()
         }
     }
 
