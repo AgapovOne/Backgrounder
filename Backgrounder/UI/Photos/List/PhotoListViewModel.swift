@@ -17,7 +17,7 @@ final class PhotoListViewModel {
         case photos
         case collectionPhotos(collection: CollectionViewData)
 
-        var hasDropdownItems: Bool {
+        var hasPhotoListTypeSelection: Bool {
             switch self {
             case .photos:
                 return true
@@ -58,9 +58,10 @@ final class PhotoListViewModel {
 
     let isLoading = BehaviorRelay<Bool>(value: false)
     let query = BehaviorRelay<String?>(value: nil)
+    let photoListTypeName = BehaviorRelay<String>(value: "")
 
-    var hasDropdownItems: Bool {
-        return requestKind.hasDropdownItems
+    var hasPhotoListTypeSelection: Bool {
+        return requestKind.hasPhotoListTypeSelection
     }
 
     var title: String {
@@ -72,10 +73,6 @@ final class PhotoListViewModel {
         }
     }
 
-    var photoListTypeName: String {
-        return photoAPIService.photoListType.string
-    }
-
     var photoListTypes: [String] {
         return PhotoListType.all.map({ $0.string })
     }
@@ -84,6 +81,16 @@ final class PhotoListViewModel {
         self.photoAPIService = photoAPIService
         self.requestKind = requestKind
         self.showPhoto = showPhoto
+        photoListTypeName.accept(photoAPIService.photoListType.string)
+        query
+            .map { query in
+                if case .photos = requestKind {
+                    return query?.nonEmpty == nil ? photoAPIService.photoListType.string : ""
+                }
+                return ""
+            }
+            .bind(to: photoListTypeName)
+            .disposed(by: disposeBag)
     }
 
     // MARK: - Public

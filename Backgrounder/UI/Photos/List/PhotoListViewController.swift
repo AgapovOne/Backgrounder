@@ -74,7 +74,6 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
 
     // MARK: - Private methods
     private func setupCollection() {
-        photoTypeBarButtonItem.title = viewModel.photoListTypeName
         layoutBarButtonItem.title = layout.icon
     }
 
@@ -166,7 +165,6 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
                     alert.addAction(UIAlertAction(title: name, style: .default, handler: { [weak self] _ in
                         guard let self = self else { return }
                         self.viewModel.selectPhotoType(name)
-                        self.photoTypeBarButtonItem.title = name
                     }))
                 }
 
@@ -229,6 +227,11 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
             }
             .asDriver(onErrorJustReturn: false)
             .drive(photoTypeBarButtonItem.rx.isEnabled)
+            .disposed(by: disposeBag)
+
+        viewModel.photoListTypeName
+            .asDriver(onErrorJustReturn: "")
+            .drive(photoTypeBarButtonItem.rx.title)
             .disposed(by: disposeBag)
     }
 }
