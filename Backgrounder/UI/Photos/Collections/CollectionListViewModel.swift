@@ -72,7 +72,6 @@ final class CollectionListViewModel {
         isLoadingRelay.accept(true)
         collectionAPIService
             .getCollections(page: page)
-            .delay(5, scheduler: ConcurrentDispatchQueueScheduler(qos: .background))
             .observeOn(MainScheduler.instance)
             .map({ $0.map(CollectionViewData.init) })
             .subscribe({ [weak self] (response) in
