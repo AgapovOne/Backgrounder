@@ -21,6 +21,9 @@ final class CollectionListViewModel {
     // MARK: Navigation output
     let showCollection: Observable<CollectionViewData>
 
+    // MARK: Inputs & Ouputs
+    let query = BehaviorRelay<String?>(value: nil)
+
     // MARK: - Properties
     private let disposeBag = DisposeBag()
     private let collectionAPIService: CollectionAPIService
@@ -29,6 +32,14 @@ final class CollectionListViewModel {
     private let collectionsRelay = BehaviorRelay<[CollectionViewData]>(value: [])
     private let isLoadingRelay = BehaviorRelay<Bool>(value: false)
     private let showCollectionRelay = PublishRelay<CollectionViewData>()
+
+    private var request: Single<[UnsplashCollection]> {
+        if let query = query.value?.nonEmpty {
+            return collectionAPIService.searchCollections(page: page, query: query)
+        } else {
+            return collectionAPIService.getCollections(page: page)
+        }
+    }
 
     // MARK: - Lifecycle
     init(title: String, collectionAPIService: CollectionAPIService) {
@@ -70,8 +81,7 @@ final class CollectionListViewModel {
     private func load() {
         guard !isLoadingRelay.value else { return }
         isLoadingRelay.accept(true)
-        collectionAPIService
-            .getCollections(page: page)
+        request
             .observeOn(MainScheduler.instance)
             .map({ $0.map(CollectionViewData.init) })
             .subscribe({ [weak self] (response) in

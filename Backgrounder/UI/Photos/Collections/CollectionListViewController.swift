@@ -34,6 +34,17 @@ final class CollectionListViewController: UIViewController, StoryboardSceneBased
     private lazy var refreshControl = UIRefreshControl()
     private lazy var activityIndicatorView = UIActivityIndicatorView(style: .whiteLarge)
 
+    private lazy var searchController: UISearchController = {
+        let searchController = UISearchController(searchResultsController: nil)
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.hidesNavigationBarDuringPresentation = false
+
+        searchController.searchBar.sizeToFit()
+
+        searchController.searchBar.tintColor = .white
+        return searchController
+    }()
+
     // MARK: - Properties
     private var viewModel: CollectionListViewModel!
 
@@ -71,6 +82,8 @@ final class CollectionListViewController: UIViewController, StoryboardSceneBased
             collectionView.contentInset = UIEdgeInsets(top: view.layoutMargins.top, left: 0, bottom: 0, right: 0)
         }
 
+        collectionView.keyboardDismissMode = .interactive
+
         view.addSubview(collectionView)
         constrain(collectionView) { cv in
             cv.edges == cv.superview!.edges
@@ -87,21 +100,6 @@ final class CollectionListViewController: UIViewController, StoryboardSceneBased
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
 
         definesPresentationContext = true
-        let searchController = UISearchController(searchResultsController: nil)
-        searchController.obscuresBackgroundDuringPresentation = false
-        searchController.hidesNavigationBarDuringPresentation = false
-
-        searchController.searchBar.sizeToFit()
-        
-        searchController.searchBar.tintColor = .white
-
-        searchController.searchBar.rx.text.changed
-            .throttle(0.8, scheduler: MainScheduler.instance)
-            .distinctUntilChanged()
-            .subscribe(onNext: { text in
-                print(text)
-            })
-            .disposed(by: disposeBag)
 
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
@@ -116,39 +114,7 @@ final class CollectionListViewController: UIViewController, StoryboardSceneBased
     private func setupViewModel() {
         assert(viewModel != nil, "View Model should be instantiated. Use instantiate(viewModel:)")
 
-        viewModel.title
-            .bind(to: navigationItem.rx.title)
-            .disposed(by: disposeBag)
-
-        let isLoading = viewModel.isLoading
-            .asDriver(onErrorJustReturn: false)
-
-
-        isLoading
-            .filter({ [weak self] _ in
-                guard let self = self else { return false }
-                return self.collectionView.numberOfItems(inSection: 0) == 0
-            })
-            .drive(activityIndicatorView.rx.isAnimating)
-            .disposed(by: disposeBag)
-
-        isLoading
-            .filter({ !$0 }) // Only stop refresh control, don't start it
-            .drive(refreshControl.rx.isRefreshing)
-            .disposed(by: disposeBag)
-
-        let collectionsDriver = viewModel.collections
-            .asDriver(onErrorJustReturn: [])
-
-        collectionsDriver
-            .drive(collectionView.rx.items(
-                cellIdentifier: PhotoCollectionCell.reuseIdentifier,
-                cellType: PhotoCollectionCell.self)
-            ) { _, collection, cell in
-                cell.data = collection
-            }
-            .disposed(by: disposeBag)
-
+        // Inputs
         collectionView.rx.modelSelected(CollectionViewData.self)
             .subscribe(onNext: { [weak self] item in
                 self?.viewModel.select(item)
@@ -178,6 +144,54 @@ final class CollectionListViewController: UIViewController, StoryboardSceneBased
             .subscribe(onNext: { [weak self] in
                 self?.viewModel.reload()
             })
+            .disposed(by: disposeBag)
+
+        let searchText = searchController.searchBar.rx.text.changed
+            .throttle(0.8, scheduler: MainScheduler.instance)
+            .distinctUntilChanged()
+            .debug()
+
+        searchText
+            .bind(to: viewModel.query)
+            .disposed(by: disposeBag)
+
+        searchText
+            .subscribe(onNext: { [weak self] _ in
+                self?.viewModel.reload()
+            })
+            .disposed(by: disposeBag)
+
+        // Outputs
+        viewModel.title
+            .bind(to: navigationItem.rx.title)
+            .disposed(by: disposeBag)
+
+        let isLoading = viewModel.isLoading
+            .asDriver(onErrorJustReturn: false)
+
+        isLoading
+            .filter({ [weak self] _ in
+                guard let self = self else { return false }
+                return self.collectionView.numberOfItems(inSection: 0) == 0
+            })
+            .drive(activityIndicatorView.rx.isAnimating)
+            .disposed(by: disposeBag)
+
+        isLoading
+            .filter({ !$0 }) // Only stop refresh control, don't start it
+            .drive(refreshControl.rx.isRefreshing)
+            .disposed(by: disposeBag)
+
+        let collectionsDriver = viewModel.collections
+            .asDriver(onErrorJustReturn: [])
+
+        collectionsDriver
+            .drive(collectionView.rx.items(
+                cellIdentifier: PhotoCollectionCell.reuseIdentifier,
+                cellType: PhotoCollectionCell.self)
+            ) { _, collection, cell in
+                cell.data = collection
+            }
             .disposed(by: disposeBag)
     }
 }
