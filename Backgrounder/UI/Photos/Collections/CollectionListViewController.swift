@@ -31,7 +31,11 @@ final class CollectionListViewController: UIViewController, StoryboardSceneBased
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         return collectionView
     }()
-    private lazy var refreshControl = UIRefreshControl()
+    private lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.tintColor = .white
+        return refreshControl
+    }()
     private lazy var activityIndicatorView = UIActivityIndicatorView(style: .whiteLarge)
 
     private lazy var searchController: UISearchController = {

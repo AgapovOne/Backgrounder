@@ -27,7 +27,11 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
         collectionView.register(cellType: PhotoCell.self)
         return collectionView
     }()
-    private lazy var refreshControl = UIRefreshControl()
+    private lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.tintColor = .white
+        return refreshControl
+    }()
 
     private lazy var layoutBarButtonItem = UIBarButtonItem(title: "",
                                                          style: .plain,
