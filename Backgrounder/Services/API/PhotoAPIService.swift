@@ -20,5 +20,13 @@ final class PhotoAPIService {
         return Provider.default.rx
             .request(.photos(type: photoListType, page: page, perPage: Configuration.Defaults.pagination, orderBy: orderBy))
             .map(Array<Photo>.self)
+            .subscribeOn(ConcurrentDispatchQueueScheduler(qos: .background))
+    }
+
+    func getCollectionPhotos(id: Int, page: Int) -> Single<[Photo]> {
+        return Provider.default.rx
+            .request(.collectionPhotos(id: id, page: page, perPage: Configuration.Defaults.pagination))
+            .map(Array<Photo>.self)
+            .subscribeOn(ConcurrentDispatchQueueScheduler(qos: .background))
     }
 }
