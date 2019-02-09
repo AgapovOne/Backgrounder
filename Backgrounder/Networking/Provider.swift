@@ -9,6 +9,17 @@
 import Foundation
 import Moya
 
-struct Provider {
-    static let `default` = MoyaProvider<Unsplash>()
+enum Provider {
+    static let `default` = MoyaProvider<Unsplash>(plugins: [plugin])
+
+    private static let plugin = NetworkActivityPlugin { (change, _) in
+        DispatchQueue.main.async {
+            switch change {
+            case .began:
+                UIApplication.shared.isNetworkActivityIndicatorVisible = true
+            case .ended:
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+            }
+        }
+    }
 }
