@@ -29,4 +29,11 @@ final class PhotoAPIService {
             .map(Array<Photo>.self)
             .subscribeOn(ConcurrentDispatchQueueScheduler(qos: .background))
     }
+
+    func searchPhotos(page: Int, query: String, collections: [Int] = []) -> Single<[Photo]> {
+        return Provider.default.rx
+            .request(.searchPhotos(query: query, page: page, perPage: Configuration.Defaults.pagination, collections: collections))
+            .map(Array<Photo>.self, atKeyPath: "results")
+            .subscribeOn(ConcurrentDispatchQueueScheduler(qos: .background))
+    }
 }

@@ -29,4 +29,11 @@ final class CollectionAPIService {
             .filterSuccessfulStatusCodes()
             .map(UnsplashCollection.self)
     }
+
+    func searchCollections(page: Int, query: String) -> Single<[UnsplashCollection]> {
+        return Provider.default.rx
+            .request(.searchCollections(query: query, page: page, perPage: Configuration.Defaults.pagination))
+            .map(Array<UnsplashCollection>.self, atKeyPath: "results")
+            .subscribeOn(ConcurrentDispatchQueueScheduler(qos: .background))
+    }
 }

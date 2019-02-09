@@ -31,6 +31,17 @@ enum Unsplash {
         page: Int,
         perPage: Int
     )
+    case searchPhotos(
+        query: String,
+        page: Int,
+        perPage: Int,
+        collections: [Int]
+    )
+    case searchCollections(
+        query: String,
+        page: Int,
+        perPage: Int
+    )
 }
 
 extension Unsplash: TargetType {
@@ -58,12 +69,16 @@ extension Unsplash: TargetType {
             return "/collection/\(id)"
         case .collectionPhotos(id: let id, _, _):
             return "/collections/\(id)/photos"
+        case .searchPhotos:
+            return "/search/photos"
+        case .searchCollections:
+            return "/search/collections"
         }
     }
 
     var method: Moya.Method {
         switch self {
-        case .photos, .collections, .collection, .collectionPhotos:
+        case .photos, .collections, .collection, .collectionPhotos, .searchPhotos, .searchCollections:
             return .get
         }
     }
@@ -84,11 +99,23 @@ extension Unsplash: TargetType {
         case .collection:
             return .requestPlain
         case .collectionPhotos(_, let page, let perPage):
-        return .requestParameters(parameters: [
-            "page": page,
-            "per_page": perPage
-            ], encoding: URLEncoding.default)
-
+            return .requestParameters(parameters: [
+                "page": page,
+                "per_page": perPage
+                ], encoding: URLEncoding.default)
+        case .searchCollections(let query, let page, let perPage):
+             return .requestParameters(parameters: [
+                "query": query,
+                "page": page,
+                "per_page": perPage
+                ], encoding: URLEncoding.default)
+         case .searchPhotos(let query, let page, let perPage, let collections):
+            return .requestParameters(parameters: [
+                "query": query,
+                "page": page,
+                "per_page": perPage,
+                "collections": collections
+                ], encoding: URLEncoding.default)
         }
     }
 
