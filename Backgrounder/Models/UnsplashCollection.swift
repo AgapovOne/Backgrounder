@@ -1,5 +1,5 @@
 //
-//  Collection.swift
+//  UnsplashCollection.swift
 //  Backgrounder
 //
 //  Created by Aleksey Agapov on 27/04/2018.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Collection: Codable, Equatable {
+struct UnsplashCollection: Codable, Equatable {
     let id: Int
     let title: String
     let description: String?
@@ -24,7 +24,7 @@ struct Collection: Codable, Equatable {
     }
 }
 
-extension Collection: Hashable {
+extension UnsplashCollection: Hashable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }

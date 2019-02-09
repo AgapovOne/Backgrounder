@@ -16,17 +16,17 @@ final class CollectionAPIService {
         }
     }
 
-    func getCollections(page: Int) -> Single<[Collection]> {
+    func getCollections(page: Int) -> Single<[UnsplashCollection]> {
         return Provider.default.rx
             .request(.collections(type: collectionListType, page: page, perPage: Configuration.Defaults.pagination))
             .filterSuccessfulStatusCodes()
-            .map(Array<Collection>.self)
+            .map(Array<UnsplashCollection>.self)
     }
 
-    func getCollection(id: Int) -> Single<Collection> {
+    func getCollection(id: Int) -> Single<UnsplashCollection> {
         return Provider.default.rx
             .request(.collection(id: id))
             .filterSuccessfulStatusCodes()
-            .map(Collection.self)
+            .map(UnsplashCollection.self)
     }
 }

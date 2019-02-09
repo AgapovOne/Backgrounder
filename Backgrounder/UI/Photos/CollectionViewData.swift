@@ -10,7 +10,7 @@ import UIKit
 
 struct CollectionViewData: Hashable {
 
-    let collection: Collection
+    let collection: UnsplashCollection
 
     var id: String {
         return "\(collection.id)"
@@ -33,7 +33,7 @@ struct CollectionViewData: Hashable {
     }
 
     var title: String {
-        return collection.title
+        return collection.title.nonEmpty ?? "Unknown"
     }
 
     var description: String? {
@@ -44,7 +44,7 @@ struct CollectionViewData: Hashable {
         return UIColor(hex: collection.coverPhoto?.color ?? "")
     }
 
-    init(_ collection: Collection) {
+    init(_ collection: UnsplashCollection) {
         self.collection = collection
     }
 }
