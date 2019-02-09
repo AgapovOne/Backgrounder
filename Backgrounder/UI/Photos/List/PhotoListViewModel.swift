@@ -39,9 +39,17 @@ final class PhotoListViewModel {
     private var request: Single<[Photo]> {
         switch requestKind {
         case .photos:
-            return photoAPIService.getPhotos(page: page)
+            if let query = query.value?.nonEmpty {
+                return photoAPIService.searchPhotos(page: page, query: query)
+            } else {
+                return photoAPIService.getPhotos(page: page)
+            }
         case .collectionPhotos(let collection):
-            return photoAPIService.getCollectionPhotos(id: collection.collection.id, page: page)
+            if let query = query.value?.nonEmpty {
+                return photoAPIService.searchPhotos(page: page, query: query, collections: [collection.collection.id])
+            } else {
+                return photoAPIService.getCollectionPhotos(id: collection.collection.id, page: page)
+            }
         }
     }
 
@@ -49,6 +57,7 @@ final class PhotoListViewModel {
     var hasDropdownItems: Bool {
         return requestKind.hasDropdownItems
     }
+    var query = BehaviorRelay<String?>(value: nil)
     private(set) var photos = BehaviorRelay<[PhotoViewData]>(value: [])
 
     private(set) var isLoading = BehaviorRelay<Bool>(value: false)

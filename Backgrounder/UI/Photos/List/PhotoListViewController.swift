@@ -35,6 +35,17 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
                                                          target: self,
                                                          action: #selector(didTapRightBarButtonItem))
 
+    private lazy var searchController: UISearchController = {
+        let searchController = UISearchController(searchResultsController: nil)
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.hidesNavigationBarDuringPresentation = false
+
+        searchController.searchBar.sizeToFit()
+
+        searchController.searchBar.tintColor = .white
+        return searchController
+    }()
+
     private let disposeBag = DisposeBag()
     private var viewModel: PhotoListViewModel!
 
@@ -71,6 +82,8 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
             collectionView.contentInset = UIEdgeInsets(top: view.layoutMargins.top, left: 0, bottom: 0, right: 0)
         }
 
+        collectionView.keyboardDismissMode = .interactive
+
         view.addSubview(collectionView)
         constrain(collectionView) { cv in
             cv.edges == cv.superview!.edges
@@ -88,7 +101,6 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
             })
         navigationItem.rightBarButtonItem = rightBarButtonItem
 
-
         if viewModel.hasDropdownItems {
             let menuView = BTNavigationDropdownMenu(navigationController: navigationController,
                                                     containerView: navigationController!.view,
@@ -103,6 +115,17 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
         } else {
             navigationItem.title = viewModel.title
         }
+
+        definesPresentationContext = true
+
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
+
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.largeTitleTextAttributes = [
+            .foregroundColor: UIColor.white,
+            .font: Font.navbarLargeTitle
+        ]
     }
 
     private func setupHero() {
@@ -114,6 +137,20 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
         refreshControl.rx.controlEvent(.valueChanged)
             .startWith(())
             .subscribe(onNext: { [weak self] in
+                self?.viewModel.reload()
+            })
+            .disposed(by: disposeBag)
+
+        let searchText = searchController.searchBar.rx.text.changed
+            .throttle(0.8, scheduler: MainScheduler.instance)
+            .distinctUntilChanged()
+
+        searchText
+            .bind(to: viewModel.query)
+            .disposed(by: disposeBag)
+
+        searchText
+            .subscribe(onNext: { [weak self] _ in
                 self?.viewModel.reload()
             })
             .disposed(by: disposeBag)
