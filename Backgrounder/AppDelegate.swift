@@ -52,6 +52,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         tabBar.unselectedItemTintColor = Configuration.Color.gray
         tabBar.tintColor = .white
 
+        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).defaultTextAttributes = [.foregroundColor: UIColor.white]
+
         let window = UIWindow.appearance()
         window.backgroundColor = Configuration.Color.darkGray
         window.tintColor = tint
