@@ -69,7 +69,7 @@ final class CollectionListViewModel {
     }
 
     func didEndDisplayingCell(cell: UICollectionViewCell, indexPath: IndexPath) {
-        (cell as? PhotoCell)?.cancelDownloadIfNeeded()
+        (cell as? PhotoCollectionCell)?.cancelDownloadIfNeeded()
     }
 
     // MARK: - Private

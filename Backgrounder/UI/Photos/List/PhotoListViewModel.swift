@@ -62,7 +62,7 @@ final class PhotoListViewModel {
     var hasDropdownItems: Bool {
         return requestKind.hasDropdownItems
     }
-    
+
     var title: String {
         switch requestKind {
         case .photos:
@@ -102,8 +102,18 @@ final class PhotoListViewModel {
         load()
     }
 
-    func selectItem(at indexPath: IndexPath) {
-        showPhoto?(photos.value[indexPath.row])
+    func select(_ item: PhotoViewData) {
+        showPhoto?(item)
+    }
+
+    func willDisplayCell(cell: UICollectionViewCell, at indexPath: IndexPath) {
+        if indexPath.row == photos.value.count - 1 {
+            loadNext()
+        }
+    }
+
+    func didEndDisplayingCell(cell: UICollectionViewCell, indexPath: IndexPath) {
+        (cell as? PhotoCell)?.cancelDownloadIfNeeded()
     }
 
     // MARK: - Private

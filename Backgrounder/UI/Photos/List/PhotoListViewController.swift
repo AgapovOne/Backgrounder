@@ -24,16 +24,15 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
     private lazy var collectionView: UICollectionView = {
         let flowLayout = createCollectionLayout(type: layout)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
-        collectionView.delegate = self
         collectionView.register(cellType: PhotoCell.self)
         return collectionView
     }()
     private lazy var refreshControl = UIRefreshControl()
 
-    private lazy var rightBarButtonItem = UIBarButtonItem(title: "",
+    private lazy var layoutBarButtonItem = UIBarButtonItem(title: "",
                                                          style: .plain,
-                                                         target: self,
-                                                         action: #selector(didTapRightBarButtonItem))
+                                                         target: nil,
+                                                         action: nil)
 
     private lazy var searchController: UISearchController = {
         let searchController = UISearchController(searchResultsController: nil)
@@ -67,7 +66,7 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
 
     // MARK: - Private methods
     private func setupCollection() {
-        rightBarButtonItem.title = layout.icon
+        layoutBarButtonItem.title = layout.icon
     }
 
     private func setupUI() {
@@ -95,11 +94,11 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
             UIControl.State.highlighted
             ]
             .forEach({
-                rightBarButtonItem.setTitleTextAttributes([
+                layoutBarButtonItem.setTitleTextAttributes([
                     NSAttributedString.Key.font: Font.icon
                     ], for: $0)
             })
-        navigationItem.rightBarButtonItem = rightBarButtonItem
+        navigationItem.rightBarButtonItem = layoutBarButtonItem
 
         if viewModel.hasDropdownItems {
             let menuView = BTNavigationDropdownMenu(navigationController: navigationController,
@@ -155,6 +154,36 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
             })
             .disposed(by: disposeBag)
 
+        layoutBarButtonItem.rx.tap
+            .subscribe(onNext: { [weak self] in
+                guard let self = self else { return }
+                let layout = PhotoCollectionLayout(self.layoutBarButtonItem.title ?? "")?.next ?? .list
+                let flowLayout = createCollectionLayout(type: layout)
+
+                self.collectionView.setCollectionViewLayout(flowLayout, animated: true)
+                self.layoutBarButtonItem.title = layout.icon
+            })
+            .disposed(by: disposeBag)
+
+        collectionView.rx.modelSelected(PhotoViewData.self)
+            .subscribe(onNext: { [weak self] item in
+                self?.viewModel.select(item)
+            })
+            .disposed(by: disposeBag)
+
+        collectionView.rx.willDisplayCell
+            .subscribe(onNext: { [weak self] cell, indexPath in
+                self?.viewModel.willDisplayCell(cell: cell, at: indexPath)
+            })
+            .disposed(by: disposeBag)
+
+        collectionView.rx.didEndDisplayingCell
+            .subscribe(onNext: { [weak self] cell, indexPath in
+                self?.viewModel.didEndDisplayingCell(cell: cell, indexPath: indexPath)
+            })
+            .disposed(by: disposeBag)
+
+
         // Outputs
         viewModel.photos
             .asDriver { error in
@@ -173,29 +202,5 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
             .drive(refreshControl.rx.isRefreshing)
             .disposed(by: disposeBag)
     }
-
-    // MARK: - Actions
-    @objc private func didTapRightBarButtonItem() {
-        let layout = PhotoCollectionLayout(rightBarButtonItem.title ?? "")?.next ?? .list
-        let flowLayout = createCollectionLayout(type: layout)
-
-        collectionView.setCollectionViewLayout(flowLayout, animated: true)
-        rightBarButtonItem.title = layout.icon
-    }
 }
 
-extension PhotoListViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        viewModel.selectItem(at: indexPath)
-    }
-
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if indexPath.row == viewModel.photos.value.count - 1 {
-            viewModel.loadNext()
-        }
-    }
-
-    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        (cell as? PhotoCell)?.cancelDownloadIfNeeded()
-    }
-}
