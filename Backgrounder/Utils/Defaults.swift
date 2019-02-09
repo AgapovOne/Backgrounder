@@ -12,7 +12,8 @@ private enum DefaultsKey: String {
     case
     onboardingWasShownKey,
     photoListTypeKey,
-    collectionListTypeKey
+    collectionListTypeKey,
+    photoCollectionLayoutKey
 }
 
 enum Defaults {
@@ -40,6 +41,15 @@ enum Defaults {
         }
         set {
             UserDefaults.standard.set(newValue.string, forKey: DefaultsKey.collectionListTypeKey.rawValue)
+        }
+    }
+
+    static var photoCollectionLayout: PhotoCollectionLayout {
+        get {
+            return PhotoCollectionLayout(UserDefaults.standard.string(forKey: DefaultsKey.photoCollectionLayoutKey.rawValue) ?? "") ?? .list
+        }
+        set {
+            UserDefaults.standard.set(newValue.icon, forKey: DefaultsKey.photoCollectionLayoutKey.rawValue)
         }
     }
 }

@@ -59,6 +59,7 @@ final class PhotoListViewModel {
     let isLoading = BehaviorRelay<Bool>(value: false)
     let query = BehaviorRelay<String?>(value: nil)
     let photoListTypeName = BehaviorRelay<String>(value: "")
+    let layout = BehaviorRelay<PhotoCollectionLayout>(value: Defaults.photoCollectionLayout)
 
     var hasPhotoListTypeSelection: Bool {
         return requestKind.hasPhotoListTypeSelection
@@ -123,6 +124,12 @@ final class PhotoListViewModel {
 
     func didEndDisplayingCell(cell: UICollectionViewCell, indexPath: IndexPath) {
         (cell as? PhotoCell)?.cancelDownloadIfNeeded()
+    }
+
+    func updateLayout() {
+        let newLayout = layout.value.next
+        Defaults.photoCollectionLayout = newLayout
+        layout.accept(newLayout)
     }
 
     // MARK: - Private

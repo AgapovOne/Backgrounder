@@ -20,9 +20,8 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
     static let sceneStoryboard = Storyboard.main
 
     // MARK: - UI Outlets
-    private lazy var layout = PhotoCollectionLayout.list
     private lazy var collectionView: UICollectionView = {
-        let flowLayout = createCollectionLayout(type: layout)
+        let flowLayout = createCollectionLayout(type: self.viewModel.layout.value)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.register(cellType: PhotoCell.self)
         return collectionView
@@ -74,7 +73,6 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
 
     // MARK: - Private methods
     private func setupCollection() {
-        layoutBarButtonItem.title = layout.icon
     }
 
     private func setupUI() {
@@ -168,12 +166,7 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
 
         layoutBarButtonItem.rx.tap
             .subscribe(onNext: { [weak self] in
-                guard let self = self else { return }
-                let layout = PhotoCollectionLayout(self.layoutBarButtonItem.title ?? "")?.next ?? .list
-                let flowLayout = createCollectionLayout(type: layout)
-
-                self.collectionView.setCollectionViewLayout(flowLayout, animated: true)
-                self.layoutBarButtonItem.title = layout.icon
+                self?.viewModel.updateLayout()
             })
             .disposed(by: disposeBag)
 
@@ -224,6 +217,24 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
         viewModel.photoListTypeName
             .asDriver(onErrorJustReturn: "")
             .drive(photoTypeBarButtonItem.rx.title)
+            .disposed(by: disposeBag)
+
+        viewModel.layout
+            .map {
+                $0.icon
+            }
+            .asDriver(onErrorJustReturn: "")
+            .drive(layoutBarButtonItem.rx.title)
+            .disposed(by: disposeBag)
+
+        viewModel.layout
+            .map {
+                createCollectionLayout(type: $0)
+            }
+            .subscribe(onNext: { [weak self] flowLayout in
+                guard let self = self else { return }
+                self.collectionView.setCollectionViewLayout(flowLayout, animated: true)
+            })
             .disposed(by: disposeBag)
     }
 }
