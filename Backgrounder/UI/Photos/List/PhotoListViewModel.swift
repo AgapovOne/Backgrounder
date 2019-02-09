@@ -15,7 +15,7 @@ final class PhotoListViewModel {
     // MARK: - Declarations
     enum RequestKind {
         case photos
-        case collectionPhotos(id: Int)
+        case collectionPhotos(collection: CollectionViewData)
 
         var hasDropdownItems: Bool {
             switch self {
@@ -40,8 +40,8 @@ final class PhotoListViewModel {
         switch requestKind {
         case .photos:
             return photoAPIService.getPhotos(page: page)
-        case .collectionPhotos(id: let id):
-            return photoAPIService.getCollectionPhotos(id: id, page: page)
+        case .collectionPhotos(let collection):
+            return photoAPIService.getCollectionPhotos(id: collection.collection.id, page: page)
         }
     }
 
@@ -52,6 +52,15 @@ final class PhotoListViewModel {
     private(set) var photos = BehaviorRelay<[PhotoViewData]>(value: [])
 
     private(set) var isLoading = BehaviorRelay<Bool>(value: false)
+
+    var title: String {
+        switch requestKind {
+        case .photos:
+            return "Photos"
+        case .collectionPhotos(let collection):
+            return collection.title
+        }
+    }
 
     var dropdownItem: String {
         return photoAPIService.photoListType.string

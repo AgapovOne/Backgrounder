@@ -32,7 +32,7 @@ final class PhotosCoordinator: Coordinator<DeepLink> {
             vm.showCollection
                 .subscribe(onNext: { [weak self] viewData in
                     guard let self = self else { return }
-                    let vc = self.photoList(kind: .collectionPhotos(id: viewData.collection.id))
+                    let vc = self.photoList(kind: .collectionPhotos(collection: viewData))
                     router.push(vc)
                 })
                 .disposed(by: disposeBag)

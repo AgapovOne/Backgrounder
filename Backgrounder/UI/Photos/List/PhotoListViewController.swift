@@ -100,6 +100,8 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
             menuView.didSelectItemAtIndexHandler = { [weak self] index in
                 self?.viewModel.selectNavigationType(at: index)
             }
+        } else {
+            navigationItem.title = viewModel.title
         }
     }
 
