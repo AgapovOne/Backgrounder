@@ -31,12 +31,12 @@ class UtilsTest: XCTestCase {
             20
         ]
 
-        inputs.enumerated().forEach { (n, input) in
+        inputs.enumerated().forEach { (offset, input) in
             let result = countSinglePaddingLayout(width: input.width,
                                                   padding: input.padding,
                                                   itemsPerRow: input.items)
 
-            XCTAssertEqual(result, expected[n], "Should count layout one item for a grid")
+            XCTAssertEqual(result, expected[offset], "Should count layout one item for a grid")
         }
     }
 
@@ -55,12 +55,12 @@ class UtilsTest: XCTestCase {
             8
         ]
 
-        inputs.enumerated().forEach { (n, input) in
+        inputs.enumerated().forEach { (offset, input) in
             let result = countDoublePaddingLayout(width: input.width,
                                                   padding: input.padding,
                                                   itemsPerRow: input.items)
 
-            XCTAssertEqual(result, expected[n], "Should count layout one item for a grid")
+            XCTAssertEqual(result, expected[offset], "Should count layout one item for a grid")
         }
     }
 }

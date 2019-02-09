@@ -10,36 +10,36 @@ import Foundation
 
 private enum DefaultsKey: String {
     case
-    OnboardingWasShownKey,
-    PhotoListTypeKey,
-    CollectionListTypeKey
+    onboardingWasShownKey,
+    photoListTypeKey,
+    collectionListTypeKey
 }
 
 enum Defaults {
     static var onboardingWasShown: Bool {
         get {
-            return UserDefaults.standard.bool(forKey: DefaultsKey.OnboardingWasShownKey.rawValue)
+            return UserDefaults.standard.bool(forKey: DefaultsKey.onboardingWasShownKey.rawValue)
         }
         set {
-            UserDefaults.standard.set(newValue, forKey: DefaultsKey.OnboardingWasShownKey.rawValue)
+            UserDefaults.standard.set(newValue, forKey: DefaultsKey.onboardingWasShownKey.rawValue)
         }
     }
 
     static var photoListType: PhotoListType {
         get {
-            return PhotoListType(UserDefaults.standard.string(forKey: DefaultsKey.PhotoListTypeKey.rawValue) ?? "")
+            return PhotoListType(UserDefaults.standard.string(forKey: DefaultsKey.photoListTypeKey.rawValue) ?? "")
         }
         set {
-            UserDefaults.standard.set(newValue.string, forKey: DefaultsKey.PhotoListTypeKey.rawValue)
+            UserDefaults.standard.set(newValue.string, forKey: DefaultsKey.photoListTypeKey.rawValue)
         }
     }
 
     static var collectionListType: CollectionListType {
         get {
-            return CollectionListType(UserDefaults.standard.string(forKey: DefaultsKey.CollectionListTypeKey.rawValue) ?? "")
+            return CollectionListType(UserDefaults.standard.string(forKey: DefaultsKey.collectionListTypeKey.rawValue) ?? "")
         }
         set {
-            UserDefaults.standard.set(newValue.string, forKey: DefaultsKey.CollectionListTypeKey.rawValue)
+            UserDefaults.standard.set(newValue.string, forKey: DefaultsKey.collectionListTypeKey.rawValue)
         }
     }
 }

@@ -1,34 +1,65 @@
 # Use `swiftlint autocorrect` for the first swiftlint run to remove simple warnings/errors
 
 disabled_rules:
- - vertical_whitespace # Should be enabled on new projects. BUT! Can cause a lot of warning on old projects with legacy code
- - trailing_whitespace # Should be enabled on new projects. BUT! Can cause a lot of warnings too. Can reduce file size. You can set it to be automatically managed in Xcode -> Preferences -> Text editing -> [v] Automatically trim trailing whitespace
- - identifier_name
+  - vertical_whitespace # Should be enabled on new projects. BUT! Can cause a lot of warning on old projects with legacy code
+  - trailing_whitespace # Should be enabled on new projects. BUT! Can cause a lot of warnings too. Can reduce file size. You can set it to be automatically managed in Xcode -> Preferences -> Text editing -> [v] Automatically trim trailing whitespace
+  - nesting # can make developemnt easier and more readable
 
 opt_in_rules:
-  - closure_end_indentation
-  - explicit_init
-  - overridden_super_call
-  - prohibited_super_call
-  - redundant_nil_coalescing
-  - closure_spacing
-  - operator_usage_whitespace
-  - empty_count # prefer .isEmpty over .count > 0
-  - first_where # .first(where:) over .filter().first
-  - contains_over_first_not_nil # .contains > .first(where:) != nil
   - array_init # Array() is optimized. arr.map({ $0 }) is not
-  - sorted_first_last # .min/max preferred to .sorted().first/last
+  - attributes
+  - closure_end_indentation
+  - closure_spacing
+  - collection_alignment
+  - contains_over_first_not_nil # .contains > .first(where:) != nil
+  - convenience_type # If type has only static - should be enum
+  - discouraged_optional_boolean # warn about optional booleans. Use enums instead
+  - empty_count # prefer .isEmpty over .count > 0 # TODO: Should be turned ON
+  - empty_string # .isEmpty over == ""
+  - explicit_init
+  - fatal_error_message
+  - first_where # .first(where:) over .filter().first
+  - last_where # .last(where:) over .filter().last
+  - identical_operands
+  - implicit_return
+  - joined_default_parameter
+  - legacy_random
+  - literal_expression_end_indentation
+  - lower_acl_than_parent
+  - modifier_order
+  - multiline_parameters
+  - operator_usage_whitespace
+  - overridden_super_call
   - private_action # @IBAction should be private
   - private_outlet # @IBOutlet should be private
+  - prohibited_super_call
+  - redundant_nil_coalescing
+  - redundant_type_annotation
+  - sorted_first_last # .min/max preferred to .sorted().first/last
+  - static_operator
+  - strict_fileprivate
+  - strong_iboutlet
+  - toggle_bool
+  - trailing_closure
+  - unneeded_parentheses_in_closure_argument
+  - unused_import
+  - unused_private_declaration
+  - vertical_parameter_alignment_on_call
   - yoda_condition # forbid if 42 == value
-  - discouraged_optional_boolean # warn about optional booleans. Use enums instead
   #  - file_header # - this should be used when we need file headers of one-type (copyright, date, other info)
+
 excluded:
+  - Carthage
   - Pods
 # Optional: Generated files
 # - Generated
+# - R.generated.swift
 
 # rules configuration
+identifier_name:
+  excluded:
+    - id
+    - vc
 indentation: 4 # 4 spaces
 line_length:
   warning:
