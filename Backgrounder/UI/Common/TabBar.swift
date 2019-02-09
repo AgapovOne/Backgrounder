@@ -24,8 +24,8 @@ private let collectionImage = image(code: "gallery")
 enum TabBarConfiguration {
     enum Item {
         static let photos = UITabBarItem(title: "Photos",
-                                              image: photosImage,
-                                              selectedImage: photosImage)
+                                         image: photosImage,
+                                         selectedImage: photosImage)
         static let collections = UITabBarItem(title: "Collections",
                                               image: collectionImage,
                                               selectedImage: collectionImage)

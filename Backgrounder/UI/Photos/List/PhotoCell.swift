@@ -23,7 +23,7 @@ final class PhotoCell: UICollectionViewCell, NibReusable {
         imageView.layer.masksToBounds = true
 
         nameLabel.textColor = .white
-        nameLabel.shadowColor = .textShadow
+        nameLabel.shadowColor = Configuration.Color.textShadow
     }
 
     var data: PhotoViewData? {

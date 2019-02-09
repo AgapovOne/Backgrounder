@@ -12,7 +12,7 @@ import Moya
 enum Provider {
     static let `default` = MoyaProvider<Unsplash>(plugins: [plugin])
 
-    private static let plugin = NetworkActivityPlugin { (change, _) in
+    private static let plugin = NetworkActivityPlugin { change, _ in
         DispatchQueue.main.async {
             switch change {
             case .began:

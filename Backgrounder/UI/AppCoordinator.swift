@@ -41,10 +41,8 @@ final class AppCoordinator: Coordinator<DeepLink>, UITabBarControllerDelegate {
         super.init(router: router)
         router.setRootModule(tabBarController, hideBar: true)
         tabBarController.delegate = self
-        setTabs([
-            photosCoordinator,
-            collectionsCoordinator
-            ])
+        setTabs([photosCoordinator,
+                 collectionsCoordinator])
     }
 
     func setTabs(_ coordinators: [Coordinator<DeepLink>], animated: Bool = false) {

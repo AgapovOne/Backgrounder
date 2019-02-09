@@ -89,8 +89,8 @@ final class CollectionListViewController: UIViewController, StoryboardSceneBased
         collectionView.keyboardDismissMode = .interactive
 
         view.addSubview(collectionView)
-        constrain(collectionView) { cv in
-            cv.edges == cv.superview!.edges
+        constrain(collectionView) { collectionView in
+            collectionView.edges == collectionView.superview!.edges
         }
 
         view.backgroundColor = Configuration.Color.darkGray

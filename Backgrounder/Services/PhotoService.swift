@@ -27,7 +27,7 @@ final class PhotoService {
         func save() {
             PHPhotoLibrary.shared().performChanges({
                 PHAssetChangeRequest.creationRequestForAsset(from: image)
-            }, completionHandler: { (isSuccess, _) in
+            }, completionHandler: { isSuccess, _ in
                 if isSuccess {
                     completion?(true)
                 } else {
@@ -42,7 +42,7 @@ final class PhotoService {
         case .denied, .restricted:
             completion?(false)
         default:
-            PHPhotoLibrary.requestAuthorization { (status) in
+            PHPhotoLibrary.requestAuthorization { status in
                 switch status {
                 case .authorized:
                     save()

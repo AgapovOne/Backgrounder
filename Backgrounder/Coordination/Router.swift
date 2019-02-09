@@ -20,7 +20,7 @@ public protocol RouterType: class, Presentable {
 }
 
 
-final public class Router: NSObject, RouterType {
+public final class Router: NSObject, RouterType {
 
     private var completions: [UIViewController: () -> Void]
 
@@ -115,7 +115,7 @@ final public class Router: NSObject, RouterType {
         }
     }
 
-    fileprivate func runCompletion(for controller: UIViewController) {
+    private func runCompletion(for controller: UIViewController) {
         guard let completion = completions[controller] else { return }
         completion()
         completions.removeValue(forKey: controller)

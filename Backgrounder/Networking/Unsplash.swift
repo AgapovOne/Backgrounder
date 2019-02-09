@@ -86,36 +86,36 @@ extension Unsplash: TargetType {
     var task: Task {
         switch self {
         case .photos(_, let page, let perPage, let orderBy):
-            return .requestParameters(parameters: [
-                "page": page,
-                "per_page": perPage,
-                "order_by": orderBy.rawValue
-                ], encoding: URLEncoding.default)
+            return .requestParameters(parameters: ["page": page,
+                                                   "per_page": perPage,
+                                                   "order_by": orderBy.rawValue
+                ],
+                                      encoding: URLEncoding.default)
         case .collections(_, let page, let perPage):
-            return .requestParameters(parameters: [
-                "page": page,
-                "per_page": perPage
-                ], encoding: URLEncoding.default)
+            return .requestParameters(parameters: ["page": page,
+                                                   "per_page": perPage
+                ],
+                                      encoding: URLEncoding.default)
         case .collection:
             return .requestPlain
         case .collectionPhotos(_, let page, let perPage):
-            return .requestParameters(parameters: [
-                "page": page,
-                "per_page": perPage
-                ], encoding: URLEncoding.default)
+            return .requestParameters(parameters: ["page": page,
+                                                   "per_page": perPage
+                ],
+                                      encoding: URLEncoding.default)
         case .searchCollections(let query, let page, let perPage):
-             return .requestParameters(parameters: [
-                "query": query,
-                "page": page,
-                "per_page": perPage
-                ], encoding: URLEncoding.default)
-         case .searchPhotos(let query, let page, let perPage, let collections):
-            return .requestParameters(parameters: [
-                "query": query,
-                "page": page,
-                "per_page": perPage,
-                "collections": collections
-                ], encoding: URLEncoding.default)
+            return .requestParameters(parameters: ["query": query,
+                                                   "page": page,
+                                                   "per_page": perPage
+                ],
+                                      encoding: URLEncoding.default)
+        case .searchPhotos(let query, let page, let perPage, let collections):
+            return .requestParameters(parameters: ["query": query,
+                                                   "page": page,
+                                                   "per_page": perPage,
+                                                   "collections": collections
+                ],
+                                      encoding: URLEncoding.default)
         }
     }
 

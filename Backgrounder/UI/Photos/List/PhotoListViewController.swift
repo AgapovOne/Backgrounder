@@ -34,13 +34,13 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
     }()
 
     private lazy var photoTypeBarButtonItem = UIBarButtonItem(title: "",
+                                                              style: .plain,
+                                                              target: nil,
+                                                              action: nil)
+    private lazy var layoutBarButtonItem = UIBarButtonItem(title: "",
                                                            style: .plain,
                                                            target: nil,
                                                            action: nil)
-    private lazy var layoutBarButtonItem = UIBarButtonItem(title: "",
-                                                         style: .plain,
-                                                         target: nil,
-                                                         action: nil)
 
     private lazy var searchController: UISearchController = {
         let searchController = UISearchController(searchResultsController: nil)
@@ -92,28 +92,21 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
         collectionView.keyboardDismissMode = .interactive
 
         view.addSubview(collectionView)
-        constrain(collectionView) { cv in
-            cv.edges == cv.superview!.edges
+        constrain(collectionView) { collectionView in
+            collectionView.edges == collectionView.superview!.edges
         }
 
-        [
-            UIControl.State.normal,
-            UIControl.State.focused,
-            UIControl.State.highlighted,
-            UIControl.State.disabled
-            ]
+        [UIControl.State.normal,
+         UIControl.State.focused,
+         UIControl.State.highlighted,
+         UIControl.State.disabled]
             .forEach({
-                photoTypeBarButtonItem.setTitleTextAttributes([
-                    .font: Font.navbarItem
-                    ], for: $0)
-                layoutBarButtonItem.setTitleTextAttributes([
-                    .font: Font.icon
-                    ], for: $0)
+                photoTypeBarButtonItem.setTitleTextAttributes([.font: Font.navbarItem], for: $0)
+                layoutBarButtonItem.setTitleTextAttributes([.font: Font.icon], for: $0)
             })
-        photoTypeBarButtonItem.setTitleTextAttributes([
-            .foregroundColor: UIColor.white.withAlphaComponent(0.15),
-            .font: Font.navbarItem
-            ], for: .disabled)
+        photoTypeBarButtonItem.setTitleTextAttributes([.foregroundColor: UIColor.white.withAlphaComponent(0.15),
+                                                       .font: Font.navbarItem],
+                                                      for: .disabled)
         navigationItem.rightBarButtonItems = [layoutBarButtonItem, photoTypeBarButtonItem]
 
         navigationItem.title = viewModel.title

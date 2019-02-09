@@ -27,9 +27,9 @@ final class PhotosCoordinator: Coordinator<DeepLink> {
         let vc: UIViewController
         switch startPoint {
         case .collections:
-            let vm = CollectionListViewModel(title: title, collectionAPIService: CollectionAPIService())
-            vc = CollectionListViewController.instantiate(viewModel: vm)
-            vm.showCollection
+            let viewModel = CollectionListViewModel(title: title, collectionAPIService: CollectionAPIService())
+            vc = CollectionListViewController.instantiate(viewModel: viewModel)
+            viewModel.showCollection
                 .subscribe(onNext: { [weak self] viewData in
                     guard let self = self else { return }
                     let vc = self.photoList(kind: .collectionPhotos(collection: viewData))
@@ -44,12 +44,12 @@ final class PhotosCoordinator: Coordinator<DeepLink> {
 
     // MARK: - Private
     private func photoList(kind: PhotoListViewModel.RequestKind) -> PhotoListViewController {
-        let vm = PhotoListViewModel(photoAPIService: PhotoAPIService(),
-                                    requestKind: kind,
-                                    showPhoto: { [weak self] photo in
-                                        self?.showPhotoDetail(photo)
+        let viewModel = PhotoListViewModel(photoAPIService: PhotoAPIService(),
+                                           requestKind: kind,
+                                           showPhoto: { [weak self] photo in
+                                            self?.showPhotoDetail(photo)
         })
-        return PhotoListViewController.instantiate(viewModel: vm)
+        return PhotoListViewController.instantiate(viewModel: viewModel)
     }
 
     private func showPhotoDetail(_ photo: PhotoViewData) {

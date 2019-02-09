@@ -7,7 +7,6 @@ disabled_rules:
 
 opt_in_rules:
   - array_init # Array() is optimized. arr.map({ $0 }) is not
-  - attributes
   - closure_end_indentation
   - closure_spacing
   - collection_alignment
@@ -40,7 +39,6 @@ opt_in_rules:
   - strict_fileprivate
   - strong_iboutlet
   - toggle_bool
-  - trailing_closure
   - unneeded_parentheses_in_closure_argument
   - unused_import
   - unused_private_declaration

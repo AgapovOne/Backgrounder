@@ -74,7 +74,7 @@ final class PhotoListViewModel {
     }
 
     var photoListTypes: [String] {
-        return PhotoListType.all.map({ $0.string })
+        return PhotoListType.all.map { $0.string }
     }
 
     init(photoAPIService: PhotoAPIService, requestKind: RequestKind, showPhoto: ((PhotoViewData) -> Void)?) {
@@ -129,7 +129,7 @@ final class PhotoListViewModel {
         isLoading.accept(true)
         request
             .observeOn(MainScheduler.instance)
-            .subscribe({ [weak self] (response) in
+            .subscribe({ [weak self] response in
                 guard let self = self else { return }
                 self.isLoading.accept(false)
                 switch response {

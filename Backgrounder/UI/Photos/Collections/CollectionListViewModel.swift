@@ -84,7 +84,7 @@ final class CollectionListViewModel {
         request
             .observeOn(MainScheduler.instance)
             .map({ $0.map(CollectionViewData.init) })
-            .subscribe({ [weak self] (response) in
+            .subscribe({ [weak self] response in
                 guard let self = self else { return }
                 self.isLoadingRelay.accept(false)
                 switch response {

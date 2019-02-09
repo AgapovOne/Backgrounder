@@ -31,7 +31,7 @@ class UtilsTest: XCTestCase {
             20
         ]
 
-        inputs.enumerated().forEach { (offset, input) in
+        inputs.enumerated().forEach { offset, input in
             let result = countSinglePaddingLayout(width: input.width,
                                                   padding: input.padding,
                                                   itemsPerRow: input.items)
@@ -55,7 +55,7 @@ class UtilsTest: XCTestCase {
             8
         ]
 
-        inputs.enumerated().forEach { (offset, input) in
+        inputs.enumerated().forEach { offset, input in
             let result = countDoublePaddingLayout(width: input.width,
                                                   padding: input.padding,
                                                   itemsPerRow: input.items)

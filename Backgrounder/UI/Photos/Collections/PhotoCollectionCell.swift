@@ -25,7 +25,7 @@ final class PhotoCollectionCell: UICollectionViewCell, NibReusable {
         }
 
         titleLabel.textColor = .white
-        titleLabel.shadowColor = .textShadow
+        titleLabel.shadowColor = Configuration.Color.textShadow
     }
 
     var data: CollectionViewData? {

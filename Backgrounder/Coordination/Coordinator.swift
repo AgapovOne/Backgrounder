@@ -10,7 +10,7 @@ public protocol PresentableCoordinatorType: BaseCoordinatorType, Presentable {}
 
 open class PresentableCoordinator<DeepLinkType>: NSObject, PresentableCoordinatorType {
 
-    public override init() {
+    override public init() {
         super.init()
     }
 
@@ -50,7 +50,7 @@ open class Coordinator<DeepLinkType>: PresentableCoordinator<DeepLinkType>, Coor
         }
     }
     
-    open override func toPresentable() -> UIViewController {
+    override open func toPresentable() -> UIViewController {
         return router.toPresentable()
     }
 }
