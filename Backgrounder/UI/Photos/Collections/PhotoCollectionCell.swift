@@ -23,6 +23,9 @@ final class PhotoCollectionCell: UICollectionViewCell, NibReusable {
             $0?.layer.cornerRadius = Configuration.Size.padding
             $0?.layer.masksToBounds = true
         }
+
+        titleLabel.textColor = .white
+        titleLabel.shadowColor = .textShadow
     }
 
     var data: CollectionViewData? {

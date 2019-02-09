@@ -21,6 +21,9 @@ final class PhotoCell: UICollectionViewCell, NibReusable {
 
         imageView.layer.cornerRadius = Configuration.Size.padding
         imageView.layer.masksToBounds = true
+
+        nameLabel.textColor = .white
+        nameLabel.shadowColor = .textShadow
     }
 
     var data: PhotoViewData? {
