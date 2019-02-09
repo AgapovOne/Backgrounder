@@ -83,6 +83,34 @@ final class CollectionListViewController: UIViewController, StoryboardSceneBased
         constrain(activityIndicatorView) { indicator in
             indicator.center == indicator.superview!.center
         }
+
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+
+        definesPresentationContext = true
+        let searchController = UISearchController(searchResultsController: nil)
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.hidesNavigationBarDuringPresentation = false
+
+        searchController.searchBar.sizeToFit()
+        
+        searchController.searchBar.tintColor = .white
+
+        searchController.searchBar.rx.text.changed
+            .throttle(0.8, scheduler: MainScheduler.instance)
+            .distinctUntilChanged()
+            .subscribe(onNext: { text in
+                print(text)
+            })
+            .disposed(by: disposeBag)
+
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
+
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.largeTitleTextAttributes = [
+            .foregroundColor: UIColor.white,
+            .font: Font.navbarLargeTitle
+        ]
     }
 
     private func setupViewModel() {
