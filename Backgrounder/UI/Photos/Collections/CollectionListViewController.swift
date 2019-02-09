@@ -153,7 +153,6 @@ final class CollectionListViewController: UIViewController, StoryboardSceneBased
         let searchText = searchController.searchBar.rx.text.changed
             .throttle(0.8, scheduler: MainScheduler.instance)
             .distinctUntilChanged()
-            .debug()
 
         searchText
             .bind(to: viewModel.query)
