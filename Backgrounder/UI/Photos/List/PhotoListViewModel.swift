@@ -98,6 +98,7 @@ final class PhotoListViewModel {
 
     // MARK: - Private
     private func load() {
+        guard isLoading.value == false else { return }
         isLoading.accept(true)
         request
             .observeOn(MainScheduler.instance)
