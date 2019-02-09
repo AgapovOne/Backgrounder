@@ -14,18 +14,15 @@ import Hero
 final class PhotoCollectionCell: UICollectionViewCell, NibReusable {
 
     @IBOutlet private var imageView: UIImageView!
-    @IBOutlet private var textContainerView: UIView!
     @IBOutlet private var titleLabel: UILabel!
-    @IBOutlet private var descriptionLabel: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        [textContainerView, imageView].forEach {
+        [imageView].forEach {
             $0?.layer.cornerRadius = Configuration.Size.padding
             $0?.layer.masksToBounds = true
         }
-
     }
 
     var data: CollectionViewData? {
@@ -38,7 +35,6 @@ final class PhotoCollectionCell: UICollectionViewCell, NibReusable {
             imageView.kf.setImage(with: data.coverRegularPhotoURL,
                                   placeholder: UIImage.from(color: data.coverRegularPhotoColor))
             titleLabel.text = data.title
-            descriptionLabel.text = data.description
         }
     }
 
