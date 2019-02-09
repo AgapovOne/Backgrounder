@@ -99,7 +99,7 @@ final class PhotoListViewModel {
 
     func selectPhotoType(_ name: String) {
         photoAPIService.photoListType = PhotoListType(name)
-        load()
+        reload()
     }
 
     func select(_ item: PhotoViewData) {
