@@ -12,79 +12,83 @@ import RxCocoa
 
 final class CollectionListViewModel {
 
-    // MARK: - Inputs
-    let load: AnyObserver<Void>
-    let loadNext: AnyObserver<Void>
-
-    let didSelectItem: AnyObserver<CollectionViewData>
-
-    typealias DisplayCellType = (cell: UICollectionViewCell, at: IndexPath)
-    let willDisplayCell: AnyObserver<DisplayCellType>
-    let didEndDisplayingCell: AnyObserver<DisplayCellType>
-
     // MARK: - Outputs
     let title: Observable<String>
 
-    let collections: Driver<[CollectionViewData]>
-    let isLoading: Driver<Bool>
+    let collections: Observable<[CollectionViewData]>
+    let isLoading: Observable<Bool>
 
     // MARK: Navigation output
     let showCollection: Observable<CollectionViewData>
 
     // MARK: - Properties
+    private let disposeBag = DisposeBag()
     private let collectionAPIService: CollectionAPIService
 
-//    private var page = 1 // starts at 1
+    private var page = 1 // starts at 1
+    private let collectionsRelay = BehaviorRelay<[CollectionViewData]>(value: [])
+    private let isLoadingRelay = BehaviorRelay<Bool>(value: false)
+    private let showCollectionRelay = PublishRelay<CollectionViewData>()
 
     // MARK: - Lifecycle
     init(title: String, collectionAPIService: CollectionAPIService) {
         self.collectionAPIService = collectionAPIService
 
-        let _load = PublishSubject<Void>()
-        load = _load.asObserver()
-
-        let _loadNext = PublishSubject<Void>()
-        loadNext = _loadNext.asObserver()
-
-        let _willDisplayCell = PublishSubject<DisplayCellType>()
-        willDisplayCell = _willDisplayCell.asObserver()
-
-        let _didEndDisplayingCell = PublishSubject<DisplayCellType>()
-        didEndDisplayingCell = _didEndDisplayingCell.asObserver()
-
-        let _didSelectItem = PublishSubject<CollectionViewData>()
-        didSelectItem = _didSelectItem.asObserver()
-
-        showCollection = _didSelectItem.asObservable()
-
         self.title = Single.just(title).asObservable()
 
-        let firstLoad = _load
-//            .do(onNext: { [weak self] _ in
-//                self?.page = 1
-//            })
-            .startWith(())
+        collections = collectionsRelay.asObservable()
+        isLoading = isLoadingRelay.asObservable()
+        showCollection = showCollectionRelay.asObservable()
+    }
 
-        let nextLoad = _loadNext
-//            .do(onNext: { [weak self] _ in
-//            self?.page += 1
-//        })
+    // MARK: - Public
+    func reload() {
+        page = 1
+        load()
+    }
 
-        let request = Observable.merge(firstLoad, nextLoad)
-            .flatMapLatest { _ -> Observable<[CollectionViewData]> in
-//                guard let self = self else { return Observable.error(RxError.unknown) }
-                return collectionAPIService
-                    .getCollections(page: 1)
-                    .map({ $0.map(CollectionViewData.init) })
-                    .asObservable()
-            }
+    func select(_ item: CollectionViewData) {
+        showCollectionRelay.accept(item)
+    }
 
-        collections = request
-            .asDriver(onErrorJustReturn: [])
+    func willDisplayCell(cell: UICollectionViewCell, at indexPath: IndexPath) {
+        if indexPath.row == collectionsRelay.value.count - 1 {
+            loadNext()
+        }
+    }
 
-        isLoading = Observable
-            .merge(_load.map({ true }), request.catchErrorJustReturn([])
-                .map({ _ in false }))
-                .asDriver(onErrorJustReturn: false)
+    func didEndDisplayingCell(cell: UICollectionViewCell, indexPath: IndexPath) {
+        (cell as? PhotoCell)?.cancelDownloadIfNeeded()
+    }
+
+    // MARK: - Private
+    private func loadNext() {
+        page += 1
+        load()
+    }
+
+    private func load() {
+        guard !isLoadingRelay.value else { return }
+        isLoadingRelay.accept(true)
+        collectionAPIService
+            .getCollections(page: page)
+            .delay(5, scheduler: ConcurrentDispatchQueueScheduler(qos: .background))
+            .observeOn(MainScheduler.instance)
+            .map({ $0.map(CollectionViewData.init) })
+            .subscribe({ [weak self] (response) in
+                guard let self = self else { return }
+                self.isLoadingRelay.accept(false)
+                switch response {
+                case .success(let items):
+                    if self.page == 1 {
+                        self.collectionsRelay.accept(items)
+                    } else {
+                        self.collectionsRelay.accept(self.collectionsRelay.value + items)
+                    }
+                case .error(let error):
+                    print(error)
+                }
+            })
+            .disposed(by: disposeBag)
     }
 }

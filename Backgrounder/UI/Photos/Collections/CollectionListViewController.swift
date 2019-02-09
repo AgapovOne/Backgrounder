@@ -21,7 +21,7 @@ final class CollectionListViewController: UIViewController, StoryboardSceneBased
         let layout = UICollectionViewFlowLayout()
         let padding = Configuration.Size.padding
         let side = Configuration.Size.screenWidth - padding * 2
-        layout.itemSize = CGSize(width: side, height: (side - padding * 2) / 2 + 60)
+        layout.itemSize = CGSize(width: side, height: side)
         layout.minimumInteritemSpacing = padding
         layout.minimumLineSpacing = padding
         layout.sectionInset = UIEdgeInsets(top: padding,
@@ -32,6 +32,7 @@ final class CollectionListViewController: UIViewController, StoryboardSceneBased
         return collectionView
     }()
     private lazy var refreshControl = UIRefreshControl()
+    private lazy var activityIndicatorView = UIActivityIndicatorView(style: .whiteLarge)
 
     // MARK: - Properties
     private var viewModel: CollectionListViewModel!
@@ -77,6 +78,11 @@ final class CollectionListViewController: UIViewController, StoryboardSceneBased
 
         view.backgroundColor = Configuration.Color.darkGray
         collectionView.backgroundColor = Configuration.Color.darkGray
+
+        view.addSubview(activityIndicatorView)
+        constrain(activityIndicatorView) { indicator in
+            indicator.center == indicator.superview!.center
+        }
     }
 
     private func setupViewModel() {
@@ -86,7 +92,19 @@ final class CollectionListViewController: UIViewController, StoryboardSceneBased
             .bind(to: navigationItem.rx.title)
             .disposed(by: disposeBag)
 
-        viewModel.isLoading
+        let isLoading = viewModel.isLoading
+            .asDriver(onErrorJustReturn: false)
+
+
+        isLoading
+            .filter({ [weak self] _ in
+                guard let self = self else { return false }
+                return self.collectionView.numberOfItems(inSection: 0) == 0
+            })
+            .drive(activityIndicatorView.rx.isAnimating)
+            .disposed(by: disposeBag)
+
+        isLoading
             .filter({ !$0 }) // Only stop refresh control, don't start it
             .drive(refreshControl.rx.isRefreshing)
             .disposed(by: disposeBag)
@@ -104,7 +122,9 @@ final class CollectionListViewController: UIViewController, StoryboardSceneBased
             .disposed(by: disposeBag)
 
         collectionView.rx.modelSelected(CollectionViewData.self)
-            .bind(to: viewModel.didSelectItem)
+            .subscribe(onNext: { [weak self] item in
+                self?.viewModel.select(item)
+            })
             .disposed(by: disposeBag)
 
         collectionView.rx.itemSelected
@@ -114,35 +134,22 @@ final class CollectionListViewController: UIViewController, StoryboardSceneBased
             .disposed(by: disposeBag)
 
         collectionView.rx.willDisplayCell
-            .bind(to: viewModel.willDisplayCell)
+            .subscribe(onNext: { [weak self] cell, indexPath in
+                self?.viewModel.willDisplayCell(cell: cell, at: indexPath)
+            })
             .disposed(by: disposeBag)
 
         collectionView.rx.didEndDisplayingCell
-            .subscribe(onNext: { cellInfo in
-                (cellInfo.cell as? PhotoCell)?.cancelDownloadIfNeeded()
+            .subscribe(onNext: { [weak self] cell, indexPath in
+                self?.viewModel.didEndDisplayingCell(cell: cell, indexPath: indexPath)
             })
             .disposed(by: disposeBag)
 
         refreshControl.rx.controlEvent(.valueChanged)
             .startWith(()) // Initial load
-            .bind(to: viewModel.load)
-            .disposed(by: disposeBag)
-
-        collectionView.rx.contentOffset
-            .map { [weak self] _ in
-                self?.collectionView.isNearBottomEdge(edgeOffset: startLoadingOffset) ?? false
-            }
-            .filter { $0 }
-            .map { _ in () }
-            .bind(to: viewModel.loadNext)
+            .subscribe(onNext: { [weak self] in
+                self?.viewModel.reload()
+            })
             .disposed(by: disposeBag)
     }
 }
-
-extension UIScrollView {
-    func isNearBottomEdge(edgeOffset: CGFloat = 0) -> Bool {
-        return self.contentOffset.y + self.frame.size.height + edgeOffset > self.contentSize.height
-    }
-}
-
-private let startLoadingOffset: CGFloat = 200.0
