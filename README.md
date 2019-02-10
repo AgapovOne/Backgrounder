@@ -2,8 +2,23 @@
 
 Download best available background for your iOS device
 
+## Features
+
+Unsplash application.
+- Photos list with popular/new ordering and search
+- Collections list with search
+- Download or share a photo in high quality
+
 ## Architecture
 
 Experimenting with MVVM + Coordinators
 
-Model -> ViewData -> ViewModel <(calls)---(binds)> View -> Coordinator
+RxSwift is used in:
+- Network layer
+- Binders to View layer
+- Interface in ViewModel layer
+- Some observable interfaces
+
+## Date
+
+February 2019
