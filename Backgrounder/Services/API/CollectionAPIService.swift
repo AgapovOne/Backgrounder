@@ -25,6 +25,7 @@ final class CollectionAPIService: UnsplashAPIService {
     }
 
     func searchCollections(page: Int, query: String) -> Single<[UnsplashCollection]> {
-        return request(target: .searchCollections(query: query, page: page, perPage: Configuration.Defaults.pagination))
+        return request(target: .searchCollections(query: query, page: page, perPage: Configuration.Defaults.pagination),
+                       atKeyPath: "results")
     }
 }

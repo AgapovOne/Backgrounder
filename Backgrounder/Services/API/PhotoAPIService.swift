@@ -26,7 +26,10 @@ final class PhotoAPIService: UnsplashAPIService {
     }
 
     func searchPhotos(page: Int, query: String, collections: [Int] = []) -> Single<[Photo]> {
-        return request(target: .searchPhotos(query: query, page: page, perPage: Configuration.Defaults.pagination, collections: collections),
+        return request(target: .searchPhotos(query: query,
+                                             page: page,
+                                             perPage: Configuration.Defaults.pagination,
+                                             collections: collections),
                        atKeyPath: "results")
     }
 }
