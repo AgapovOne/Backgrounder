@@ -49,6 +49,14 @@ final class CollectionListViewController: UIViewController, StoryboardSceneBased
         return searchController
     }()
 
+    private lazy var statusLabel: UILabel = {
+        let label = UILabel()
+        label.font = Font.text
+        label.textColor = .white
+        label.textAlignment = .center
+        label.numberOfLines = 0
+        return label
+    }()
     private lazy var errorDescriptionLabel: UILabel = {
         let label = UILabel()
         label.font = Font.text
@@ -110,11 +118,13 @@ final class CollectionListViewController: UIViewController, StoryboardSceneBased
             indicator.center == indicator.superview!.center
         }
 
-        view.addSubview(errorDescriptionLabel)
-        constrain(errorDescriptionLabel) { label in
-            label.centerY == label.superview!.centerY
-            label.leading == label.superview!.leading + 16
-            label.trailing == label.superview!.trailing - 16
+        [statusLabel, errorDescriptionLabel].forEach {
+            view.addSubview($0)
+            constrain($0) { label in
+                label.centerY == label.superview!.centerY
+                label.leading == label.superview!.leading + 16
+                label.trailing == label.superview!.trailing - 16
+            }
         }
 
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
@@ -213,6 +223,26 @@ final class CollectionListViewController: UIViewController, StoryboardSceneBased
             }
             .disposed(by: disposeBag)
 
+        let isEmptyDriver = collectionsDriver
+            .map({
+                $0.isEmpty
+            })
+
+        isEmptyDriver
+            .filter({
+                $0
+            })
+            .map({ [weak self] _ in
+                guard let self = self else { return "" }
+                if let query = self.viewModel.query.value {
+                     return  "Nothing found for \(query)"
+                } else {
+                    return "Nothing found"
+                }
+            })
+            .drive(statusLabel.rx.text)
+            .disposed(by: disposeBag)
+
         let errorDriver = viewModel.errorDescription
             .asDriver(onErrorJustReturn: nil)
 
@@ -228,6 +258,16 @@ final class CollectionListViewController: UIViewController, StoryboardSceneBased
 
         errorDriver
             .drive(errorDescriptionLabel.rx.text)
+            .disposed(by: disposeBag)
+
+        Driver.combineLatest(isEmptyDriver, errorDriver)
+            .map({ isEmpty, error in
+                if isEmpty && error == nil {
+                    return false
+                }
+                return true
+            })
+            .drive(statusLabel.rx.isHidden)
             .disposed(by: disposeBag)
     }
 }
