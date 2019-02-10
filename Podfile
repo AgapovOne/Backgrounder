@@ -10,6 +10,7 @@ target 'Backgrounder' do
 
   pod 'RxSwift'
   pod 'RxCocoa'
+  pod 'RxOptional'
 
   # Default pods
   pod 'Reusable'
