@@ -61,6 +61,7 @@ final class PhotoListViewModel {
     let query = BehaviorRelay<String?>(value: nil)
     let photoListTypeName = BehaviorRelay<String>(value: "")
     let layout: BehaviorRelay<PhotoCollectionLayout>
+    let errorDescription = BehaviorRelay<String?>(value: nil)
 
     var hasPhotoListTypeSelection: Bool {
         return requestKind.hasPhotoListTypeSelection
@@ -154,12 +155,14 @@ final class PhotoListViewModel {
                 self.isLoading.accept(false)
                 switch response {
                 case .success(let items):
+                    self.errorDescription.accept(nil)
                     if self.page == 1 {
                         self.photos.accept(items.map(PhotoViewData.init))
                     } else {
                         self.photos.accept(self.photos.value + items.map(PhotoViewData.init))
                     }
                 case .error(let error):
+                    self.errorDescription.accept(error.localizedDescription)
                     print(error)
                 }
             })

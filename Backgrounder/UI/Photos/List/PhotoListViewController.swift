@@ -12,6 +12,7 @@ import Cartography
 import Kingfisher
 import Moya
 import RxSwift
+import RxCocoa
 
 final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
     // MARK: - Protocols
@@ -48,6 +49,23 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
 
         searchController.searchBar.tintColor = .white
         return searchController
+    }()
+
+    private lazy var statusLabel: UILabel = {
+        let label = UILabel()
+        label.font = Font.text
+        label.textColor = .white
+        label.textAlignment = .center
+        label.numberOfLines = 0
+        return label
+    }()
+    private lazy var errorDescriptionLabel: UILabel = {
+        let label = UILabel()
+        label.font = Font.text
+        label.textColor = .white
+        label.textAlignment = .center
+        label.numberOfLines = 0
+        return label
     }()
 
     private let disposeBag = DisposeBag()
@@ -90,6 +108,15 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
         view.addSubview(collectionView)
         constrain(collectionView) { collectionView in
             collectionView.edges == collectionView.superview!.edges
+        }
+
+        [statusLabel, errorDescriptionLabel].forEach {
+            view.addSubview($0)
+            constrain($0) { label in
+                label.centerY == label.superview!.centerY
+                label.leading == label.superview!.leading + 16
+                label.trailing == label.superview!.trailing - 16
+            }
         }
 
         [UIControl.State.normal,
@@ -176,11 +203,10 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
             .disposed(by: disposeBag)
 
         // Outputs
-        viewModel.photos
-            .asDriver { error in
-                print(error)
-                return .just([])
-            }
+        let photosDriver = viewModel.photos
+            .asDriver(onErrorJustReturn: [])
+
+        photosDriver
             .drive(collectionView.rx.items(cellIdentifier: PhotoCell.reuseIdentifier, cellType: PhotoCell.self)) { _, item, cell in
                 cell.data = item
             }
@@ -222,6 +248,53 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
                 guard let self = self else { return }
                 self.collectionView.setCollectionViewLayout(flowLayout, animated: true)
             })
+            .disposed(by: disposeBag)
+
+        let isEmptyDriver = photosDriver
+            .map({
+                $0.isEmpty
+            })
+
+        isEmptyDriver
+            .filter({
+                $0
+            })
+            .map({ [weak self] _ in
+                guard let self = self else { return "" }
+                if let query = self.viewModel.query.value {
+                    return  "Nothing found for \(query)"
+                } else {
+                    return "Nothing found"
+                }
+            })
+            .drive(statusLabel.rx.text)
+            .disposed(by: disposeBag)
+
+        let errorDriver = viewModel.errorDescription
+            .asDriver(onErrorJustReturn: nil)
+
+        errorDriver
+            .map({ $0 != nil })
+            .drive(collectionView.rx.isHidden)
+            .disposed(by: disposeBag)
+
+        errorDriver
+            .map({ $0 == nil })
+            .drive(errorDescriptionLabel.rx.isHidden)
+            .disposed(by: disposeBag)
+
+        errorDriver
+            .drive(errorDescriptionLabel.rx.text)
+            .disposed(by: disposeBag)
+
+        Driver.combineLatest(isEmptyDriver, errorDriver)
+            .map({ isEmpty, error in
+                if isEmpty && error == nil {
+                    return false
+                }
+                return true
+            })
+            .drive(statusLabel.rx.isHidden)
             .disposed(by: disposeBag)
     }
 
