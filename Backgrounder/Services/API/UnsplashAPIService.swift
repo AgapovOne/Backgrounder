@@ -30,6 +30,7 @@ class UnsplashAPIService {
         } else {
             return Provider.default.rx
                 .request(target)
+                .filterSuccessfulStatusCodes()
                 .map(Model.self, atKeyPath: atKeyPath)
                 .subscribeOn(ConcurrentDispatchQueueScheduler(qos: .background))
         }
