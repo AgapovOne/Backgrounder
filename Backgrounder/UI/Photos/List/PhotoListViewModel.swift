@@ -79,13 +79,16 @@ final class PhotoListViewModel {
         return PhotoListType.all.map { $0.string }
     }
 
-    init(photoAPIService: PhotoAPIService, photoLayoutProvider: PhotoLayoutProvider, requestKind: RequestKind, showPhoto: ((PhotoViewData) -> Void)?) {
+    init(photoAPIService: PhotoAPIService,
+         photoLayoutProvider: PhotoLayoutProvider,
+         requestKind: RequestKind,
+         showPhoto: ((PhotoViewData) -> Void)?) {
         self.photoAPIService = photoAPIService
         self.photoLayoutProvider = photoLayoutProvider
         self.requestKind = requestKind
         self.showPhoto = showPhoto
         photoListTypeName.accept(photoAPIService.photoListType.string)
-        layout =  BehaviorRelay<PhotoCollectionLayout>(value: photoLayoutProvider.value)
+        layout = BehaviorRelay<PhotoCollectionLayout>(value: photoLayoutProvider.value)
         layout.asObservable()
             .subscribe(onNext: { layout in
                 Defaults.photoCollectionLayout = layout
