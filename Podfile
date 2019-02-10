@@ -21,6 +21,7 @@ target 'Backgrounder' do
   pod 'SwiftMessages'
   pod 'Hero'
   pod 'Hue'
+  pod 'RxDataSources'
 
   # Helpers
   pod 'SwiftLint'

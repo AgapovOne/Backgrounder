@@ -3,6 +3,7 @@ PODS:
   - AlamofireNetworkActivityIndicator (2.3.0):
     - Alamofire (~> 4.7)
   - Cartography (3.1.0)
+  - Differentiator (3.1.0)
   - Hero (1.4.0)
   - Hue (4.0.0)
   - Kingfisher (5.1.0)
@@ -22,6 +23,10 @@ PODS:
   - RxAtomic (4.4.1)
   - RxCocoa (4.4.1):
     - RxSwift (~> 4.0)
+  - RxDataSources (3.1.0):
+    - Differentiator (~> 3.0)
+    - RxCocoa (~> 4.0)
+    - RxSwift (~> 4.0)
   - RxSwift (4.4.1):
     - RxAtomic (~> 4.4)
   - SwiftIconFont (3.0.0)
@@ -40,6 +45,7 @@ DEPENDENCIES:
   - Reusable
   - Reveal-SDK
   - RxCocoa
+  - RxDataSources
   - RxSwift
   - SwiftIconFont
   - SwiftLint
@@ -50,6 +56,7 @@ SPEC REPOS:
     - Alamofire
     - AlamofireNetworkActivityIndicator
     - Cartography
+    - Differentiator
     - Hero
     - Hue
     - Kingfisher
@@ -59,6 +66,7 @@ SPEC REPOS:
     - Reveal-SDK
     - RxAtomic
     - RxCocoa
+    - RxDataSources
     - RxSwift
     - SwiftIconFont
     - SwiftLint
@@ -68,6 +76,7 @@ SPEC CHECKSUMS:
   Alamofire: 16ce2c353fb72865124ddae8a57c5942388f4f11
   AlamofireNetworkActivityIndicator: 18346ff6d770d9513d0ac6f2d99706f40f93dbaa
   Cartography: 1988b7578871a56c036e7af17195cb2190edf18c
+  Differentiator: be49ca3408f0ecfc761e4c7763d20c62be01b9ad
   Hero: bac92350d7201a1a940003e0767c7b52ce7c99a1
   Hue: afe18b4e819e2848e7d2d5b4b33f4d3f88dd921b
   Kingfisher: fcec238063d17404fca89bf0a850583211c4cbf6
@@ -77,6 +86,7 @@ SPEC CHECKSUMS:
   Reveal-SDK: 43206a57f575632fd304e85385cc259b5d359e32
   RxAtomic: f8d6adc1ccb87a767811269e4875887bc74dbf19
   RxCocoa: 2f35a76bf8887872e28a1914112395b11b8e0e64
+  RxDataSources: a843bad90c29817f5923ec8163f4af2de084ceb3
   RxSwift: 92fcf68dfef21f3e2ab1965363d9e7b3d787597e
   SwiftIconFont: 2ba18554a77c44948dc35b561b344e3c23834a84
   SwiftLint: a54bf1fe12b55c68560eb2a7689dfc81458508f7
