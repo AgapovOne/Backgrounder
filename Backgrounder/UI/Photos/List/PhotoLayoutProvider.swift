@@ -6,4 +6,13 @@
 //  Copyright © 2019 Alex Agapov. All rights reserved.
 //
 
-import Foundation
+class PhotoLayoutProvider {
+    var value: PhotoCollectionLayout {
+        get {
+            return Defaults.photoCollectionLayout
+        }
+        set {
+            Defaults.photoCollectionLayout = newValue
+        }
+    }
+}

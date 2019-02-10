@@ -32,6 +32,7 @@ final class PhotoListViewModel {
     private let disposeBag = DisposeBag()
 
     private let photoAPIService: PhotoAPIService
+    private let photoLayoutProvider: PhotoLayoutProvider
     private let requestKind: RequestKind
     private let showPhoto: ((PhotoViewData) -> Void)?
 
@@ -59,7 +60,7 @@ final class PhotoListViewModel {
     let isLoading = BehaviorRelay<Bool>(value: false)
     let query = BehaviorRelay<String?>(value: nil)
     let photoListTypeName = BehaviorRelay<String>(value: "")
-    let layout = BehaviorRelay<PhotoCollectionLayout>(value: Defaults.photoCollectionLayout)
+    let layout: BehaviorRelay<PhotoCollectionLayout>
 
     var hasPhotoListTypeSelection: Bool {
         return requestKind.hasPhotoListTypeSelection
@@ -78,11 +79,19 @@ final class PhotoListViewModel {
         return PhotoListType.all.map { $0.string }
     }
 
-    init(photoAPIService: PhotoAPIService, requestKind: RequestKind, showPhoto: ((PhotoViewData) -> Void)?) {
+    init(photoAPIService: PhotoAPIService, photoLayoutProvider: PhotoLayoutProvider, requestKind: RequestKind, showPhoto: ((PhotoViewData) -> Void)?) {
         self.photoAPIService = photoAPIService
+        self.photoLayoutProvider = photoLayoutProvider
         self.requestKind = requestKind
         self.showPhoto = showPhoto
         photoListTypeName.accept(photoAPIService.photoListType.string)
+        layout =  BehaviorRelay<PhotoCollectionLayout>(value: photoLayoutProvider.value)
+        layout.asObservable()
+            .subscribe(onNext: { layout in
+                Defaults.photoCollectionLayout = layout
+            })
+            .disposed(by: disposeBag)
+
         query
             .map { query in
                 if case .photos = requestKind {
@@ -128,7 +137,6 @@ final class PhotoListViewModel {
 
     func updateLayout() {
         let newLayout = layout.value.next
-        Defaults.photoCollectionLayout = newLayout
         layout.accept(newLayout)
     }
 

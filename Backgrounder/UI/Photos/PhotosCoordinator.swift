@@ -45,6 +45,7 @@ final class PhotosCoordinator: Coordinator<DeepLink> {
     // MARK: - Private
     private func photoList(kind: PhotoListViewModel.RequestKind) -> PhotoListViewController {
         let viewModel = PhotoListViewModel(photoAPIService: PhotoAPIService(),
+                                           photoLayoutProvider: PhotoLayoutProvider(),
                                            requestKind: kind,
                                            showPhoto: { [weak self] photo in
                                             self?.showPhotoDetail(photo)
