@@ -93,9 +93,9 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
         }
 
         [UIControl.State.normal,
-            UIControl.State.focused,
-            UIControl.State.highlighted,
-            UIControl.State.disabled]
+         UIControl.State.focused,
+         UIControl.State.highlighted,
+         UIControl.State.disabled]
             .forEach({
                 photoTypeBarButtonItem.setTitleTextAttributes([.font: Font.navbarItem], for: $0)
                 layoutBarButtonItem.setTitleTextAttributes([.font: Font.icon], for: $0)
@@ -147,18 +147,7 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
 
         photoTypeBarButtonItem.rx.tap
             .subscribe(onNext: { [weak self] in
-                guard let self = self else { return }
-                let alert = UIAlertController(title: "How to order photos", message: nil, preferredStyle: .actionSheet)
-                for name in self.viewModel.photoListTypes {
-                    alert.addAction(UIAlertAction(title: name, style: .default, handler: { [weak self] _ in
-                        guard let self = self else { return }
-                        self.viewModel.selectPhotoType(name)
-                    }))
-                }
-
-                alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-
-                self.present(alert, animated: true, completion: nil)
+                self?.openAlertWithPhotoListType()
             })
             .disposed(by: disposeBag)
 
@@ -234,5 +223,19 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
                 self.collectionView.setCollectionViewLayout(flowLayout, animated: true)
             })
             .disposed(by: disposeBag)
+    }
+
+    private func openAlertWithPhotoListType() {
+        let alert = UIAlertController(title: "How photos should be ordered", message: nil, preferredStyle: .actionSheet)
+        for name in viewModel.photoListTypes {
+            alert.addAction(UIAlertAction(title: name, style: .default, handler: { [weak self] _ in
+                guard let self = self else { return }
+                self.viewModel.selectPhotoType(name)
+            }))
+        }
+
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+
+        present(alert, animated: true, completion: nil)
     }
 }
