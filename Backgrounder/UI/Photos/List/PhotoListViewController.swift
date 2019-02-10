@@ -13,6 +13,7 @@ import Kingfisher
 import Moya
 import RxSwift
 import RxCocoa
+import RxOptional
 
 final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
     // MARK: - Protocols
@@ -255,17 +256,16 @@ final class PhotoListViewController: BaseViewController, StoryboardSceneBased {
                 $0.isEmpty
             })
 
-        isEmptyDriver
-            .filter({
-                $0
+
+        let queryDriver = viewModel.query.asDriver(onErrorJustReturn: nil)
+        Driver.combineLatest(isEmptyDriver, queryDriver)
+            .filter({ isEmpty, query in
+                (query?.nonEmpty != nil) && isEmpty
             })
-            .map({ [weak self] _ in
-                guard let self = self else { return "" }
-                if let query = self.viewModel.query.value {
-                    return  "Nothing found for \(query)"
-                } else {
-                    return "Nothing found"
-                }
+            .map({ _, query in query })
+            .filterNil()
+            .map({ query in
+                "Nothing found for \(query)"
             })
             .drive(statusLabel.rx.text)
             .disposed(by: disposeBag)
