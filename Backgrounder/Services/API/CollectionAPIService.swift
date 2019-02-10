@@ -8,7 +8,7 @@
 
 import RxSwift
 
-final class CollectionAPIService {
+final class CollectionAPIService: UnsplashAPIService {
 
     var collectionListType = Defaults.collectionListType {
         didSet {
@@ -17,23 +17,14 @@ final class CollectionAPIService {
     }
 
     func getCollections(page: Int) -> Single<[UnsplashCollection]> {
-        return Provider.default.rx
-            .request(.collections(type: collectionListType, page: page, perPage: Configuration.Defaults.pagination))
-            .filterSuccessfulStatusCodes()
-            .map(Array<UnsplashCollection>.self)
+        return request(target: .collections(type: collectionListType, page: page, perPage: Configuration.Defaults.pagination))
     }
 
     func getCollection(id: Int) -> Single<UnsplashCollection> {
-        return Provider.default.rx
-            .request(.collection(id: id))
-            .filterSuccessfulStatusCodes()
-            .map(UnsplashCollection.self)
+        return request(target: .collection(id: id))
     }
 
     func searchCollections(page: Int, query: String) -> Single<[UnsplashCollection]> {
-        return Provider.default.rx
-            .request(.searchCollections(query: query, page: page, perPage: Configuration.Defaults.pagination))
-            .map(Array<UnsplashCollection>.self, atKeyPath: "results")
-            .subscribeOn(ConcurrentDispatchQueueScheduler(qos: .background))
+        return request(target: .searchCollections(query: query, page: page, perPage: Configuration.Defaults.pagination))
     }
 }
