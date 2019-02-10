@@ -3,7 +3,6 @@ PODS:
   - AlamofireNetworkActivityIndicator (2.3.0):
     - Alamofire (~> 4.7)
   - Cartography (3.1.0)
-  - DeepDiff (1.4.0)
   - Hero (1.4.0)
   - Hue (4.0.0)
   - Kingfisher (5.1.0)
@@ -34,7 +33,6 @@ PODS:
 DEPENDENCIES:
   - AlamofireNetworkActivityIndicator
   - Cartography
-  - DeepDiff
   - Hero
   - Hue
   - Kingfisher
@@ -52,7 +50,6 @@ SPEC REPOS:
     - Alamofire
     - AlamofireNetworkActivityIndicator
     - Cartography
-    - DeepDiff
     - Hero
     - Hue
     - Kingfisher
@@ -71,7 +68,6 @@ SPEC CHECKSUMS:
   Alamofire: 16ce2c353fb72865124ddae8a57c5942388f4f11
   AlamofireNetworkActivityIndicator: 18346ff6d770d9513d0ac6f2d99706f40f93dbaa
   Cartography: 1988b7578871a56c036e7af17195cb2190edf18c
-  DeepDiff: c4dea751ace912310e0668ec3b2e5ebf06831c0d
   Hero: bac92350d7201a1a940003e0767c7b52ce7c99a1
   Hue: afe18b4e819e2848e7d2d5b4b33f4d3f88dd921b
   Kingfisher: fcec238063d17404fca89bf0a850583211c4cbf6
@@ -86,6 +82,6 @@ SPEC CHECKSUMS:
   SwiftLint: a54bf1fe12b55c68560eb2a7689dfc81458508f7
   SwiftMessages: 8b3cc68dba2f1c91aac1a74c90b10287aac35371
 
-PODFILE CHECKSUM: 8267f12fed350fb37e9c5f60e98dcf5b40ceb6aa
+PODFILE CHECKSUM: 9666a3272b4cdc586f46e9b6758b4ca721bf1674
 
 COCOAPODS: 1.5.3

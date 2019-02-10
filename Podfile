@@ -19,7 +19,6 @@ target 'Backgrounder' do
   pod 'Cartography'
   pod 'SwiftIconFont'
   pod 'SwiftMessages'
-  pod 'DeepDiff'
   pod 'Hero'
   pod 'Hue'
 
