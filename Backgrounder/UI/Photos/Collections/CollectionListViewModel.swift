@@ -17,6 +17,7 @@ final class CollectionListViewModel {
 
     let collections: Observable<[CollectionViewData]>
     let isLoading: Observable<Bool>
+    let errorDescription: Observable<String?>
 
     // MARK: Navigation output
     let showCollection: Observable<CollectionViewData>
@@ -32,6 +33,7 @@ final class CollectionListViewModel {
     private let collectionsRelay = BehaviorRelay<[CollectionViewData]>(value: [])
     private let isLoadingRelay = BehaviorRelay<Bool>(value: false)
     private let showCollectionRelay = PublishRelay<CollectionViewData>()
+    private let errorDescriptionRelay = BehaviorRelay<String?>(value: nil)
 
     private var request: Single<[UnsplashCollection]> {
         if let query = query.value?.nonEmpty {
@@ -50,6 +52,7 @@ final class CollectionListViewModel {
         collections = collectionsRelay.asObservable()
         isLoading = isLoadingRelay.asObservable()
         showCollection = showCollectionRelay.asObservable()
+        errorDescription = errorDescriptionRelay.asObservable()
     }
 
     // MARK: - Public
@@ -89,6 +92,7 @@ final class CollectionListViewModel {
                 self.isLoadingRelay.accept(false)
                 switch response {
                 case .success(let items):
+                    self.errorDescriptionRelay.accept(nil)
                     if self.page == 1 {
                         self.collectionsRelay.accept(items)
                     } else {
@@ -96,6 +100,7 @@ final class CollectionListViewModel {
                     }
                 case .error(let error):
                     print(error)
+                    self.errorDescriptionRelay.accept(error.localizedDescription)
                 }
             })
             .disposed(by: disposeBag)

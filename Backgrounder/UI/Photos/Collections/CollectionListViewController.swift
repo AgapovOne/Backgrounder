@@ -49,6 +49,15 @@ final class CollectionListViewController: UIViewController, StoryboardSceneBased
         return searchController
     }()
 
+    private lazy var errorDescriptionLabel: UILabel = {
+        let label = UILabel()
+        label.font = Font.text
+        label.textColor = .white
+        label.textAlignment = .center
+        label.numberOfLines = 0
+        return label
+    }()
+
     // MARK: - Properties
     private var viewModel: CollectionListViewModel!
 
@@ -99,6 +108,13 @@ final class CollectionListViewController: UIViewController, StoryboardSceneBased
         view.addSubview(activityIndicatorView)
         constrain(activityIndicatorView) { indicator in
             indicator.center == indicator.superview!.center
+        }
+
+        view.addSubview(errorDescriptionLabel)
+        constrain(errorDescriptionLabel) { label in
+            label.centerY == label.superview!.centerY
+            label.leading == label.superview!.leading + 16
+            label.trailing == label.superview!.trailing - 16
         }
 
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
@@ -195,6 +211,23 @@ final class CollectionListViewController: UIViewController, StoryboardSceneBased
             ) { _, collection, cell in
                 cell.data = collection
             }
+            .disposed(by: disposeBag)
+
+        let errorDriver = viewModel.errorDescription
+            .asDriver(onErrorJustReturn: nil)
+
+        errorDriver
+            .map({ $0 != nil })
+            .drive(collectionView.rx.isHidden)
+            .disposed(by: disposeBag)
+
+        errorDriver
+            .map({ $0 == nil })
+            .drive(errorDescriptionLabel.rx.isHidden)
+            .disposed(by: disposeBag)
+
+        errorDriver
+            .drive(errorDescriptionLabel.rx.text)
             .disposed(by: disposeBag)
     }
 }
