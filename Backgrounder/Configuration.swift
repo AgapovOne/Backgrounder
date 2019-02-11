@@ -8,10 +8,11 @@
 
 import UIKit
 import Hue
+import Keys
 
 enum Configuration {
     enum API {
-        static let unsplashApplicationID = "59af28f7c5647b64e316f8d9ae2665c9bc274cafb6db21e06f9cf5fe063896d4"
+        static let unsplashApplicationID = BackgrounderKeys().unsplashAPIClientKey
     }
 
     enum Defaults {
