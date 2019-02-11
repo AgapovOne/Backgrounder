@@ -30,6 +30,13 @@ target 'Backgrounder' do
 
   target 'BackgrounderTests' do
     inherit! :search_paths
-
   end
 end
+
+plugin 'cocoapods-keys', {
+    :project => "Backgrounder",
+    :keys => [
+        "UnsplashAPIClientKey",
+        "UnsplashAPISecretKey",
+        ],
+}
