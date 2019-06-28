@@ -2,6 +2,13 @@
 
 Download best available background for your iOS device
 
+## How to use:
+1. Install cocoapods-keys plugin
+`gem install cocoapods-keys`
+2. Install all pods
+3. Use your own keys for unsplash api, or [ask me](https://twitter.com/agapov_one) to provide it.
+4. Use :)
+
 ## Features
 
 Unsplash application.
