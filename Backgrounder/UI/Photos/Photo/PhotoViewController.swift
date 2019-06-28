@@ -143,32 +143,32 @@ final class PhotoViewController: BaseViewController, StoryboardSceneBased {
     }
 
     private func downloadFullPhotoIfNeeded(color: UIColor, fullPhotoURL: URL, regularPhotoURL: URL) {
-            backgroundImageView.image = UIImage.from(color: color)
+        backgroundImageView.image = UIImage.from(color: color)
 
-            let completion: (Image?) -> Void = { [weak self] image in
-                if let image = image {
-                    self?.backgroundImageView.image = image.kf.blurred(withRadius: 20)
-                }
-                self?.imageView.kf.setImage(
-                    with: fullPhotoURL,
-                    placeholder: image
-                ) { result in
-                    if result.value?.image != nil {
-                        self?.viewModel.fullPhotoDownloaded()
-                    }
+        let completion: (Image?) -> Void = { [weak self] image in
+            if let image = image {
+                self?.backgroundImageView.image = image.kf.blurred(withRadius: 20)
+            }
+            self?.imageView.kf.setImage(
+                with: fullPhotoURL,
+                placeholder: image
+            ) { result in
+                if (try? result.get().image) != nil {
+                    self?.viewModel.fullPhotoDownloaded()
                 }
             }
+        }
 
-            let key = regularPhotoURL.cacheKey
-            if ImageCache.default.isCached(forKey: key) {
-                ImageCache.default.retrieveImage(forKey: key) { result in
-                    completion(result.value?.image)
-                }
-            } else {
-                ImageDownloader.default.downloadImage(with: regularPhotoURL) { result in
-                    completion(result.value?.image)
-                }
+        let key = regularPhotoURL.cacheKey
+        if ImageCache.default.isCached(forKey: key) {
+            ImageCache.default.retrieveImage(forKey: key) { result in
+                completion(try? result.get().image)
             }
+        } else {
+            ImageDownloader.default.downloadImage(with: regularPhotoURL) { result in
+                completion(try? result.get().image)
+            }
+        }
     }
 
     // MARK: - Actions
