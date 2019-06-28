@@ -147,6 +147,7 @@ final class PhotoViewController: BaseViewController, StoryboardSceneBased {
 
         let completion: (Image?) -> Void = { [weak self] image in
             if let image = image {
+                // TODO: Switch to main thread
                 self?.backgroundImageView.image = image.kf.blurred(withRadius: 20)
             }
             self?.imageView.kf.setImage(
