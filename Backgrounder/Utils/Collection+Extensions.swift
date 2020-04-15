@@ -10,6 +10,6 @@ import Foundation
 
 extension Swift.Collection {
     var nonEmpty: Self? {
-        return isEmpty ? nil : self
+        isEmpty ? nil : self
     }
 }

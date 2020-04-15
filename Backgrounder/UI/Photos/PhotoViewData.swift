@@ -13,31 +13,31 @@ struct PhotoViewData: Hashable {
     private let photo: Photo
 
     var id: String {
-        return photo.id
+        photo.id
     }
 
     var heroID: String {
-        return id
+        id
     }
 
     var heroLabelID: String {
-        return "label\(photo.id)"
+        "label\(photo.id)"
     }
 
     var fullPhotoURL: URL {
-        return photo.urls.full
+        photo.urls.full
     }
 
     var regularPhotoURL: URL {
-        return photo.urls.regular
+        photo.urls.regular
     }
 
     var photoCopyright: String {
-        return "photo by \(photo.user.username) (\(photo.user.name))"
+        "photo by \(photo.user.username) (\(photo.user.name))"
     }
 
     var color: UIColor {
-        return UIColor(hex: photo.color)
+        UIColor(hex: photo.color)
     }
 
     init(_ photo: Photo) {

@@ -6,6 +6,6 @@ public protocol Presentable {
 
 extension UIViewController: Presentable {
     public func toPresentable() -> UIViewController {
-        return self
+        self
     }
 }

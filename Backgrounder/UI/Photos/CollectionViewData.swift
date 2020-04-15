@@ -13,11 +13,11 @@ struct CollectionViewData: Hashable {
     let collection: UnsplashCollection
 
     var id: String {
-        return "\(collection.id)"
+        "\(collection.id)"
     }
 
     var heroID: String {
-        return id
+        id
     }
 
 //    var heroLabelID: String {
@@ -29,19 +29,19 @@ struct CollectionViewData: Hashable {
 //    }
 
     var coverRegularPhotoURL: URL? {
-        return collection.coverPhoto?.urls.regular
+        collection.coverPhoto?.urls.regular
     }
 
     var title: String {
-        return collection.title.nonEmpty ?? "Unknown"
+        collection.title.nonEmpty ?? "Unknown"
     }
 
     var description: String? {
-        return collection.description
+        collection.description
     }
 
     var coverRegularPhotoColor: UIColor {
-        return UIColor(hex: collection.coverPhoto?.color ?? "")
+        UIColor(hex: collection.coverPhoto?.color ?? "")
     }
 
     init(_ collection: UnsplashCollection) {

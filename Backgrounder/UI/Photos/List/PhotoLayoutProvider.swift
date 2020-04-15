@@ -9,7 +9,7 @@
 class PhotoLayoutProvider {
     var value: PhotoCollectionLayout {
         get {
-            return Defaults.photoCollectionLayout
+            Defaults.photoCollectionLayout
         }
         set {
             Defaults.photoCollectionLayout = newValue

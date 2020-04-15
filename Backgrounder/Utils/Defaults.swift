@@ -19,7 +19,7 @@ private enum DefaultsKey: String {
 enum Defaults {
     static var onboardingWasShown: Bool {
         get {
-            return UserDefaults.standard.bool(forKey: DefaultsKey.onboardingWasShownKey.rawValue)
+            UserDefaults.standard.bool(forKey: DefaultsKey.onboardingWasShownKey.rawValue)
         }
         set {
             UserDefaults.standard.set(newValue, forKey: DefaultsKey.onboardingWasShownKey.rawValue)
@@ -28,7 +28,7 @@ enum Defaults {
 
     static var photoListType: PhotoListType {
         get {
-            return PhotoListType(UserDefaults.standard.string(forKey: DefaultsKey.photoListTypeKey.rawValue) ?? "")
+            PhotoListType(UserDefaults.standard.string(forKey: DefaultsKey.photoListTypeKey.rawValue) ?? "")
         }
         set {
             UserDefaults.standard.set(newValue.string, forKey: DefaultsKey.photoListTypeKey.rawValue)
@@ -37,7 +37,7 @@ enum Defaults {
 
     static var collectionListType: CollectionListType {
         get {
-            return CollectionListType(UserDefaults.standard.string(forKey: DefaultsKey.collectionListTypeKey.rawValue) ?? "")
+            CollectionListType(UserDefaults.standard.string(forKey: DefaultsKey.collectionListTypeKey.rawValue) ?? "")
         }
         set {
             UserDefaults.standard.set(newValue.string, forKey: DefaultsKey.collectionListTypeKey.rawValue)
@@ -46,7 +46,7 @@ enum Defaults {
 
     static var photoCollectionLayout: PhotoCollectionLayout {
         get {
-            return PhotoCollectionLayout(UserDefaults.standard.string(forKey: DefaultsKey.photoCollectionLayoutKey.rawValue) ?? "") ?? .list
+            PhotoCollectionLayout(UserDefaults.standard.string(forKey: DefaultsKey.photoCollectionLayoutKey.rawValue) ?? "") ?? .list
         }
         set {
             UserDefaults.standard.set(newValue.icon, forKey: DefaultsKey.photoCollectionLayoutKey.rawValue)
