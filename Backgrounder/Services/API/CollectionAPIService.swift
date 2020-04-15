@@ -17,15 +17,15 @@ final class CollectionAPIService: UnsplashAPIService {
     }
 
     func getCollections(page: Int) -> Single<[UnsplashCollection]> {
-        return request(target: .collections(type: collectionListType, page: page, perPage: Configuration.Defaults.pagination))
+        request(target: .collections(type: collectionListType, page: page, perPage: Configuration.Defaults.pagination))
     }
 
     func getCollection(id: Int) -> Single<UnsplashCollection> {
-        return request(target: .collection(id: id))
+        request(target: .collection(id: id))
     }
 
     func searchCollections(page: Int, query: String) -> Single<[UnsplashCollection]> {
-        return request(target: .searchCollections(query: query, page: page, perPage: Configuration.Defaults.pagination),
+        request(target: .searchCollections(query: query, page: page, perPage: Configuration.Defaults.pagination),
                        atKeyPath: "results")
     }
 }

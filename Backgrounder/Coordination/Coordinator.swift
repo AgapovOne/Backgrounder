@@ -51,6 +51,6 @@ open class Coordinator<DeepLinkType>: PresentableCoordinator<DeepLinkType>, Coor
     }
     
     override open func toPresentable() -> UIViewController {
-        return router.toPresentable()
+        router.toPresentable()
     }
 }

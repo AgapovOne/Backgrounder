@@ -14,7 +14,7 @@ enum CollectionListType {
     featured,
     curated
 
-    static var all: [CollectionListType] { return [.new, .featured, .curated] }
+    static var all: [CollectionListType] { [.new, .featured, .curated] }
 
     var string: String {
         switch self {

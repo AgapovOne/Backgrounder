@@ -25,11 +25,11 @@ public final class Router: NSObject, RouterType {
     private var completions: [UIViewController: () -> Void]
 
     public var rootViewController: UIViewController? {
-        return navigationController.viewControllers.first
+        navigationController.viewControllers.first
     }
 
     public var hasRootController: Bool {
-        return rootViewController != nil
+        rootViewController != nil
     }
 
     public let navigationController: UINavigationController
@@ -123,7 +123,7 @@ public final class Router: NSObject, RouterType {
 
     // MARK: Presentable
     public func toPresentable() -> UIViewController {
-        return navigationController
+        navigationController
     }
 }
 

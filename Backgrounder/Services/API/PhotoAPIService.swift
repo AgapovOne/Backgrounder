@@ -18,15 +18,15 @@ final class PhotoAPIService: UnsplashAPIService {
     }
 
     func getPhotos(page: Int, orderBy: OrderBy = .latest) -> Single<[Photo]> {
-        return request(target: .photos(type: photoListType, page: page, perPage: Configuration.Defaults.pagination, orderBy: orderBy))
+        request(target: .photos(type: photoListType, page: page, perPage: Configuration.Defaults.pagination, orderBy: orderBy))
     }
 
     func getCollectionPhotos(id: Int, page: Int) -> Single<[Photo]> {
-        return request(target: .collectionPhotos(id: id, page: page, perPage: Configuration.Defaults.pagination))
+        request(target: .collectionPhotos(id: id, page: page, perPage: Configuration.Defaults.pagination))
     }
 
     func searchPhotos(page: Int, query: String, collections: [Int] = []) -> Single<[Photo]> {
-        return request(target: .searchPhotos(query: query,
+        request(target: .searchPhotos(query: query,
                                              page: page,
                                              perPage: Configuration.Defaults.pagination,
                                              collections: collections),

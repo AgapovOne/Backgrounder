@@ -13,7 +13,7 @@ enum PhotoListType {
     new,
     curated
 
-    static var all: [PhotoListType] { return [.new, .curated] }
+    static var all: [PhotoListType] { [.new, .curated] }
 
     var string: String {
         switch self {

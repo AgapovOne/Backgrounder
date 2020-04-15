@@ -64,7 +64,7 @@ final class PhotoListViewModel {
     let errorDescription = BehaviorRelay<String?>(value: nil)
 
     var hasPhotoListTypeSelection: Bool {
-        return requestKind.hasPhotoListTypeSelection
+        requestKind.hasPhotoListTypeSelection
     }
 
     var title: String {
@@ -77,7 +77,7 @@ final class PhotoListViewModel {
     }
 
     var photoListTypes: [String] {
-        return PhotoListType.all.map { $0.string }
+        PhotoListType.all.map { $0.string }
     }
 
     init(photoAPIService: PhotoAPIService,

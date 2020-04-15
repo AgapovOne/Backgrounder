@@ -37,7 +37,7 @@ enum PhotoCollectionLayout {
     }
 
     var padding: CGFloat {
-        return Configuration.Size.padding
+        Configuration.Size.padding
     }
 
     var next: PhotoCollectionLayout {
@@ -84,10 +84,10 @@ func createCollectionLayout(type: PhotoCollectionLayout,
 
 // Single padding at leading/trailing
 func countSinglePaddingLayout(width: CGFloat, padding: CGFloat, itemsPerRow: CGFloat) -> CGFloat {
-    return (width - (padding * (itemsPerRow + 1))) / itemsPerRow
+    (width - (padding * (itemsPerRow + 1))) / itemsPerRow
 }
 
 // Double padding at leading/trailing
 func countDoublePaddingLayout(width: CGFloat, padding: CGFloat, itemsPerRow: CGFloat) -> CGFloat {
-    return (width - (padding * (itemsPerRow + 3))) / itemsPerRow
+    (width - (padding * (itemsPerRow + 3))) / itemsPerRow
 }

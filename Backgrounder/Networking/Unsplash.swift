@@ -45,7 +45,7 @@ enum Unsplash {
 }
 
 extension Unsplash: TargetType {
-    var baseURL: URL { return URL(string: "https://api.unsplash.com")! }
+    var baseURL: URL { URL(string: "https://api.unsplash.com")! }
 
     var path: String {
         switch self {
@@ -120,11 +120,11 @@ extension Unsplash: TargetType {
     }
 
     var sampleData: Data {
-        return Data()
+        Data()
     }
 
     var headers: [String: String]? {
-        return [
+        [
             "Content-type": "application/json",
             "Accept-Version": "v1",
             "Authorization": "Client-ID \(Configuration.API.unsplashApplicationID)"

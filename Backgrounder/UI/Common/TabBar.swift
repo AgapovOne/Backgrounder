@@ -13,7 +13,7 @@ private let side: CGFloat = 32
 private let iconSize = CGSize(width: side, height: side)
 
 private func image(code: String) -> UIImage {
-    return UIImage(from: .themify,
+    UIImage(from: .themify,
                    code: code,
                    size: iconSize)
 }
