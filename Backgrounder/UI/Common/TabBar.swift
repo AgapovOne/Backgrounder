@@ -14,8 +14,8 @@ private let iconSize = CGSize(width: side, height: side)
 
 private func image(code: String) -> UIImage {
     UIImage(from: .themify,
-                   code: code,
-                   size: iconSize)
+            code: code,
+            size: iconSize)
 }
 
 private let photosImage = image(code: "image")
